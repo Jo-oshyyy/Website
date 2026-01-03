@@ -1,0 +1,127 @@
+﻿<!-- This is _Layout.cshtml -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - LiteRise</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Animated Background Bubbles -->
+    <div class="background-bubbles">
+        <div class="bubble bubble-1"></div>
+        <div class="bubble bubble-2"></div>
+        <div class="bubble bubble-3"></div>
+        <div class="bubble bubble-4"></div>
+    </div>
+
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="sun-icon" fill="currentColor" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2"></line>
+            <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"></line>
+            <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2"></line>
+            <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"></line>
+        </svg>
+        <svg class="moon-icon" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+
+    <!-- Navigation Bar -->
+    <div class="NavBar">
+        <div class="NavBar-Container">
+            <!-- NavBar: Left -->
+            <div class="NavBar-Content-Left">
+                <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                @Html.ActionLink("LiteRise", "Index", "Dashboard", null, new { @class = "navbar-brand" })
+            </div>
+
+            <!-- NavBar: Middle -->
+            <div class="NavBar-Content-Middle">
+                <ul class="nav navbar-nav navbar-center">
+                    <li>@Html.ActionLink("Dashboard", "Index", "Dashboard", null, new { @class = "nav-link", data_page = "Dashboard" })</li>
+                    <li>@Html.ActionLink("Students", "Index", "Student", null, new { @class = "nav-link", data_page = "Students" })</li>
+                    <li>@Html.ActionLink("Classes", "Index", "Classes", null, new { @class = "nav-link", data_page = "Classes" })</li>
+                    <li>@Html.ActionLink("Masterfile", "Index", "Masterfile", null, new { @class = "nav-link", data_page = "Masterfile" })</li>
+                    <li>@Html.ActionLink("Analytics", "Index", "Analytics", null, new { @class = "nav-link", data_page = "Analytics" })</li>
+                </ul>
+            </div>
+
+            <!-- NavBar: Right -->
+            <div class="NavBar-Content-Right">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="@Url.Action("Index", "Notifications")" aria-label="Notifications">
+                            <span class="glyphicon glyphicon-bell"></span>
+                        </a>
+                    </li>
+                    <li class="settings-dropdown">
+                        <a href="javascript:void(0);" id="settingsToggle" aria-label="Settings" aria-expanded="false">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </a>
+                        <div class="dropdown-menu" id="settingsDropdown">
+                            <a href="@Url.Action("Account", "Settings")">
+                                <span class="glyphicon glyphicon-user"></span>
+                                Account
+                            </a>
+                            <a href="@Url.Action("Index", "Settings")">
+                                <span class="glyphicon glyphicon-cog"></span>
+                                Settings
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="javascript:void(0);" id="logoutLink">
+                                <span class="glyphicon glyphicon-log-out"></span>
+                                Log out
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="Container-Body">
+        @RenderBody()
+    </div>
+
+    <!-- Logout Confirmation Modal -->
+    <div id="logoutModal" class="logout-modal" style="display: none;">
+        <div class="logout-modal-content">
+            <button class="logout-modal-close" id="logoutModalClose" aria-label="Close modal">&times;</button>
+
+            <div class="logout-modal-icon">
+                <svg viewBox="0 0 100 100" fill="none">
+                    <circle cx="50" cy="50" r="45" fill="#FEE2E2" />
+                    <path d="M50 30C38.95 30 30 38.95 30 50C30 61.05 38.95 70 50 70C61.05 70 70 61.05 70 50C70 38.95 61.05 30 50 30ZM54 55H46V47H54V55ZM54 43H46V35H54V43Z" fill="#DC2626" />
+                </svg>
+            </div>
+
+            <h2>Log Out</h2>
+            <p>Are you sure you want to log out?</p>
+
+            <div class="logout-modal-buttons">
+                <button class="btn-logout-cancel" id="btnLogoutCancel">Cancel</button>
+                <button class="btn-logout-confirm" id="btnLogoutConfirm">Yes, Log Out</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/layout.js"></script>
+</body>
+</html>

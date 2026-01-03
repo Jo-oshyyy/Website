@@ -1,0 +1,866 @@
+﻿/* This is Site.css*/
+
+
+/* Import Visby Font - Multiple Weights */
+@font-face {
+    font-family: 'Visby';
+    src: url('fonts/visby-font-ExtraLight.otf') format('opentype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Visby';
+    src: url('fonts/visby-font-Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Visby';
+    src: url('fonts/visby-font.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Visby';
+    src: url('fonts/visby-font-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Visby';
+    src: url('fonts/visby-font-DemiBold.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Visby';
+    src: url('fonts/visby-bold.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Visby';
+    src: url('fonts/visby-font-ExtraBold.otf') format('opentype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Visby';
+    src: url('fonts/visby-font-Heavy.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+/* Apply Visby font to body and all elements */
+body, input, button, label, p, h1, h2, h3, h4, h5, h6, a, span, div, select, textarea {
+    font-family: 'Visby', sans-serif;
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(180deg, #FFD88A 0%, #FFB5A7 25%, #FFA69E 50%, #F7E8A4 100%);
+    font-family: 'Visby', sans-serif;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    transition: background 0.5s ease;
+}
+
+    body.dark-mode {
+        background: linear-gradient(135deg, #8B9DC3 0%, #4A3B6B 100%);
+    }
+
+/* Animated Background Bubbles - MATCHING LOGIN ANIMATION */
+.background-bubbles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    animation: float 15s infinite;
+}
+
+.bubble-1 {
+    width: 80px;
+    height: 80px;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.bubble-2 {
+    width: 120px;
+    height: 120px;
+    left: 70%;
+    animation-delay: 2s;
+}
+
+.bubble-3 {
+    width: 60px;
+    height: 60px;
+    left: 40%;
+    animation-delay: 4s;
+}
+
+.bubble-4 {
+    width: 100px;
+    height: 100px;
+    left: 85%;
+    animation-delay: 6s;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: white;
+    border: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+    .theme-toggle:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .theme-toggle svg {
+        width: 28px;
+        height: 28px;
+        transition: all 0.3s ease;
+    }
+
+    .theme-toggle .sun-icon {
+        display: none;
+        color: #FFB347;
+    }
+
+    .theme-toggle .moon-icon {
+        display: block;
+        color: #4A3B6B;
+    }
+
+body.dark-mode .theme-toggle .sun-icon {
+    display: block;
+}
+
+body.dark-mode .theme-toggle .moon-icon {
+    display: none;
+}
+
+/* Navbar Styles */
+.NavBar {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    color: #666666;
+    padding: 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 1000;
+}
+
+body.dark-mode .NavBar {
+    background-color: rgba(74, 59, 107, 0.95);
+    color: #E2E8F0;
+}
+
+.NavBar-Container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    flex-wrap: nowrap;
+}
+
+/* Left Section - Logo */
+.NavBar-Content-Left {
+    display: flex;
+    align-items: center;
+    z-index: 1001;
+}
+
+.navbar-brand {
+    color: #666666;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 15px 0;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+    .navbar-brand:hover {
+        color: #2D3748;
+    }
+
+body.dark-mode .navbar-brand {
+    color: #E2E8F0;
+}
+
+    body.dark-mode .navbar-brand:hover {
+        color: #FFFFFF;
+    }
+
+/* Burger Toggle Button */
+.navbar-toggle {
+    display: none;
+    flex-direction: column;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+    .navbar-toggle span {
+        width: 25px;
+        height: 3px;
+        background-color: #666666;
+        margin: 3px 0;
+        transition: 0.3s;
+        display: block;
+    }
+
+body.dark-mode .navbar-toggle span {
+    background-color: #E2E8F0;
+}
+
+.navbar-toggle.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.navbar-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar-toggle.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* Middle Section - Main Navigation */
+.NavBar-Content-Middle {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.nav {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-center {
+    align-items: center;
+}
+
+    .navbar-center li {
+        margin: 0;
+    }
+
+        .navbar-center li a {
+            color: #666666;
+            text-decoration: none;
+            padding: 15px 20px;
+            display: block;
+            font-weight: 500;
+            transition: background-color 0.3s, color 0.3s, font-weight 0.3s;
+        }
+
+            .navbar-center li a:hover {
+                background-color: rgba(0,0,0,0.05);
+                color: #000000;
+            }
+
+            /* Active Page State */
+            .navbar-center li a.active {
+                font-weight: 700;
+                color: #2D3748;
+            }
+
+body.dark-mode .navbar-center li a {
+    color: #E2E8F0;
+}
+
+    body.dark-mode .navbar-center li a:hover {
+        background-color: rgba(255,255,255,0.1);
+        color: #FFFFFF;
+    }
+
+    /* Active Page State - Dark Mode */
+    body.dark-mode .navbar-center li a.active {
+        font-weight: 700;
+        color: #FFFFFF;
+    }
+
+/* Right Section - Icons */
+.NavBar-Content-Right {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.navbar-right {
+    align-items: center;
+}
+
+    .navbar-right li {
+        margin: 0;
+        position: relative;
+    }
+
+        .navbar-right li a {
+            color: #666666;
+            text-decoration: none;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+        }
+
+            .navbar-right li a:hover {
+                background-color: rgba(0,0,0,0.05);
+                color: #000000;
+            }
+
+            .navbar-right li a .glyphicon {
+                font-size: 18px;
+            }
+
+body.dark-mode .navbar-right li a {
+    color: #E2E8F0;
+}
+
+    body.dark-mode .navbar-right li a:hover {
+        background-color: rgba(255,255,255,0.1);
+        color: #FFFFFF;
+    }
+
+/* Dropdown Menu for Settings */
+.settings-dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    min-width: 200px;
+    padding: 8px 0;
+    margin-top: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 2000;
+}
+
+body.dark-mode .dropdown-menu {
+    background: #2D3748;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: 15px;
+    width: 12px;
+    height: 12px;
+    background: white;
+    transform: rotate(45deg);
+    border-radius: 2px;
+}
+
+body.dark-mode .dropdown-menu::before {
+    background: #2D3748;
+}
+
+/* Replace the ENTIRE "Responsive dropdown positioning" section with this: */
+
+/* Responsive dropdown positioning */
+@media (max-width: 768px) {
+    .dropdown-menu {
+        position: fixed;
+        right: 10px;
+        top: 60px;
+        min-width: 180px;
+    }
+
+        .dropdown-menu::before {
+            right: 20px;
+        }
+}
+
+@media (max-width: 480px) {
+    .dropdown-menu {
+        position: fixed;
+        right: 10px;
+        top: 60px;
+        min-width: 160px;
+    }
+}
+
+.dropdown-menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    color: #4A5568;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+    .dropdown-menu a:hover {
+        background-color: #F7FAFC;
+        color: #2D3748;
+    }
+
+    .dropdown-menu a .glyphicon {
+        font-size: 16px;
+    }
+
+body.dark-mode .dropdown-menu a {
+    color: #E2E8F0;
+}
+
+    body.dark-mode .dropdown-menu a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #FFFFFF;
+    }
+
+.dropdown-divider {
+    height: 1px;
+    background-color: #E2E8F0;
+    margin: 8px 0;
+}
+
+body.dark-mode .dropdown-divider {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Container Body */
+.Container-Body {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Responsive Design - Tablet and Mobile */
+@media (max-width: 768px) {
+    .NavBar-Container {
+        padding: 0 10px;
+    }
+
+    /* Show burger menu */
+    .navbar-toggle {
+        display: flex;
+        margin-left: 0;
+        margin-right: 15px;
+        flex-shrink: 0;
+    }
+
+    /* Left section with logo */
+    .NavBar-Content-Left {
+        flex: 0 0 auto;
+        margin-right: auto;
+    }
+
+    /* Right section stays visible */
+    .NavBar-Content-Right {
+        display: flex;
+        flex-shrink: 0;
+    }
+
+    /* Middle section becomes collapsible */
+    .NavBar-Content-Middle {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        background-color: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+    }
+
+    body.dark-mode .NavBar-Content-Middle {
+        background-color: rgba(74, 59, 107, 0.98);
+    }
+
+    .NavBar-Content-Middle.active {
+        max-height: 500px;
+    }
+
+    .navbar-center {
+        flex-direction: column;
+        width: 100%;
+    }
+
+        .navbar-center li {
+            width: 100%;
+            border-top: 1px solid #e0e0e0;
+        }
+
+    body.dark-mode .navbar-center li {
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .navbar-center li a {
+        padding: 12px 20px;
+    }
+
+    /* Adjust right section spacing */
+    .navbar-right {
+        flex-direction: row;
+    }
+
+        .navbar-right li a {
+            padding: 15px 10px;
+        }
+
+        .navbar-right li:last-child a {
+            padding-right: 0;
+        }
+
+    /* Dropdown adjustments for mobile */
+    .dropdown-menu {
+        right: -10px;
+    }
+
+    /* Adjust bubble sizes for mobile */
+    .bubble-1 {
+        width: 60px;
+        height: 60px;
+    }
+
+    .bubble-2 {
+        width: 90px;
+        height: 90px;
+    }
+
+    .bubble-3 {
+        width: 45px;
+        height: 45px;
+    }
+
+    .bubble-4 {
+        width: 75px;
+        height: 75px;
+    }
+
+    /* Theme toggle adjustments */
+    .theme-toggle {
+        bottom: 20px;
+        right: 20px;
+        width: 55px;
+        height: 55px;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .navbar-brand {
+        font-size: 20px;
+    }
+
+    .navbar-center li a {
+        padding: 10px 15px;
+    }
+
+    .navbar-right li a {
+        padding: 12px 8px;
+    }
+
+        .navbar-right li a .glyphicon {
+            font-size: 16px;
+        }
+
+    .bubble-1 {
+        width: 50px;
+        height: 50px;
+    }
+
+    .bubble-2 {
+        width: 80px;
+        height: 80px;
+    }
+
+    .bubble-3 {
+        width: 40px;
+        height: 40px;
+    }
+
+    .bubble-4 {
+        width: 60px;
+        height: 60px;
+    }
+
+    .theme-toggle {
+        bottom: 15px;
+        right: 15px;
+        width: 50px;
+        height: 50px;
+    }
+
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+        }
+
+    .dropdown-menu {
+        min-width: 180px;
+    }
+}
+
+* ==================== LOGOUT MODAL STYLES ==================== */
+/* Logout Modal - Matching Forgot Password Modal Style */
+.logout-modal {
+    display: none;
+    position: fixed;
+    z-index: 2500;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.logout-modal.show {
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.logout-modal-content {
+    position: relative;
+    background-color: white;
+    padding: 40px;
+    width: 100%;
+    max-width: 450px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    animation: slideIn 0.3s;
+    margin: auto;
+}
+
+body.dark-mode .logout-modal-content {
+    background-color: white;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.logout-modal-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 32px;
+    font-weight: 300;
+    color: #A0AEC0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s;
+    line-height: 1;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+}
+
+    .logout-modal-close:hover {
+        color: #2D3748;
+    }
+
+.logout-modal-icon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+    .logout-modal-icon svg {
+        width: 80px;
+        height: 80px;
+    }
+
+.logout-modal-content h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2D3748;
+    margin-bottom: 8px;
+}
+
+.logout-modal-content p {
+    font-size: 14px;
+    color: #718096;
+    margin-bottom: 30px;
+}
+
+.logout-modal-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.btn-logout-cancel,
+.btn-logout-confirm {
+    flex: 1;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Visby', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-logout-cancel {
+    background: #E2E8F0;
+    color: #4A5568;
+}
+
+    .btn-logout-cancel:hover {
+        background: #CBD5E0;
+        transform: translateY(-2px);
+    }
+
+.btn-logout-confirm {
+    background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+}
+
+    .btn-logout-confirm:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
+    }
+
+    .btn-logout-cancel:active,
+    .btn-logout-confirm:active {
+        transform: translateY(0);
+    }
+
+/* Responsive adjustments for logout modal */
+@media (max-width: 768px) {
+    .logout-modal {
+        padding: 15px;
+    }
+
+    .logout-modal-content {
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logout-modal {
+        padding: 10px;
+    }
+
+    .logout-modal-content {
+        padding: 30px 20px;
+        max-width: 100%;
+    }
+
+    .logout-modal-buttons {
+        flex-direction: column;
+    }
+
+    .btn-logout-cancel,
+    .btn-logout-confirm {
+        width: 100%;
+    }
+}
