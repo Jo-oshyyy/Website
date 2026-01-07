@@ -402,6 +402,267 @@ body.dark-mode .navbar-right li a {
         color: #FFFFFF;
     }
 
+/* ==================== NOTIFICATIONS PANEL STYLES ==================== */
+/* Notifications Panel Styles */
+.notifications-dropdown {
+    position: relative;
+}
+
+.notifications-dropdown > a {
+    position: relative;
+}
+.notification-badge {
+    position: absolute;
+    top: 8px;
+    right: 4px;
+    background: #DC2626;
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 0;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.notifications-panel {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 500px;
+    max-height: 500px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    margin-top: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 2000;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+body.dark-mode .notifications-panel {
+    background: #2D3748;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.notifications-panel.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.notifications-panel::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: 15px;
+    width: 12px;
+    height: 12px;
+    background: white;
+    transform: rotate(45deg);
+    border-radius: 2px;
+}
+
+body.dark-mode .notifications-panel::before {
+    background: #2D3748;
+}
+
+.notifications-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #E2E8F0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+body.dark-mode .notifications-header {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.notifications-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #2D3748;
+}
+
+body.dark-mode .notifications-header h3 {
+    color: #E2E8F0;
+}
+
+.notifications-settings {
+    background: none;
+    border: none;
+    color: #718096;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.notifications-settings:hover {
+    background: #F7FAFC;
+    color: #2D3748;
+}
+
+body.dark-mode .notifications-settings {
+    color: #A0AEC0;
+}
+
+body.dark-mode .notifications-settings:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #E2E8F0;
+}
+
+.notifications-list {
+    overflow-y: auto;
+    flex: 1;
+}
+
+.notification-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px 24px;
+    gap: 16px;
+    text-decoration: none;
+    color: #2D3748;
+    transition: all 0.2s;
+    position: relative;
+    border-bottom: 1px solid #F7FAFC;
+}
+
+body.dark-mode .notification-item {
+    color: #E2E8F0;
+    border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.notification-item:hover {
+    background: #F7FAFC;
+}
+
+body.dark-mode .notification-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.notification-item.unread {
+    background: #EFF6FF;
+}
+
+body.dark-mode .notification-item.unread {
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.notification-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.notification-icon.info {
+    background: #DBEAFE;
+    color: #3B82F6;
+}
+
+body.dark-mode .notification-icon.info {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60A5FA;
+}
+
+.notification-icon.success {
+    background: #D1FAE5;
+    color: #10B981;
+}
+
+body.dark-mode .notification-icon.success {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34D399;
+}
+
+.notification-icon.warning {
+    background: #FEF3C7;
+    color: #F59E0B;
+}
+
+body.dark-mode .notification-icon.warning {
+    background: rgba(245, 158, 11, 0.2);
+    color: #FBBF24;
+}
+
+.notification-icon.error {
+    background: #FEE2E2;
+    color: #EF4444;
+}
+
+body.dark-mode .notification-icon.error {
+    background: rgba(239, 68, 68, 0.2);
+    color: #F87171;
+}
+
+.notification-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.notification-text {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 4px;
+    color: #2D3748;
+}
+
+body.dark-mode .notification-text {
+    color: #E2E8F0;
+}
+
+.notification-time {
+    font-size: 12px;
+    color: #718096;
+}
+
+body.dark-mode .notification-time {
+    color: #A0AEC0;
+}
+
+.no-notifications {
+    padding: 40px 20px;
+    text-align: center;
+    color: #718096;
+}
+
+body.dark-mode .no-notifications {
+    color: #A0AEC0;
+}
+
+.no-notifications-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.5;
+}
+
+.no-notifications p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* ==================== SETTINGS DROPDOWN STYLES ==================== */
 /* Dropdown Menu for Settings */
 .settings-dropdown {
     position: relative;
@@ -451,31 +712,6 @@ body.dark-mode .dropdown-menu::before {
     background: #2D3748;
 }
 
-/* Replace the ENTIRE "Responsive dropdown positioning" section with this: */
-
-/* Responsive dropdown positioning */
-@media (max-width: 768px) {
-    .dropdown-menu {
-        position: fixed;
-        right: 10px;
-        top: 60px;
-        min-width: 180px;
-    }
-
-        .dropdown-menu::before {
-            right: 20px;
-        }
-}
-
-@media (max-width: 480px) {
-    .dropdown-menu {
-        position: fixed;
-        right: 10px;
-        top: 60px;
-        min-width: 160px;
-    }
-}
-
 .dropdown-menu a {
     display: flex;
     align-items: center;
@@ -522,186 +758,6 @@ body.dark-mode .dropdown-divider {
     padding: 30px;
     position: relative;
     z-index: 1;
-}
-
-/* Responsive Design - Tablet and Mobile */
-@media (max-width: 768px) {
-    .NavBar-Container {
-        padding: 0;
-    }
-
-    .NavBar-Content-Left {
-        padding-left: 10px;
-    }
-
-    .NavBar-Content-Right {
-        padding-right: 10px;
-    }
-
-    /* Show burger menu */
-    .navbar-toggle {
-        display: flex;
-        margin-left: 0;
-        margin-right: 15px;
-        flex-shrink: 0;
-    }
-
-    /* Left section with logo */
-    .NavBar-Content-Left {
-        flex: 0 0 auto;
-        margin-right: auto;
-    }
-
-    /* Right section stays visible */
-    .NavBar-Content-Right {
-        display: flex;
-        flex-shrink: 0;
-    }
-
-    /* Middle section becomes collapsible */
-    .NavBar-Content-Middle {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        width: 100%;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease-out;
-        background-color: rgba(255, 255, 255, 0.98);
-        backdrop-filter: blur(10px);
-    }
-
-    body.dark-mode .NavBar-Content-Middle {
-        background-color: rgba(74, 59, 107, 0.98);
-    }
-
-    .NavBar-Content-Middle.active {
-        max-height: 500px;
-    }
-
-    .navbar-center {
-        flex-direction: column;
-        width: 100%;
-    }
-
-        .navbar-center li {
-            width: 100%;
-            border-top: 1px solid #e0e0e0;
-        }
-
-    body.dark-mode .navbar-center li {
-        border-top: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .navbar-center li a {
-        padding: 12px 20px;
-    }
-
-    /* Adjust right section spacing */
-    .navbar-right {
-        flex-direction: row;
-    }
-
-        .navbar-right li a {
-            padding: 15px 10px;
-        }
-
-        .navbar-right li:last-child a {
-            padding-right: 0;
-        }
-
-    /* Dropdown adjustments for mobile */
-    .dropdown-menu {
-        right: -10px;
-    }
-
-    /* Adjust bubble sizes for mobile */
-    .bubble-1 {
-        width: 60px;
-        height: 60px;
-    }
-
-    .bubble-2 {
-        width: 90px;
-        height: 90px;
-    }
-
-    .bubble-3 {
-        width: 45px;
-        height: 45px;
-    }
-
-    .bubble-4 {
-        width: 75px;
-        height: 75px;
-    }
-
-    /* Theme toggle adjustments */
-    .theme-toggle {
-        bottom: 20px;
-        right: 20px;
-        width: 55px;
-        height: 55px;
-    }
-}
-
-/* Extra small devices */
-@media (max-width: 480px) {
-
-
-
-    .navbar-brand {
-        font-size: 20px;
-    }
-
-    .navbar-center li a {
-        padding: 10px 15px;
-    }
-
-    .navbar-right li a {
-        padding: 12px 8px;
-    }
-
-        .navbar-right li a .glyphicon {
-            font-size: 16px;
-        }
-
-    .bubble-1 {
-        width: 50px;
-        height: 50px;
-    }
-
-    .bubble-2 {
-        width: 80px;
-        height: 80px;
-    }
-
-    .bubble-3 {
-        width: 40px;
-        height: 40px;
-    }
-
-    .bubble-4 {
-        width: 60px;
-        height: 60px;
-    }
-
-    .theme-toggle {
-        bottom: 15px;
-        right: 15px;
-        width: 50px;
-        height: 50px;
-    }
-
-        .theme-toggle svg {
-            width: 24px;
-            height: 24px;
-        }
-
-    .dropdown-menu {
-        min-width: 180px;
-    }
 }
 
 /* ==================== LOGOUT MODAL STYLES ==================== */
@@ -853,12 +909,154 @@ body.dark-mode .logout-modal-content {
         transform: translateY(0);
     }
 
-/* Responsive adjustments for logout modal */
+/* ==================== RESPONSIVE DESIGN ==================== */
+/* Responsive Design - Tablet and Mobile */
 @media (max-width: 768px) {
     .Container-Body {
         padding: 0px 30px 30px 30px;
     }
 
+    .NavBar-Container {
+        padding: 0;
+    }
+
+    .NavBar-Content-Left {
+        padding-left: 10px;
+    }
+
+    .NavBar-Content-Right {
+        padding-right: 10px;
+    }
+
+    /* Show burger menu */
+    .navbar-toggle {
+        display: flex;
+        margin-left: 0;
+        margin-right: 15px;
+        flex-shrink: 0;
+    }
+
+    /* Left section with logo */
+    .NavBar-Content-Left {
+        flex: 0 0 auto;
+        margin-right: auto;
+    }
+
+    /* Right section stays visible */
+    .NavBar-Content-Right {
+        display: flex;
+        flex-shrink: 0;
+    }
+
+    /* Middle section becomes collapsible */
+    .NavBar-Content-Middle {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        background-color: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+    }
+
+    body.dark-mode .NavBar-Content-Middle {
+        background-color: rgba(74, 59, 107, 0.98);
+    }
+
+    .NavBar-Content-Middle.active {
+        max-height: 500px;
+    }
+
+    .navbar-center {
+        flex-direction: column;
+        width: 100%;
+    }
+
+        .navbar-center li {
+            width: 100%;
+            border-top: 1px solid #e0e0e0;
+        }
+
+    body.dark-mode .navbar-center li {
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .navbar-center li a {
+        padding: 12px 20px;
+    }
+
+    /* Adjust right section spacing */
+    .navbar-right {
+        flex-direction: row;
+    }
+
+        .navbar-right li a {
+            padding: 15px 10px;
+        }
+
+        .navbar-right li:last-child a {
+            padding-right: 0;
+        }
+
+    /* Dropdown adjustments for mobile */
+    .dropdown-menu {
+        position: fixed;
+        right: 10px;
+        top: 60px;
+        min-width: 180px;
+    }
+
+        .dropdown-menu::before {
+            right: 20px;
+        }
+
+    /* Notifications panel responsive */
+    .notifications-panel {
+        position: fixed;
+        top: 60px;
+        right: 10px;
+        left: 10px;
+        width: auto;
+        max-height: calc(100vh - 80px);
+    }
+
+        .notifications-panel::before {
+            right: 60px;
+        }
+
+    /* Adjust bubble sizes for mobile */
+    .bubble-1 {
+        width: 60px;
+        height: 60px;
+    }
+
+    .bubble-2 {
+        width: 90px;
+        height: 90px;
+    }
+
+    .bubble-3 {
+        width: 45px;
+        height: 45px;
+    }
+
+    .bubble-4 {
+        width: 75px;
+        height: 75px;
+    }
+
+    /* Theme toggle adjustments */
+    .theme-toggle {
+        bottom: 20px;
+        right: 20px;
+        width: 55px;
+        height: 55px;
+    }
+
+    /* Logout modal adjustments */
     .logout-modal {
         padding: 15px;
     }
@@ -868,7 +1066,96 @@ body.dark-mode .logout-modal-content {
     }
 }
 
+/* Extra small devices */
 @media (max-width: 480px) {
+    .navbar-brand {
+        font-size: 20px;
+    }
+
+    .navbar-center li a {
+        padding: 10px 15px;
+    }
+
+    .navbar-right li a {
+        padding: 12px 8px;
+    }
+
+        .navbar-right li a .glyphicon {
+            font-size: 16px;
+        }
+
+    .bubble-1 {
+        width: 50px;
+        height: 50px;
+    }
+
+    .bubble-2 {
+        width: 80px;
+        height: 80px;
+    }
+
+    .bubble-3 {
+        width: 40px;
+        height: 40px;
+    }
+
+    .bubble-4 {
+        width: 60px;
+        height: 60px;
+    }
+
+    .theme-toggle {
+        bottom: 15px;
+        right: 15px;
+        width: 50px;
+        height: 50px;
+    }
+
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+        }
+
+    .dropdown-menu {
+        position: fixed;
+        right: 10px;
+        top: 60px;
+        min-width: 160px;
+    }
+
+    /* Notifications panel for small devices */
+    .notifications-panel {
+        width: auto;
+    }
+
+    .notification-item {
+        padding: 12px 15px;
+        gap: 10px;
+    }
+
+    .notification-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+
+    .notification-text {
+        font-size: 13px;
+    }
+
+    .notification-time {
+        font-size: 11px;
+    }
+
+    .notifications-header {
+        padding: 14px 15px;
+    }
+
+        .notifications-header h3 {
+            font-size: 16px;
+        }
+
+    /* Logout modal for small devices */
     .logout-modal {
         padding: 10px;
     }

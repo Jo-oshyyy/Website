@@ -40,6 +40,53 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    // ==================== Notifications Dropdown Toggle ====================
+    const notificationsToggle = document.getElementById('notificationsToggle');
+    const notificationsPanel = document.getElementById('notificationsPanel');
+
+    if (notificationsToggle && notificationsPanel) {
+        notificationsToggle.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Close settings dropdown if open
+            const settingsDropdown = document.getElementById('settingsDropdown');
+            if (settingsDropdown) {
+                settingsDropdown.classList.remove('show');
+            }
+
+            // Toggle notifications panel
+            const isOpen = notificationsPanel.classList.contains('show');
+            notificationsPanel.classList.toggle('show');
+            notificationsToggle.setAttribute('aria-expanded', !isOpen);
+        });
+
+        // Close notifications panel when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!notificationsToggle.contains(e.target) && !notificationsPanel.contains(e.target)) {
+                notificationsPanel.classList.remove('show');
+                notificationsToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Close notifications panel when pressing ESC
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && notificationsPanel.classList.contains('show')) {
+                notificationsPanel.classList.remove('show');
+                notificationsToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Prevent notification panel from closing when clicking inside
+        notificationsPanel.addEventListener('click', function (e) {
+            // Allow links to navigate
+            if (e.target.tagName === 'A' || e.target.closest('a')) {
+                return;
+            }
+            e.stopPropagation();
+        });
+    }
+
     // ==================== Settings Dropdown Toggle ====================
     const settingsToggle = document.getElementById('settingsToggle');
     const settingsDropdown = document.getElementById('settingsDropdown');
@@ -48,6 +95,11 @@ document.addEventListener('DOMContentLoaded', function () {
         settingsToggle.addEventListener('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
+
+            // Close notifications panel if open
+            if (notificationsPanel) {
+                notificationsPanel.classList.remove('show');
+            }
 
             // Toggle dropdown
             const isOpen = settingsDropdown.classList.contains('show');

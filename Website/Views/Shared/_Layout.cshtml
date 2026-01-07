@@ -61,10 +61,79 @@
             <!-- NavBar: Right -->
             <div class="NavBar-Content-Right">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="@Url.Action("Index", "Notifications")" aria-label="Notifications">
+                    <li class="notifications-dropdown">
+                        <a href="javascript:void(0);" id="notificationsToggle" aria-label="Notifications" aria-expanded="false">
                             <span class="glyphicon glyphicon-bell"></span>
+                            <span class="notification-badge">5</span>
                         </a>
+                        <div class="notifications-panel" id="notificationsPanel">
+                            <div class="notifications-header">
+                                <h3>Notifications</h3>
+                                
+                            </div>
+
+                            <div class="notifications-list">
+                                <a href="#" class="notification-item unread">
+                                    <div class="notification-icon success">
+                                        <span class="glyphicon glyphicon-ok-circle"></span>
+                                    </div>
+                                    <div class="notification-content">
+                                        <div class="notification-text">
+                                            <strong>John Smith</strong> submitted Final Project Report
+                                        </div>
+                                        <div class="notification-time">2 hours ago</div>
+                                    </div>
+                                </a>
+
+                                <a href="#" class="notification-item unread">
+                                    <div class="notification-icon warning">
+                                        <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                    </div>
+                                    <div class="notification-content">
+                                        <div class="notification-text">
+                                            <strong>Sarah Johnson</strong> requested grade review for Quiz #5
+                                        </div>
+                                        <div class="notification-time">5 hours ago</div>
+                                    </div>
+                                </a>
+
+                                <a href="#" class="notification-item unread">
+                                    <div class="notification-icon info">
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                    </div>
+                                    <div class="notification-content">
+                                        <div class="notification-text">
+                                            New student <strong>Mike Davis</strong> enrolled in Computer Science 101
+                                        </div>
+                                        <div class="notification-time">1 day ago</div>
+                                    </div>
+                                </a>
+
+                                <a href="#" class="notification-item">
+                                    <div class="notification-icon success">
+                                        <span class="glyphicon glyphicon-upload"></span>
+                                    </div>
+                                    <div class="notification-content">
+                                        <div class="notification-text">
+                                            Database backup completed successfully
+                                        </div>
+                                        <div class="notification-time">2 days ago</div>
+                                    </div>
+                                </a>
+
+                                <a href="#" class="notification-item">
+                                    <div class="notification-icon error">
+                                        <span class="glyphicon glyphicon-alert"></span>
+                                    </div>
+                                    <div class="notification-content">
+                                        <div class="notification-text">
+                                            System maintenance scheduled for this weekend
+                                        </div>
+                                        <div class="notification-time">3 days ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
                     </li>
                     <li class="settings-dropdown">
                         <a href="javascript:void(0);" id="settingsToggle" aria-label="Settings" aria-expanded="false">
