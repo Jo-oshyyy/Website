@@ -519,7 +519,7 @@ body.dark-mode .dropdown-divider {
 .Container-Body {
     max-width: 100%;
     margin: 0;
-    padding: 5px 30px 30px 30px;
+    padding: 30px;
     position: relative;
     z-index: 1;
 }
@@ -648,6 +648,9 @@ body.dark-mode .dropdown-divider {
 
 /* Extra small devices */
 @media (max-width: 480px) {
+
+
+
     .navbar-brand {
         font-size: 20px;
     }
@@ -852,6 +855,10 @@ body.dark-mode .logout-modal-content {
 
 /* Responsive adjustments for logout modal */
 @media (max-width: 768px) {
+    .Container-Body {
+        padding: 0px 30px 30px 30px;
+    }
+
     .logout-modal {
         padding: 15px;
     }
