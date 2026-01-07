@@ -207,6 +207,7 @@ body.dark-mode .theme-toggle .moon-icon {
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     position: relative;
     z-index: 1000;
+    height: 60px;
 }
 
 body.dark-mode .NavBar {
@@ -218,11 +219,12 @@ body.dark-mode .NavBar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 20px;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
     position: relative;
     flex-wrap: nowrap;
+    height: 60px;
 }
 
 /* Left Section - Logo */
@@ -230,6 +232,7 @@ body.dark-mode .NavBar {
     display: flex;
     align-items: center;
     z-index: 1001;
+    padding-left: 20px;
 }
 
 .navbar-brand {
@@ -237,8 +240,10 @@ body.dark-mode .NavBar {
     text-decoration: none;
     font-size: 24px;
     font-weight: bold;
-    padding: 15px 0;
-    display: block;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    height: 60px;
     transition: color 0.3s ease;
 }
 
@@ -294,9 +299,9 @@ body.dark-mode .navbar-toggle span {
 
 /* Middle Section - Main Navigation */
 .NavBar-Content-Middle {
-    flex: 1;
     display: flex;
     justify-content: center;
+    flex: 0 1 auto;
 }
 
 .nav {
@@ -317,8 +322,10 @@ body.dark-mode .navbar-toggle span {
         .navbar-center li a {
             color: #666666;
             text-decoration: none;
-            padding: 15px 20px;
-            display: block;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            height: 60px;
             font-weight: 500;
             transition: background-color 0.3s, color 0.3s, font-weight 0.3s;
         }
@@ -353,7 +360,7 @@ body.dark-mode .navbar-center li a {
 .NavBar-Content-Right {
     display: flex;
     align-items: center;
-    margin-left: auto;
+    padding-right: 20px;
 }
 
 .navbar-right {
@@ -368,10 +375,11 @@ body.dark-mode .navbar-center li a {
         .navbar-right li a {
             color: #666666;
             text-decoration: none;
-            padding: 15px;
+            padding: 0 15px;
             display: flex;
             align-items: center;
             justify-content: center;
+            height: 60px;
             transition: background-color 0.3s, color 0.3s;
             cursor: pointer;
         }
@@ -509,9 +517,9 @@ body.dark-mode .dropdown-divider {
 
 /* Container Body */
 .Container-Body {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 20px;
+    max-width: 100%;
+    margin: 0;
+    padding: 5px 30px 30px 30px;
     position: relative;
     z-index: 1;
 }
@@ -519,7 +527,15 @@ body.dark-mode .dropdown-divider {
 /* Responsive Design - Tablet and Mobile */
 @media (max-width: 768px) {
     .NavBar-Container {
-        padding: 0 10px;
+        padding: 0;
+    }
+
+    .NavBar-Content-Left {
+        padding-left: 10px;
+    }
+
+    .NavBar-Content-Right {
+        padding-right: 10px;
     }
 
     /* Show burger menu */
@@ -685,7 +701,7 @@ body.dark-mode .dropdown-divider {
     }
 }
 
-* ==================== LOGOUT MODAL STYLES ==================== */
+/* ==================== LOGOUT MODAL STYLES ==================== */
 /* Logout Modal - Matching Forgot Password Modal Style */
 .logout-modal {
     display: none;
@@ -701,9 +717,9 @@ body.dark-mode .dropdown-divider {
     padding: 20px;
 }
 
-.logout-modal.show {
-    animation: fadeIn 0.3s;
-}
+    .logout-modal.show {
+        animation: fadeIn 0.3s;
+    }
 
 @keyframes fadeIn {
     from {
