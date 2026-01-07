@@ -121,7 +121,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AnalyticsController.cs" />
-    <Compile Include="Controllers\ClassesController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MasterfileController.cs" />
@@ -139,6 +138,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\MasterfileStyles.css" />
+    <Content Include="Content\StudentStyles.css" />
     <Content Include="Scripts\AnalyticsScript.js" />
     <Content Include="Scripts\layout.js" />
     <Content Include="Scripts\login.js" />
@@ -167,7 +168,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\MasterfileScript.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\StudentScript.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -181,7 +184,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Dashboard\DashboardView.cshtml" />
     <Content Include="Views\Analytics\AnalyticsView.cshtml" />
-    <Content Include="Views\Classes\ClassesView.cshtml" />
     <Content Include="Views\Masterfile\MasterfileView.cshtml" />
     <Content Include="Views\Notifications\NotificationsView.cshtml" />
     <Content Include="Views\Settings\SettingsView.cshtml" />

@@ -1,7 +1,123 @@
-﻿
-@{
-    ViewBag.Title = "MasterfileView";
+﻿@{
+    ViewBag.Title = "Masterfile";
 }
 
-<h2>MasterfileView</h2>
+<link href="~/Content/MasterfileStyles.css" rel="stylesheet" />
 
+<div class="masterfile-container">
+    <h2>Masterfile</h2>
+
+    <div class="tab-container">
+        <div class="tab-headers">
+            <button class="tab-header active" data-tab="administrators">
+                <span class="tab-icon">👨‍💼</span>
+                Administrators
+            </button>
+            <button class="tab-header" data-tab="materials">
+                <span class="tab-icon">📦</span>
+                Materials
+            </button>
+            <button class="tab-header" data-tab="activity-logs">
+                <span class="tab-icon">📋</span>
+                Admininstrator Logs
+            </button>
+        </div>
+
+        <div class="tab-content-container">
+            <div class="tab-content active" id="administrators">
+                <div class="content-header">
+                    <h3>Administrators Management</h3>
+                    <p>Manage system administrators and permissions</p>
+                </div>
+                <div class="content-body">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h4>Total Admins</h4>
+                            <p class="stat-value">24</p>
+                            <span class="stat-label">Active accounts</span>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Super Admins</h4>
+                            <p class="stat-value">5</p>
+                            <span class="stat-label">Full access</span>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Moderators</h4>
+                            <p class="stat-value">12</p>
+                            <span class="stat-label">Limited access</span>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Last Login</h4>
+                            <p class="stat-value">2h ago</p>
+                            <span class="stat-label">Most recent</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="materials">
+                <div class="content-header">
+                    <h3>Materials Inventory</h3>
+                    <p>Track and manage learning materials and resources</p>
+                </div>
+                <div class="content-body">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h4>Total Materials</h4>
+                            <p class="stat-value">1,247</p>
+                            <span class="stat-change positive">+45</span>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Active Resources</h4>
+                            <p class="stat-value">1,189</p>
+                            <span class="stat-label">In circulation</span>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Under Review</h4>
+                            <p class="stat-value">34</p>
+                            <span class="stat-label">Pending approval</span>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Categories</h4>
+                            <p class="stat-value">18</p>
+                            <span class="stat-label">Material types</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="activity-logs">
+                <div class="content-header">
+                    <h3>Activity Logs</h3>
+                    <p>System activity and audit trail</p>
+                </div>
+                <div class="content-body">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h4>Today's Activities</h4>
+                            <p class="stat-value">342</p>
+                            <span class="stat-change positive">+12%</span>
+                        </div>
+                        <div class="stat-card">
+                            <h4>User Actions</h4>
+                            <p class="stat-value">289</p>
+                            <span class="stat-label">Last 24 hours</span>
+                        </div>
+                        <div class="stat-card">
+                            <h4>System Events</h4>
+                            <p class="stat-value">53</p>
+                            <span class="stat-label">Automated</span>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Error Count</h4>
+                            <p class="stat-value">3</p>
+                            <span class="stat-change negative">Needs attention</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/MasterfileScript.js"></script>
