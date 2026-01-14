@@ -1,8 +1,164 @@
-﻿
-@{
-    ViewBag.Title = "DashboardView";
-}
+﻿@{ ViewBag.Title = "Dashboard"; }
 
-<h2>Dashboard</h2>
+<link href="~/Content/DashboardStyles.css" rel="stylesheet" />
 
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>Dashboard Overview</h1>
+        <p class="subtitle">Real-time insights and key metrics at a glance</p>
+    </div>
 
+    <!-- Key Metrics Summary Cards -->
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <div class="metric-icon">👥</div>
+            <div class="metric-content">
+                <h3 id="totalStudents">0</h3>
+                <p>Total Students</p>
+                <span class="metric-change positive" id="studentChange">+0%</span>
+            </div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-icon">🏫</div>
+            <div class="metric-content">
+                <h3 id="totalSchools">0</h3>
+                <p>Partner Schools</p>
+                <span class="metric-label" id="schoolLabel">Active</span>
+            </div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-icon">✅</div>
+            <div class="metric-content">
+                <h3 id="activeStudents">0</h3>
+                <p>Active Students</p>
+                <span class="metric-change positive" id="activeRate">0%</span>
+            </div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-icon">⚡</div>
+            <div class="metric-content">
+                <h3 id="avgXP">0</h3>
+                <p>Average XP</p>
+                <span class="metric-change positive" id="xpGrowth">+0%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demographics Section -->
+    <div class="dashboard-section">
+        <div class="section-header">
+            <div>
+                <h2>📊 Demographics Overview</h2>
+                <p>Student distribution and characteristics</p>
+            </div>
+            <a href="@Url.Action("Index", "Analytics")#demographics" class="view-details-btn">
+                View Full Analytics →
+            </a>
+        </div>
+        <div class="charts-row">
+            <div class="chart-card">
+                <h4>Gender Distribution</h4>
+                <canvas id="dashGenderChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h4>Age Groups</h4>
+                <canvas id="dashAgeChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h4>Students by School</h4>
+                <canvas id="dashSchoolChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Engagement Section -->
+    <div class="dashboard-section">
+        <div class="section-header">
+            <div>
+                <h2>🎯 Engagement Metrics</h2>
+                <p>Student activity and participation trends</p>
+            </div>
+            <a href="@Url.Action("Index", "Analytics")#engagement" class="view-details-btn">
+                View Full Analytics →
+            </a>
+        </div>
+        <div class="charts-row">
+            <div class="chart-card wide">
+                <h4>Login Activity (Last 8 Weeks)</h4>
+                <canvas id="dashLoginChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h4>Active vs Inactive</h4>
+                <canvas id="dashActiveChart"></canvas>
+            </div>
+        </div>
+        <div class="stats-row">
+            <div class="stat-box">
+                <span class="stat-label">Average Current Streak</span>
+                <span class="stat-value" id="avgStreak">0 days</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Longest Streak Record</span>
+                <span class="stat-value" id="maxStreak">0 days</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Daily Active Users</span>
+                <span class="stat-value" id="dailyActive">0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Performance Section -->
+    <div class="dashboard-section">
+        <div class="section-header">
+            <div>
+                <h2>⚡ Performance Indicators</h2>
+                <p>Learning progress and achievement metrics</p>
+            </div>
+            <a href="@Url.Action("Index", "Analytics")#performance" class="view-details-btn">
+                View Full Analytics →
+            </a>
+        </div>
+        <div class="charts-row">
+            <div class="chart-card wide">
+                <h4>Ability Growth Trend</h4>
+                <canvas id="dashAbilityChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h4>XP Distribution</h4>
+                <canvas id="dashXPChart"></canvas>
+            </div>
+        </div>
+        <div class="stats-row">
+            <div class="stat-box">
+                <span class="stat-label">Average Ability Score</span>
+                <span class="stat-value" id="avgAbility">0</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Average Improvement</span>
+                <span class="stat-value positive" id="avgImprovement">+0 pts</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Growth Rate</span>
+                <span class="stat-value positive" id="growthRate">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity Section -->
+    <div class="dashboard-section">
+        <div class="section-header">
+            <div>
+                <h2>📋 Recent Activity</h2>
+                <p>Latest student actions and milestones</p>
+            </div>
+        </div>
+        <div class="activity-list" id="activityList">
+            <!-- Populated by JavaScript -->
+        </div>
+    </div>
+</div>
+
+<!-- Include Chart.js from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="~/Scripts/DashboardScript.js"></script>

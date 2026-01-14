@@ -138,9 +138,11 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\DashboardStyles.css" />
     <Content Include="Content\MasterfileStyles.css" />
     <Content Include="Content\StudentStyles.css" />
     <Content Include="Scripts\AnalyticsScript.js" />
+    <Content Include="Scripts\DashboardScript.js" />
     <Content Include="Scripts\layout.js" />
     <Content Include="Scripts\login.js" />
     <Content Include="Content\LoginStyles.css" />
