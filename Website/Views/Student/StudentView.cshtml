@@ -9,110 +9,109 @@
 
     <div class="tab-container">
         <div class="tab-headers">
-            <button class="tab-header active" data-tab="profile">
-                <span class="tab-icon">👤</span>
-                Profile
+            <button class="tab-header active" data-tab="student-list">
+                <span class="tab-icon">👥</span>
+                Student List
             </button>
-            <button class="tab-header" data-tab="schools">
-                <span class="tab-icon">🏫</span>
-                Schools
-            </button>
-            <button class="tab-header" data-tab="student-logs">
-                <span class="tab-icon">📝</span>
-                Student Logs
+            <button class="tab-header" data-tab="activity-logs">
+                <span class="tab-icon">📋</span>
+                Activity Logs
             </button>
         </div>
 
         <div class="tab-content-container">
-            <div class="tab-content active" id="profile">
+            <!-- STUDENT LIST TAB -->
+            <div class="tab-content active" id="student-list">
                 <div class="content-header">
-                    <h3>Student Profile</h3>
-                    <p>Student information and academic details</p>
+                    <h3>Student List</h3>
+                    <p>View and manage all students</p>
                 </div>
-                <div class="content-body">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <h4>Total Students</h4>
-                            <p class="stat-value">3,456</p>
-                            <span class="stat-change positive">+89</span>
-                        </div>
-                        <div class="stat-card">
-                            <h4>Active Students</h4>
-                            <p class="stat-value">3,234</p>
-                            <span class="stat-label">Currently enrolled</span>
-                        </div>
-                        <div class="stat-card">
-                            <h4>New This Month</h4>
-                            <p class="stat-value">127</p>
-                            <span class="stat-change positive">+15%</span>
-                        </div>
-                        <div class="stat-card">
-                            <h4>Graduated</h4>
-                            <p class="stat-value">892</p>
-                            <span class="stat-label">All time</span>
-                        </div>
+
+                <!-- Search and Filters -->
+                <div class="table-controls">
+                    <input type="text" id="studentSearch" placeholder="Search students, schools, or barangay..." class="search-input">
+                    <select id="lastActiveFilter" class="filter-select">
+                        <option value="">All Dates</option>
+                        <option value="today">Today</option>
+                        <option value="yesterday">Yesterday</option>
+                        <!-- Dates will be populated by JavaScript -->
+                    </select>
+                </div>
+
+                <!-- Student Table -->
+                <div class="table-wrapper">
+                    <table id="studentTable" class="data-table">
+                        <thead>
+                            <tr>
+                                <th data-sort="studentName">Student Name <span class="sort-icon">⬍</span></th>
+                                <th data-sort="gender">Gender <span class="sort-icon">⬍</span></th>
+                                <th data-sort="schoolName">School Name <span class="sort-icon">⬍</span></th>
+                                <th data-sort="barangay">Barangay <span class="sort-icon">⬍</span></th>
+                                <th data-sort="lastActive">Last Active <span class="sort-icon">⬍</span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-container">
+                    <div class="pagination-info">
+                        Showing <span id="studentShowingStart">0</span> to <span id="studentShowingEnd">0</span> of <span id="studentTotal">0</span> students
+                    </div>
+                    <div class="pagination-controls" id="studentPagination">
+                        <!-- Pagination buttons populated by JavaScript -->
                     </div>
                 </div>
             </div>
 
-            <div class="tab-content" id="schools">
+            <!-- ACTIVITY LOGS TAB -->
+            <div class="tab-content" id="activity-logs">
                 <div class="content-header">
-                    <h3>Schools Management</h3>
-                    <p>Track schools and institutional partnerships</p>
+                    <h3>Activity Logs</h3>
+                    <p>Track student activities and sessions</p>
                 </div>
-                <div class="content-body">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <h4>Partner Schools</h4>
-                            <p class="stat-value">48</p>
-                            <span class="stat-change positive">+3</span>
-                        </div>
-                        <div class="stat-card">
-                            <h4>Active Programs</h4>
-                            <p class="stat-value">156</p>
-                            <span class="stat-label">Across all schools</span>
-                        </div>
-                        <div class="stat-card">
-                            <h4>Total Enrollment</h4>
-                            <p class="stat-value">3,234</p>
-                            <span class="stat-label">Students enrolled</span>
-                        </div>
-                        <div class="stat-card">
-                            <h4>Avg. Class Size</h4>
-                            <p class="stat-value">28</p>
-                            <span class="stat-label">Students per class</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="tab-content" id="student-logs">
-                <div class="content-header">
-                    <h3>Student Activity Logs</h3>
-                    <p>Track student activities and engagement</p>
+                <!-- Search and Filters -->
+                <div class="table-controls">
+                    <input type="text" id="activitySearch" placeholder="Search log ID, student, session type, or device..." class="search-input">
+                    <select id="timeOfActionFilter" class="filter-select">
+                        <option value="">All Dates</option>
+                        <option value="today">Today</option>
+                        <option value="yesterday">Yesterday</option>
+                        <!-- Dates will be populated by JavaScript -->
+                    </select>
                 </div>
-                <div class="content-body">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <h4>Today's Logins</h4>
-                            <p class="stat-value">1,847</p>
-                            <span class="stat-change positive">+5.2%</span>
-                        </div>
-                        <div class="stat-card">
-                            <h4>Active Sessions</h4>
-                            <p class="stat-value">423</p>
-                            <span class="stat-label">Currently online</span>
-                        </div>
-                        <div class="stat-card">
-                            <h4>Completed Tasks</h4>
-                            <p class="stat-value">2,341</p>
-                            <span class="stat-change positive">+12.8%</span>
-                        </div>
-                        <div class="stat-card">
-                            <h4>Avg. Study Time</h4>
-                            <p class="stat-value">2.5h</p>
-                            <span class="stat-label">Per student/day</span>
-                        </div>
+
+                <!-- Activity Logs Table -->
+                <div class="table-wrapper">
+                    <table id="activityTable" class="data-table">
+                        <thead>
+                            <tr>
+                                <th data-sort="logId">Log ID <span class="sort-icon">⬍</span></th>
+                                <th data-sort="studentId">Student ID <span class="sort-icon">⬍</span></th>
+                                <th data-sort="studentName">Student Name <span class="sort-icon">⬍</span></th>
+                                <th data-sort="sessionType">Session Type <span class="sort-icon">⬍</span></th>
+                                <th data-sort="sessionTag">Session Tag <span class="sort-icon">⬍</span></th>
+                                <th data-sort="deviceInfo">Device Info <span class="sort-icon">⬍</span></th>
+                                <th data-sort="timeOfAction">Time of Action <span class="sort-icon">⬍</span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="activityTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-container">
+                    <div class="pagination-info">
+                        Showing <span id="activityShowingStart">0</span> to <span id="activityShowingEnd">0</span> of <span id="activityTotal">0</span> logs
+                    </div>
+                    <div class="pagination-controls" id="activityPagination">
+                        <!-- Pagination buttons populated by JavaScript -->
                     </div>
                 </div>
             </div>

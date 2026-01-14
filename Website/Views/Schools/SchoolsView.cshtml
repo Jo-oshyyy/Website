@@ -1,0 +1,183 @@
+﻿@{ ViewBag.Title = "School List"; }
+
+<link href="~/Content/SchoolsStyles.css" rel="stylesheet" />
+
+<div class="schools-container">
+    <h2>Schools Management</h2>
+
+    <div class="tab-container">
+        <div class="tab-headers">
+            <button class="tab-header active" data-tab="schoolList">
+                <span class="tab-icon">🏫</span>
+                School List
+            </button>
+        </div>
+
+        <div class="tab-content-container">
+            <!-- SCHOOL LIST TAB -->
+            <div class="tab-content active" id="schoolList">
+                <div class="content-header">
+                    <h3>School List</h3>
+                    <p>Manage schools and view student information</p>
+                </div>
+
+                <!-- Filters Section -->
+                <div class="filters-section">
+                    <div class="filter-group">
+                        <label for="barangayFilter">Barangay:</label>
+                        <select id="barangayFilter" class="filter-select">
+                            <option value="">All Barangays</option>
+                        </select>
+                    </div>
+                    <button id="resetFilters" class="btn-reset">Reset Filters</button>
+                </div>
+
+                <!-- Interactive Table -->
+                <div class="table-section">
+                    <div class="table-controls">
+                        <input type="text" id="tableSearch" placeholder="Search schools..." class="search-input">
+                        <div class="table-controls-right">
+                            <button id="addSchoolBtn" class="btn-add-school">+ Add New School</button>
+                            <button id="exportTable" class="btn-export">Export to CSV</button>
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table id="schoolsTable" class="data-table">
+                            <thead>
+                                <tr>
+                                    <th data-sort="schoolName">School Name <span class="sort-icon">⬍</span></th>
+                                    <th data-sort="schoolId">School ID <span class="sort-icon">⬍</span></th>
+                                    <th data-sort="barangay">Barangay <span class="sort-icon">⬍</span></th>
+                                    <th data-sort="percentage">% of Total Students <span class="sort-icon">⬍</span></th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <!-- Populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Overlay -->
+<div class="modal-overlay" id="modalOverlay"></div>
+
+<!-- Add School Modal -->
+<div class="modal" id="addSchoolModal">
+    <div class="modal-header">
+        <h3>Add New School</h3>
+        <button class="modal-close" aria-label="Close">&times;</button>
+    </div>
+    <form id="addSchoolForm">
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="addSchoolBarangay">Barangay <span style="color: #dc3545;">*</span></label>
+                <select id="addSchoolBarangay" name="barangay" required>
+                    <option value="">Select Barangay</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="addSchoolName">School Name <span style="color: #dc3545;">*</span></label>
+                <input type="text" id="addSchoolName" name="schoolName" placeholder="Enter school name" required>
+            </div>
+            <div class="form-group">
+                <label for="addSchoolId">School ID <span style="color: #dc3545;">*</span></label>
+                <input type="text" id="addSchoolId" name="schoolId" placeholder="Enter school ID" required>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" id="cancelAddSchool">Cancel</button>
+            <button type="submit" class="btn-primary">Add School</button>
+        </div>
+    </form>
+</div>
+
+<!-- Edit School Modal -->
+<div class="modal" id="editSchoolModal">
+    <div class="modal-header">
+        <h3>Edit School Information</h3>
+        <button class="modal-close" aria-label="Close">&times;</button>
+    </div>
+    <form id="editSchoolForm">
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="editSchoolBarangay">Barangay <span style="color: #dc3545;">*</span></label>
+                <select id="editSchoolBarangay" name="barangay" required>
+                    <option value="">Select Barangay</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="editSchoolName">School Name <span style="color: #dc3545;">*</span></label>
+                <input type="text" id="editSchoolName" name="schoolName" placeholder="Enter school name" required>
+            </div>
+            <div class="form-group">
+                <label for="editSchoolId">School ID <span style="color: #dc3545;">*</span></label>
+                <input type="text" id="editSchoolId" name="schoolId" placeholder="Enter school ID" required>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" id="cancelEditSchool">Cancel</button>
+            <button type="submit" class="btn-primary">Save Changes</button>
+        </div>
+    </form>
+</div>
+
+<!-- Delete School Modal -->
+<div class="modal" id="deleteSchoolModal">
+    <div class="modal-header">
+        <h3>Remove School</h3>
+        <button class="modal-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="modal-body">
+        <p class="confirmation-text">
+            Are you sure you want to remove <strong id="deleteSchoolName"></strong>?
+            This action cannot be undone.
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn-secondary" id="cancelDeleteSchool">Cancel</button>
+        <button type="button" class="btn-danger" id="confirmDeleteSchool">Remove School</button>
+    </div>
+</div>
+
+<!-- View School Details Modal -->
+<div class="modal" id="viewSchoolModal" style="max-width: 600px;">
+    <div class="modal-header">
+        <h3 id="viewSchoolName"></h3>
+        <button class="modal-close" aria-label="Close" onclick="closeViewSchoolModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <div class="school-detail-grid">
+            <div class="detail-item">
+                <div class="detail-label">School ID</div>
+                <div class="detail-value" id="viewSchoolIdValue"></div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Barangay</div>
+                <div class="detail-value" id="viewSchoolBarangayValue"></div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Total Students</div>
+                <div class="detail-value" id="viewSchoolStudentCount"></div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Active Status</div>
+                <div class="detail-value" style="color: #198754;">Active</div>
+            </div>
+        </div>
+
+        <div class="students-preview">
+            <h4>Enrolled Students</h4>
+            <div id="viewSchoolStudentsList"></div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn-secondary" onclick="closeViewSchoolModal()">Close</button>
+    </div>
+</div>
+
+<script src="~/Scripts/SchoolsScript.js"></script>

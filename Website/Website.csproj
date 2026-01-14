@@ -126,6 +126,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MasterfileController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
+    <Compile Include="Controllers\SchoolsController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Filters\AuthorizeAdminAttribute.cs" />
@@ -145,6 +146,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\DashboardStyles.css" />
     <Content Include="Content\MasterfileStyles.css" />
+    <Content Include="Content\SchoolsStyles.css" />
     <Content Include="Content\StudentStyles.css" />
     <Content Include="Scripts\AnalyticsScript.js" />
     <Content Include="Scripts\DashboardScript.js" />
@@ -177,6 +179,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\MasterfileScript.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\SchoolsScript.js" />
     <Content Include="Scripts\StudentScript.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -196,11 +199,10 @@
     <Content Include="Views\Settings\SettingsView.cshtml" />
     <Content Include="Views\Student\StudentView.cshtml" />
     <Content Include="Views\Login\LoginView.cshtml" />
+    <Content Include="Views\Schools\SchoolsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
