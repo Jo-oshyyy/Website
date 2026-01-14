@@ -5,16 +5,76 @@
     // Sample data - Replace with API calls to your database
     const STUDENT_DATA = {
         students: [
-            { studentId: 1, studentName: "Juan Dela Cruz", gender: "Male", schoolName: "Riverside Elementary", barangay: "San Juan", lastActive: new Date('2026-01-14T10:30:00') },
-            { studentId: 2, studentName: "Maria Santos", gender: "Female", schoolName: "Riverside Elementary", barangay: "San Juan", lastActive: new Date('2026-01-14T14:20:00') },
-            { studentId: 3, studentName: "Pedro Garcia", gender: "Male", schoolName: "Mountainview High School", barangay: "Santa Cruz", lastActive: new Date('2026-01-13T09:15:00') },
-            { studentId: 4, studentName: "Ana Reyes", gender: "Female", schoolName: "Mountainview High School", barangay: "Santa Cruz", lastActive: new Date('2026-01-14T11:45:00') },
-            { studentId: 5, studentName: "Carlos Lopez", gender: "Male", schoolName: "Central Academy", barangay: "San Juan", lastActive: new Date('2026-01-12T16:30:00') },
-            { studentId: 6, studentName: "Sofia Cruz", gender: "Female", schoolName: "Central Academy", barangay: "San Juan", lastActive: new Date('2026-01-14T08:00:00') },
-            { studentId: 7, studentName: "Miguel Torres", gender: "Male", schoolName: "Bayside Learning Center", barangay: "Poblacion", lastActive: new Date('2026-01-11T13:20:00') },
-            { studentId: 8, studentName: "Isabella Ramos", gender: "Female", schoolName: "Bayside Learning Center", barangay: "Poblacion", lastActive: new Date('2026-01-14T15:10:00') },
-            { studentId: 9, studentName: "Diego Fernandez", gender: "Male", schoolName: "Riverside Elementary", barangay: "San Juan", lastActive: new Date('2026-01-10T10:00:00') },
-            { studentId: 10, studentName: "Gabriela Mendoza", gender: "Female", schoolName: "Mountainview High School", barangay: "Santa Cruz", lastActive: new Date('2026-01-14T12:30:00') }
+            {
+                studentId: 1, studentName: "Juan Dela Cruz", gender: "Male", age: 12, birthday: "2014-03-15", schoolName: "Riverside Elementary", barangay: "San Juan", lastActive: new Date('2026-01-14T10:30:00'),
+                preAssessment: 65, postAssessment: 85,
+                moduleProgress: { phonics: 80, grammar: 75, vocabulary: 90, comprehending: 70, creating: 65 },
+                moduleScores: { phonics: 82, grammar: 78, vocabulary: 88, comprehending: 75, creating: 70 },
+                interventions: { count: 3, latestScore: 78, history: [{ date: '2026-01-10', score: 65 }, { date: '2026-01-12', score: 72 }, { date: '2026-01-14', score: 78 }] }
+            },
+            {
+                studentId: 2, studentName: "Maria Santos", gender: "Female", age: 11, birthday: "2015-07-22", schoolName: "Riverside Elementary", barangay: "San Juan", lastActive: new Date('2026-01-14T14:20:00'),
+                preAssessment: 70, postAssessment: 90,
+                moduleProgress: { phonics: 85, grammar: 88, vocabulary: 92, comprehending: 80, creating: 75 },
+                moduleScores: { phonics: 87, grammar: 85, vocabulary: 90, comprehending: 82, creating: 78 },
+                interventions: { count: 2, latestScore: 85, history: [{ date: '2026-01-08', score: 70 }, { date: '2026-01-13', score: 85 }] }
+            },
+            {
+                studentId: 3, studentName: "Pedro Garcia", gender: "Male", age: 13, birthday: "2013-11-08", schoolName: "Mountainview High School", barangay: "Santa Cruz", lastActive: new Date('2026-01-13T09:15:00'),
+                preAssessment: 55, postAssessment: 72,
+                moduleProgress: { phonics: 65, grammar: 60, vocabulary: 70, comprehending: 58, creating: 55 },
+                moduleScores: { phonics: 68, grammar: 65, vocabulary: 72, comprehending: 62, creating: 60 },
+                interventions: { count: 5, latestScore: 68, history: [{ date: '2026-01-05', score: 55 }, { date: '2026-01-07', score: 60 }, { date: '2026-01-09', score: 63 }, { date: '2026-01-11', score: 65 }, { date: '2026-01-13', score: 68 }] }
+            },
+            {
+                studentId: 4, studentName: "Ana Reyes", gender: "Female", age: 15, birthday: "2011-02-14", schoolName: "Mountainview High School", barangay: "Santa Cruz", lastActive: new Date('2026-01-14T11:45:00'),
+                preAssessment: 80, postAssessment: 95,
+                moduleProgress: { phonics: 95, grammar: 92, vocabulary: 98, comprehending: 90, creating: 88 },
+                moduleScores: { phonics: 94, grammar: 90, vocabulary: 96, comprehending: 88, creating: 85 },
+                interventions: { count: 1, latestScore: 92, history: [{ date: '2026-01-12', score: 92 }] }
+            },
+            {
+                studentId: 5, studentName: "Carlos Lopez", gender: "Male", age: 14, birthday: "2012-09-30", schoolName: "Central Academy", barangay: "San Juan", lastActive: new Date('2026-01-12T16:30:00'),
+                preAssessment: 60, postAssessment: 78,
+                moduleProgress: { phonics: 72, grammar: 70, vocabulary: 80, comprehending: 68, creating: 65 },
+                moduleScores: { phonics: 75, grammar: 72, vocabulary: 78, comprehending: 70, creating: 68 },
+                interventions: { count: 4, latestScore: 75, history: [{ date: '2026-01-06', score: 60 }, { date: '2026-01-08', score: 68 }, { date: '2026-01-10', score: 72 }, { date: '2026-01-12', score: 75 }] }
+            },
+            {
+                studentId: 6, studentName: "Sofia Cruz", gender: "Female", age: 16, birthday: "2010-05-18", schoolName: "Central Academy", barangay: "San Juan", lastActive: new Date('2026-01-14T08:00:00'),
+                preAssessment: 75, postAssessment: 92,
+                moduleProgress: { phonics: 90, grammar: 88, vocabulary: 95, comprehending: 85, creating: 82 },
+                moduleScores: { phonics: 89, grammar: 86, vocabulary: 93, comprehending: 83, creating: 80 },
+                interventions: { count: 2, latestScore: 88, history: [{ date: '2026-01-09', score: 82 }, { date: '2026-01-13', score: 88 }] }
+            },
+            {
+                studentId: 7, studentName: "Miguel Torres", gender: "Male", age: 12, birthday: "2014-12-25", schoolName: "Bayside Learning Center", barangay: "Poblacion", lastActive: new Date('2026-01-11T13:20:00'),
+                preAssessment: 50, postAssessment: 68,
+                moduleProgress: { phonics: 60, grammar: 58, vocabulary: 65, comprehending: 55, creating: 52 },
+                moduleScores: { phonics: 62, grammar: 60, vocabulary: 68, comprehending: 58, creating: 55 },
+                interventions: { count: 6, latestScore: 65, history: [{ date: '2026-01-02', score: 50 }, { date: '2026-01-04', score: 55 }, { date: '2026-01-06', score: 58 }, { date: '2026-01-08', score: 60 }, { date: '2026-01-10', score: 63 }, { date: '2026-01-11', score: 65 }] }
+            },
+            {
+                studentId: 8, studentName: "Isabella Ramos", gender: "Female", age: 13, birthday: "2013-08-07", schoolName: "Bayside Learning Center", barangay: "Poblacion", lastActive: new Date('2026-01-14T15:10:00'),
+                preAssessment: 85, postAssessment: 98,
+                moduleProgress: { phonics: 98, grammar: 95, vocabulary: 100, comprehending: 92, creating: 90 },
+                moduleScores: { phonics: 96, grammar: 93, vocabulary: 98, comprehending: 90, creating: 88 },
+                interventions: { count: 1, latestScore: 95, history: [{ date: '2026-01-13', score: 95 }] }
+            },
+            {
+                studentId: 9, studentName: "Diego Fernandez", gender: "Male", age: 11, birthday: "2015-04-12", schoolName: "Riverside Elementary", barangay: "San Juan", lastActive: new Date('2026-01-10T10:00:00'),
+                preAssessment: 58, postAssessment: 75,
+                moduleProgress: { phonics: 70, grammar: 68, vocabulary: 78, comprehending: 65, creating: 62 },
+                moduleScores: { phonics: 72, grammar: 70, vocabulary: 76, comprehending: 68, creating: 65 },
+                interventions: { count: 3, latestScore: 72, history: [{ date: '2026-01-05', score: 62 }, { date: '2026-01-08', score: 68 }, { date: '2026-01-10', score: 72 }] }
+            },
+            {
+                studentId: 10, studentName: "Gabriela Mendoza", gender: "Female", age: 14, birthday: "2012-10-20", schoolName: "Mountainview High School", barangay: "Santa Cruz", lastActive: new Date('2026-01-14T12:30:00'),
+                preAssessment: 72, postAssessment: 88,
+                moduleProgress: { phonics: 85, grammar: 82, vocabulary: 90, comprehending: 78, creating: 75 },
+                moduleScores: { phonics: 84, grammar: 80, vocabulary: 88, comprehending: 76, creating: 73 },
+                interventions: { count: 2, latestScore: 82, history: [{ date: '2026-01-11', score: 75 }, { date: '2026-01-14', score: 82 }] }
+            }
         ],
         activityLogs: [
             { logId: 1001, studentId: 1, studentName: "Juan Dela Cruz", sessionType: "Login", sessionTag: "Web", deviceInfo: "Chrome 120 / Windows 11", timeOfAction: new Date('2026-01-14T10:30:15') },
@@ -245,10 +305,232 @@
                 <td>${student.schoolName}</td>
                 <td>${student.barangay}</td>
                 <td>${formatDateTimeForDisplay(student.lastActive)}</td>
+                <td class="actions-cell">
+                    <div class="action-menu">
+                        <button class="kebab-btn" data-student-id="${student.studentId}">
+                            <span class="kebab-icon">⋮</span>
+                        </button>
+                        <div class="action-dropdown">
+                            <button class="action-item view-details-btn" data-student-id="${student.studentId}">
+                                <span class="action-icon">👁️</span> View Details
+                            </button>
+                        </div>
+                    </div>
+                </td>
             </tr>
         `).join('');
 
+        // Setup action buttons
+        setupActionButtons();
         updateStudentPagination();
+    }
+
+    function setupActionButtons() {
+        // Toggle dropdowns
+        document.querySelectorAll('.kebab-btn').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                const dropdown = this.nextElementSibling;
+
+                // Close all other dropdowns
+                document.querySelectorAll('.action-dropdown').forEach(d => {
+                    if (d !== dropdown) d.classList.remove('show');
+                });
+
+                dropdown.classList.toggle('show');
+            });
+        });
+
+        // View details
+        document.querySelectorAll('.view-details-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const studentId = parseInt(this.getAttribute('data-student-id'));
+                showStudentDetails(studentId);
+
+                // Close dropdown
+                document.querySelectorAll('.action-dropdown').forEach(d => d.classList.remove('show'));
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function () {
+            document.querySelectorAll('.action-dropdown').forEach(d => d.classList.remove('show'));
+        });
+    }
+
+    function showStudentDetails(studentId) {
+        const student = STUDENT_DATA.students.find(s => s.studentId === studentId);
+        if (!student) return;
+
+        const modules = [
+            { key: 'phonics', name: 'Phonics & Word Study' },
+            { key: 'grammar', name: 'Grammar Awareness and Grammatical Structure' },
+            { key: 'vocabulary', name: 'Vocabulary and Word Knowledge' },
+            { key: 'comprehending', name: 'Comprehending and Analyzing Texts' },
+            { key: 'creating', name: 'Creating and Composing Texts' }
+        ];
+
+        const modalBody = document.getElementById('modalBody');
+        modalBody.innerHTML = `
+            <!-- Basic Information -->
+            <div class="modal-section">
+                <h3 class="section-title">📋 Basic Information</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Name</span>
+                        <span class="info-value">${student.studentName}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Gender</span>
+                        <span class="info-value">${student.gender}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Age</span>
+                        <span class="info-value">${student.age} years old</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Birthday</span>
+                        <span class="info-value">${new Date(student.birthday).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">School</span>
+                        <span class="info-value">${student.schoolName}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Barangay</span>
+                        <span class="info-value">${student.barangay}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Assessment Scores -->
+            <div class="modal-section">
+                <h3 class="section-title">📊 Assessment Scores</h3>
+                <div class="assessment-cards">
+                    <div class="assessment-card">
+                        <div class="assessment-label">Pre-Assessment</div>
+                        <div class="assessment-score">${student.preAssessment}%</div>
+                        <div class="assessment-bar">
+                            <div class="assessment-fill" style="width: ${student.preAssessment}%; background: #6c757d;"></div>
+                        </div>
+                    </div>
+                    <div class="assessment-card">
+                        <div class="assessment-label">Post-Assessment</div>
+                        <div class="assessment-score">${student.postAssessment}%</div>
+                        <div class="assessment-bar">
+                            <div class="assessment-fill" style="width: ${student.postAssessment}%; background: #198754;"></div>
+                        </div>
+                    </div>
+                    <div class="assessment-card improvement">
+                        <div class="assessment-label">Improvement</div>
+                        <div class="assessment-score improvement-value">+${student.postAssessment - student.preAssessment}%</div>
+                        <div class="improvement-icon">📈</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Current Progress per Module -->
+            <div class="modal-section">
+                <h3 class="section-title">📚 Current Progress per Module</h3>
+                <div class="progress-list">
+                    ${modules.map(module => `
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="module-name">${module.name}</span>
+                                <span class="progress-percentage">${student.moduleProgress[module.key]}%</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill" style="width: ${student.moduleProgress[module.key]}%"></div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            
+            <!-- Score per Module -->
+            <div class="modal-section">
+                <h3 class="section-title">🎯 Score per Module</h3>
+                <div class="score-grid">
+                    ${modules.map(module => `
+                        <div class="score-card">
+                            <div class="score-module">${module.name}</div>
+                            <div class="score-value">${student.moduleScores[module.key]}%</div>
+                            <div class="score-status ${student.moduleScores[module.key] >= 75 ? 'passing' : 'needs-improvement'}">
+                                ${student.moduleScores[module.key] >= 75 ? '✓ Passing' : '⚠ Needs Improvement'}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            
+            <!-- Interventions -->
+            <div class="modal-section">
+                <h3 class="section-title">🔧 Intervention History</h3>
+                <div class="intervention-summary">
+                    <div class="intervention-stat">
+                        <span class="stat-label">Total Interventions</span>
+                        <span class="stat-value">${student.interventions.count}</span>
+                    </div>
+                    <div class="intervention-stat">
+                        <span class="stat-label">Latest Score</span>
+                        <span class="stat-value">${student.interventions.latestScore}%</span>
+                    </div>
+                </div>
+                <div class="intervention-table-wrapper">
+                    <table class="intervention-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Score</th>
+                                <th>Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${student.interventions.history.map((intervention, index) => {
+            const prevScore = index > 0 ? student.interventions.history[index - 1].score : student.preAssessment;
+            const change = intervention.score - prevScore;
+            return `
+                                    <tr>
+                                        <td>${index + 1}</td>
+                                        <td>${new Date(intervention.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
+                                        <td><strong>${intervention.score}%</strong></td>
+                                        <td class="${change >= 0 ? 'positive-change' : 'negative-change'}">
+                                            ${change >= 0 ? '+' : ''}${change}%
+                                        </td>
+                                    </tr>
+                                `;
+        }).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        `;
+
+        // Show modal
+        document.getElementById('studentModal').classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Modal controls
+    document.addEventListener('DOMContentLoaded', function () {
+        // Close modal button
+        document.getElementById('closeModal').addEventListener('click', closeModal);
+
+        // Close when clicking outside
+        document.getElementById('studentModal').addEventListener('click', function (e) {
+            if (e.target === this) closeModal();
+        });
+
+        // Close with Escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeModal();
+        });
+    });
+
+    function closeModal() {
+        document.getElementById('studentModal').classList.remove('show');
+        document.body.style.overflow = '';
     }
 
     function updateStudentPagination() {

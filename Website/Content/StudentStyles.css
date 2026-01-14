@@ -211,6 +211,88 @@
         background: #f8f9fa;
     }
 
+/* Actions Column */
+.actions-column {
+    width: 80px;
+    text-align: center;
+}
+
+.actions-cell {
+    text-align: center;
+}
+
+.action-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.kebab-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px 12px;
+    font-size: 20px;
+    color: #6c757d;
+    transition: all 0.2s;
+    border-radius: 4px;
+}
+
+    .kebab-btn:hover {
+        background: #e9ecef;
+        color: #212529;
+    }
+
+.kebab-icon {
+    display: inline-block;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.action-dropdown {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    min-width: 160px;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s;
+}
+
+    .action-dropdown.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+.action-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    background: transparent;
+    text-align: left;
+    font-size: 14px;
+    color: #212529;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+    .action-item:hover {
+        background: #f8f9fa;
+    }
+
+.action-icon {
+    font-size: 16px;
+}
+
 /* Session and Tag Badges */
 .session-badge {
     display: inline-block;
@@ -302,6 +384,361 @@
 .pagination-dots {
     color: #6c757d;
     padding: 0 4px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 9999;
+    overflow-y: auto;
+    animation: fadeIn 0.3s;
+}
+
+    .modal.show {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+.modal-content {
+    background: white;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: slideDown 0.3s;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 30px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+    .modal-header h2 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 600;
+        color: #212529;
+    }
+
+.modal-close {
+    background: transparent;
+    border: none;
+    font-size: 32px;
+    color: #6c757d;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+    .modal-close:hover {
+        background: #e9ecef;
+        color: #212529;
+    }
+
+.modal-body {
+    padding: 30px;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+.modal-section {
+    margin-bottom: 30px;
+}
+
+    .modal-section:last-child {
+        margin-bottom: 0;
+    }
+
+.section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #212529;
+    margin: 0 0 20px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+/* Basic Information Grid */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.info-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #6c757d;
+    letter-spacing: 0.5px;
+}
+
+.info-value {
+    font-size: 16px;
+    font-weight: 500;
+    color: #212529;
+}
+
+/* Assessment Cards */
+.assessment-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.assessment-card {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #0d6efd;
+}
+
+    .assessment-card.improvement {
+        border-left-color: #198754;
+        background: linear-gradient(135deg, #d1e7dd 0%, #f8f9fa 100%);
+    }
+
+.assessment-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #6c757d;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.assessment-score {
+    font-size: 32px;
+    font-weight: 700;
+    color: #212529;
+    margin-bottom: 10px;
+}
+
+.improvement-value {
+    color: #198754;
+}
+
+.assessment-bar {
+    height: 8px;
+    background: #dee2e6;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.assessment-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 1s ease;
+}
+
+.improvement-icon {
+    font-size: 24px;
+    text-align: center;
+    margin-top: 8px;
+}
+
+/* Progress List */
+.progress-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.progress-item {
+    background: #f8f9fa;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.module-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #212529;
+}
+
+.progress-percentage {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0d6efd;
+}
+
+.progress-bar-container {
+    height: 10px;
+    background: #dee2e6;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #0d6efd 0%, #6610f2 100%);
+    border-radius: 5px;
+    transition: width 1s ease;
+}
+
+/* Score Grid */
+.score-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+}
+
+.score-card {
+    background: #f8f9fa;
+    padding: 16px;
+    border-radius: 8px;
+    border-left: 4px solid #0d6efd;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.score-module {
+    font-size: 13px;
+    font-weight: 600;
+    color: #6c757d;
+}
+
+.score-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #212529;
+}
+
+.score-status {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    width: fit-content;
+}
+
+    .score-status.passing {
+        background: #d1e7dd;
+        color: #0f5132;
+    }
+
+    .score-status.needs-improvement {
+        background: #fff3cd;
+        color: #664d03;
+    }
+
+/* Intervention Section */
+.intervention-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.intervention-stat {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-left: 4px solid #ffc107;
+}
+
+.stat-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #6c757d;
+    text-transform: uppercase;
+}
+
+.stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #212529;
+}
+
+.intervention-table-wrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.intervention-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+    .intervention-table thead {
+        background: #f8f9fa;
+    }
+
+    .intervention-table th {
+        padding: 12px;
+        text-align: left;
+        font-weight: 600;
+        color: #495057;
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    .intervention-table td {
+        padding: 12px;
+        border-bottom: 1px solid #dee2e6;
+        color: #212529;
+    }
+
+    .intervention-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+.positive-change {
+    color: #198754;
+    font-weight: 600;
+}
+
+.negative-change {
+    color: #dc3545;
+    font-weight: 600;
 }
 
 /* Responsive Design */
