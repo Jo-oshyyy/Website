@@ -22,95 +22,120 @@
         </div>
 
         <div class="tab-content-container">
+            <!-- DEMOGRAPHICS TAB -->
             <div class="tab-content active" id="demographics">
                 <div class="content-header">
                     <h3>Demographics Overview</h3>
-                    <p>User demographic information and statistics</p>
+                    <p>Student demographic information and statistics</p>
                 </div>
-                <div class="content-body">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <h4>Total Users</h4>
-                            <p class="stat-value">12,543</p>
-                            <span class="stat-change positive">+12.5%</span>
-                        </div>
-                        <div class="stat-card">
-                            <h4>Age Range</h4>
-                            <p class="stat-value">18-45</p>
-                            <span class="stat-label">Primary demographic</span>
-                        </div>
-                        <div class="stat-card">
-                            <h4>Gender Split</h4>
-                            <p class="stat-value">52% / 48%</p>
-                            <span class="stat-label">Male / Female</span>
-                        </div>
-                        <div class="stat-card">
-                            <h4>Geographic Reach</h4>
-                            <p class="stat-value">45</p>
-                            <span class="stat-label">Countries</span>
-                        </div>
+
+                <!-- Filters Section -->
+                <div class="filters-section">
+                    <div class="filter-group">
+                        <label for="schoolFilter">School Name:</label>
+                        <select id="schoolFilter" class="filter-select">
+                            <option value="">All Schools</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="barangayFilter">Barangay:</label>
+                        <select id="barangayFilter" class="filter-select">
+                            <option value="">All Barangays</option>
+                        </select>
+                    </div>
+                    <button id="resetFilters" class="btn-reset">Reset Filters</button>
+                </div>
+
+                <!-- Interactive Table -->
+                <div class="table-section">
+                    <div class="table-controls">
+                        <input type="text" id="tableSearch" placeholder="Search schools..." class="search-input">
+                        <button id="exportTable" class="btn-export">Export to CSV</button>
+                    </div>
+                    <div class="table-wrapper">
+                        <table id="demographicsTable" class="data-table">
+                            <thead>
+                                <tr>
+                                    <th data-sort="schoolName">School Name <span class="sort-icon">⬍</span></th>
+                                    <th data-sort="barangay">Barangay <span class="sort-icon">⬍</span></th>
+                                    <th data-sort="studentCount">Student Count <span class="sort-icon">⬍</span></th>
+                                    <th data-sort="percentage">% of Total <span class="sort-icon">⬍</span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <!-- Populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="charts-row">
+                    <div class="chart-container">
+                        <h4>Age Distribution</h4>
+                        <canvas id="ageBoxPlot"></canvas>
+                        <div class="chart-stats" id="ageStats"></div>
+                    </div>
+                    <div class="chart-container">
+                        <h4>Gender Distribution</h4>
+                        <canvas id="genderDonut"></canvas>
+                        <div class="chart-stats" id="genderStats"></div>
                     </div>
                 </div>
             </div>
 
+            <!-- ENGAGEMENT TAB -->
             <div class="tab-content" id="engagement">
                 <div class="content-header">
-                    <h3>Engagement Metrics</h3>
-                    <p>Track user interaction and engagement levels</p>
+                    <h3>Engagement Analysis</h3>
+                    <p>Track student interaction and engagement patterns</p>
                 </div>
-                <div class="content-body">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <h4>Daily Active Users</h4>
-                            <p class="stat-value">8,234</p>
-                            <span class="stat-change positive">+8.3%</span>
-                        </div>
-                        <div class="stat-card">
-                            <h4>Avg. Session Duration</h4>
-                            <p class="stat-value">12m 34s</p>
-                            <span class="stat-change positive">+2.1%</span>
-                        </div>
-                        <div class="stat-card">
-                            <h4>Bounce Rate</h4>
-                            <p class="stat-value">32.4%</p>
-                            <span class="stat-change negative">-5.2%</span>
-                        </div>
-                        <div class="stat-card">
-                            <h4>Pages per Session</h4>
-                            <p class="stat-value">4.7</p>
-                            <span class="stat-change positive">+1.8%</span>
-                        </div>
+
+                <div class="charts-grid">
+                    <div class="chart-container full-width">
+                        <h4>Current Streak Distribution</h4>
+                        <canvas id="currentStreakHistogram"></canvas>
+                        <div class="chart-stats" id="streakStats"></div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h4>Longest Streak Analysis</h4>
+                        <canvas id="longestStreakChart"></canvas>
+                        <div class="chart-stats" id="longestStreakStats"></div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h4>Active vs Inactive Students</h4>
+                        <canvas id="activeDonut"></canvas>
+                        <div class="chart-stats" id="activeStats"></div>
+                    </div>
+
+                    <div class="chart-container full-width">
+                        <h4>Login Frequency Over Time</h4>
+                        <canvas id="loginFrequencyLine"></canvas>
+                        <div class="chart-stats" id="loginStats"></div>
                     </div>
                 </div>
             </div>
 
+            <!-- PERFORMANCE TAB -->
             <div class="tab-content" id="performance">
                 <div class="content-header">
                     <h3>Performance Indicators</h3>
-                    <p>System performance and efficiency metrics</p>
+                    <p>Student learning progress and achievement metrics</p>
                 </div>
-                <div class="content-body">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <h4>Page Load Time</h4>
-                            <p class="stat-value">1.2s</p>
-                            <span class="stat-change positive">-0.3s</span>
-                        </div>
-                        <div class="stat-card">
-                            <h4>Server Response</h4>
-                            <p class="stat-value">245ms</p>
-                            <span class="stat-change positive">-15ms</span>
-                        </div>
-                        <div class="stat-card">
-                            <h4>Error Rate</h4>
-                            <p class="stat-value">0.12%</p>
-                            <span class="stat-change positive">-0.05%</span>
-                        </div>
-                        <div class="stat-card">
-                            <h4>Uptime</h4>
-                            <p class="stat-value">99.98%</p>
-                            <span class="stat-label">Last 30 days</span>
-                        </div>
+
+                <div class="charts-grid">
+                    <div class="chart-container full-width">
+                        <h4>Ability Growth Analysis</h4>
+                        <canvas id="abilityGrowthArea"></canvas>
+                        <div class="chart-stats" id="abilityStats"></div>
+                    </div>
+
+                    <div class="chart-container full-width">
+                        <h4>XP Distribution</h4>
+                        <canvas id="xpHistogram"></canvas>
+                        <div class="chart-stats" id="xpStats"></div>
                     </div>
                 </div>
             </div>
@@ -118,4 +143,6 @@
     </div>
 </div>
 
+<!-- Include Chart.js from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="~/Scripts/AnalyticsScript.js"></script>
