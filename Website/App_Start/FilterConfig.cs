@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace Website
 {
@@ -8,6 +7,9 @@ namespace Website
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+
+            // You can add global filters here if needed
+            // For example: filters.Add(new AuthorizeAdminAttribute());
         }
     }
 }
