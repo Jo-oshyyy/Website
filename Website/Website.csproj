@@ -200,6 +200,11 @@
     <Content Include="Views\Student\StudentView.cshtml" />
     <Content Include="Views\Login\LoginView.cshtml" />
     <Content Include="Views\Schools\SchoolsView.cshtml" />
+    <Content Include="Views\Student\_StudentDetailsModal.cshtml" />
+    <Content Include="Views\Schools\_AddSchoolModal.cshtml" />
+    <Content Include="Views\Schools\_EditSchoolModal.cshtml" />
+    <Content Include="Views\Schools\_SchoolDetailsModal.cshtml" />
+    <Content Include="Views\Schools\_RemoveSchoolModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

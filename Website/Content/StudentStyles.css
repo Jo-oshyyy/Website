@@ -1,4 +1,5 @@
 ﻿/* Student Container */
+/* Student Container */
 .student-container {
     padding: 0;
     max-width: 100%;
@@ -398,13 +399,13 @@
     z-index: 9999;
     overflow-y: auto;
     animation: fadeIn 0.3s;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
 }
 
     .modal.show {
         display: flex;
-        align-items: flex-start;
-        justify-content: center;
-        padding: 40px 20px;
     }
 
 .modal-content {
@@ -414,6 +415,8 @@
     max-width: 900px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.3);
     animation: slideDown 0.3s;
+    margin: auto;
+    position: relative;
 }
 
 @keyframes slideDown {
@@ -434,6 +437,7 @@
     align-items: center;
     padding: 24px 30px;
     border-bottom: 2px solid #e9ecef;
+    position: relative;
 }
 
     .modal-header h2 {
@@ -441,12 +445,16 @@
         font-size: 24px;
         font-weight: 600;
         color: #212529;
+        flex: 1;
     }
 
 .modal-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
     background: transparent;
     border: none;
-    font-size: 32px;
+    font-size: 28px;
     color: #6c757d;
     cursor: pointer;
     line-height: 1;
@@ -815,6 +823,43 @@
         padding: 6px 10px;
         font-size: 13px;
     }
+
+    /* Modal responsive */
+    .modal {
+        padding: 20px 10px;
+        align-items: flex-start;
+    }
+
+    .modal-content {
+        max-width: 100%;
+        margin-top: 20px;
+    }
+
+    .modal-header {
+        padding: 20px;
+    }
+
+        .modal-header h2 {
+            font-size: 20px;
+            padding-right: 40px;
+        }
+
+    .modal-close {
+        top: 20px;
+        right: 20px;
+        font-size: 24px;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .info-grid,
+    .assessment-cards,
+    .score-grid,
+    .intervention-summary {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Dark mode support */
@@ -922,5 +967,41 @@ body.dark-mode .pagination-info {
     body.dark-mode .tab-header.active {
         border-bottom-color: #63B3ED;
         border-left: none;
+    }
+}
+
+/*STYLES FOR STUDENT DETAILS MODAL*/
+/* Progress Bar Animation Styles  */
+.assessment-fill {
+    width: 0; /* Start at 0 for animation */
+    transition: width 1s ease;
+}
+
+    .assessment-fill.pre-assessment {
+        background: #6c757d;
+    }
+
+    .assessment-fill.post-assessment {
+        background: #198754;
+    }
+
+.progress-bar-fill {
+    width: 0; /* Start at 0 for animation */
+}
+
+/* Hidden by default for intervention table rows */
+#interventionTableBody tr {
+    animation: fadeInRow 0.3s ease;
+}
+
+@keyframes fadeInRow {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
     }
 }

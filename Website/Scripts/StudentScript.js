@@ -362,150 +362,93 @@
         const student = STUDENT_DATA.students.find(s => s.studentId === studentId);
         if (!student) return;
 
-        const modules = [
-            { key: 'phonics', name: 'Phonics & Word Study' },
-            { key: 'grammar', name: 'Grammar Awareness and Grammatical Structure' },
-            { key: 'vocabulary', name: 'Vocabulary and Word Knowledge' },
-            { key: 'comprehending', name: 'Comprehending and Analyzing Texts' },
-            { key: 'creating', name: 'Creating and Composing Texts' }
-        ];
+        // Basic Information
+        document.getElementById('studentName').textContent = student.studentName;
+        document.getElementById('studentGender').textContent = student.gender;
+        document.getElementById('studentAge').textContent = student.age + ' years old';
+        document.getElementById('studentBirthday').textContent = new Date(student.birthday).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        document.getElementById('studentSchool').textContent = student.schoolName;
+        document.getElementById('studentBarangay').textContent = student.barangay;
 
-        const modalBody = document.getElementById('modalBody');
-        modalBody.innerHTML = `
-            <!-- Basic Information -->
-            <div class="modal-section">
-                <h3 class="section-title">📋 Basic Information</h3>
-                <div class="info-grid">
-                    <div class="info-item">
-                        <span class="info-label">Name</span>
-                        <span class="info-value">${student.studentName}</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label">Gender</span>
-                        <span class="info-value">${student.gender}</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label">Age</span>
-                        <span class="info-value">${student.age} years old</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label">Birthday</span>
-                        <span class="info-value">${new Date(student.birthday).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label">School</span>
-                        <span class="info-value">${student.schoolName}</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label">Barangay</span>
-                        <span class="info-value">${student.barangay}</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Assessment Scores -->
-            <div class="modal-section">
-                <h3 class="section-title">📊 Assessment Scores</h3>
-                <div class="assessment-cards">
-                    <div class="assessment-card">
-                        <div class="assessment-label">Pre-Assessment</div>
-                        <div class="assessment-score">${student.preAssessment}%</div>
-                        <div class="assessment-bar">
-                            <div class="assessment-fill" style="width: ${student.preAssessment}%; background: #6c757d;"></div>
-                        </div>
-                    </div>
-                    <div class="assessment-card">
-                        <div class="assessment-label">Post-Assessment</div>
-                        <div class="assessment-score">${student.postAssessment}%</div>
-                        <div class="assessment-bar">
-                            <div class="assessment-fill" style="width: ${student.postAssessment}%; background: #198754;"></div>
-                        </div>
-                    </div>
-                    <div class="assessment-card improvement">
-                        <div class="assessment-label">Improvement</div>
-                        <div class="assessment-score improvement-value">+${student.postAssessment - student.preAssessment}%</div>
-                        <div class="improvement-icon">📈</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Current Progress per Module -->
-            <div class="modal-section">
-                <h3 class="section-title">📚 Current Progress per Module</h3>
-                <div class="progress-list">
-                    ${modules.map(module => `
-                        <div class="progress-item">
-                            <div class="progress-header">
-                                <span class="module-name">${module.name}</span>
-                                <span class="progress-percentage">${student.moduleProgress[module.key]}%</span>
-                            </div>
-                            <div class="progress-bar-container">
-                                <div class="progress-bar-fill" style="width: ${student.moduleProgress[module.key]}%"></div>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-            
-            <!-- Score per Module -->
-            <div class="modal-section">
-                <h3 class="section-title">🎯 Score per Module</h3>
-                <div class="score-grid">
-                    ${modules.map(module => `
-                        <div class="score-card">
-                            <div class="score-module">${module.name}</div>
-                            <div class="score-value">${student.moduleScores[module.key]}%</div>
-                            <div class="score-status ${student.moduleScores[module.key] >= 75 ? 'passing' : 'needs-improvement'}">
-                                ${student.moduleScores[module.key] >= 75 ? '✓ Passing' : '⚠ Needs Improvement'}
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-            
-            <!-- Interventions -->
-            <div class="modal-section">
-                <h3 class="section-title">🔧 Intervention History</h3>
-                <div class="intervention-summary">
-                    <div class="intervention-stat">
-                        <span class="stat-label">Total Interventions</span>
-                        <span class="stat-value">${student.interventions.count}</span>
-                    </div>
-                    <div class="intervention-stat">
-                        <span class="stat-label">Latest Score</span>
-                        <span class="stat-value">${student.interventions.latestScore}%</span>
-                    </div>
-                </div>
-                <div class="intervention-table-wrapper">
-                    <table class="intervention-table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Date</th>
-                                <th>Score</th>
-                                <th>Change</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${student.interventions.history.map((intervention, index) => {
+        // Assessment Scores
+        document.getElementById('preAssessmentScore').textContent = student.preAssessment + '%';
+        document.getElementById('postAssessmentScore').textContent = student.postAssessment + '%';
+        document.getElementById('improvementScore').textContent = '+' + (student.postAssessment - student.preAssessment) + '%';
+
+        // Set progress bar widths with animation
+        setTimeout(() => {
+            document.getElementById('preAssessmentBar').style.width = student.preAssessment + '%';
+            document.getElementById('postAssessmentBar').style.width = student.postAssessment + '%';
+        }, 100);
+
+        // Module Progress
+        document.querySelectorAll('#moduleProgressList .progress-item').forEach(item => {
+            const moduleKey = item.getAttribute('data-module');
+            const progress = student.moduleProgress[moduleKey];
+            item.querySelector('.progress-percentage').textContent = progress + '%';
+
+            setTimeout(() => {
+                item.querySelector('.progress-bar-fill').style.width = progress + '%';
+            }, 100);
+        });
+
+        // Module Scores
+        document.querySelectorAll('#moduleScoreGrid .score-card').forEach(card => {
+            const moduleKey = card.getAttribute('data-module');
+            const score = student.moduleScores[moduleKey];
+            const isPassing = score >= 75;
+
+            card.querySelector('.score-value').textContent = score + '%';
+
+            const statusElement = card.querySelector('.score-status');
+            statusElement.textContent = isPassing ? '✓ Passing' : '⚠ Needs Improvement';
+            statusElement.className = 'score-status ' + (isPassing ? 'passing' : 'needs-improvement');
+        });
+
+        // Interventions Summary
+        document.getElementById('totalInterventions').textContent = student.interventions.count;
+        document.getElementById('latestInterventionScore').textContent = student.interventions.latestScore + '%';
+
+        // Interventions Table
+        const tbody = document.getElementById('interventionTableBody');
+        tbody.innerHTML = '';
+
+        student.interventions.history.forEach((intervention, index) => {
             const prevScore = index > 0 ? student.interventions.history[index - 1].score : student.preAssessment;
             const change = intervention.score - prevScore;
-            return `
-                                    <tr>
-                                        <td>${index + 1}</td>
-                                        <td>${new Date(intervention.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
-                                        <td><strong>${intervention.score}%</strong></td>
-                                        <td class="${change >= 0 ? 'positive-change' : 'negative-change'}">
-                                            ${change >= 0 ? '+' : ''}${change}%
-                                        </td>
-                                    </tr>
-                                `;
-        }).join('')}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        `;
+
+            const row = document.createElement('tr');
+
+            const cellNum = document.createElement('td');
+            cellNum.textContent = index + 1;
+
+            const cellDate = document.createElement('td');
+            cellDate.textContent = new Date(intervention.date).toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+            });
+
+            const cellScore = document.createElement('td');
+            const strongScore = document.createElement('strong');
+            strongScore.textContent = intervention.score + '%';
+            cellScore.appendChild(strongScore);
+
+            const cellChange = document.createElement('td');
+            cellChange.textContent = (change >= 0 ? '+' : '') + change + '%';
+            cellChange.className = change >= 0 ? 'positive-change' : 'negative-change';
+
+            row.appendChild(cellNum);
+            row.appendChild(cellDate);
+            row.appendChild(cellScore);
+            row.appendChild(cellChange);
+
+            tbody.appendChild(row);
+        });
 
         // Show modal
         document.getElementById('studentModal').classList.add('show');

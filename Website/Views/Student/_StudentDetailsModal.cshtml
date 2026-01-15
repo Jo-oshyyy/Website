@@ -1,0 +1,193 @@
+﻿@* Partial View: _StudentDetailsModal.cshtml *@
+
+<div id="studentModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Student Details</h2>
+            <button class="modal-close" id="closeModal">&times;</button>
+        </div>
+        <div class="modal-body" id="modalBody">
+
+            <!-- Basic Information -->
+            <div class="modal-section" id="basicInfoSection">
+                <h3 class="section-title">📋 Basic Information</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Name</span>
+                        <span class="info-value" id="studentName"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Gender</span>
+                        <span class="info-value" id="studentGender"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Age</span>
+                        <span class="info-value" id="studentAge"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Birthday</span>
+                        <span class="info-value" id="studentBirthday"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">School</span>
+                        <span class="info-value" id="studentSchool"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Barangay</span>
+                        <span class="info-value" id="studentBarangay"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assessment Scores -->
+            <div class="modal-section" id="assessmentSection">
+                <h3 class="section-title">📊 Assessment Scores</h3>
+                <div class="assessment-cards">
+                    <div class="assessment-card">
+                        <div class="assessment-label">Pre-Assessment</div>
+                        <div class="assessment-score" id="preAssessmentScore"></div>
+                        <div class="assessment-bar">
+                            <div class="assessment-fill pre-assessment" id="preAssessmentBar"></div>
+                        </div>
+                    </div>
+                    <div class="assessment-card">
+                        <div class="assessment-label">Post-Assessment</div>
+                        <div class="assessment-score" id="postAssessmentScore"></div>
+                        <div class="assessment-bar">
+                            <div class="assessment-fill post-assessment" id="postAssessmentBar"></div>
+                        </div>
+                    </div>
+                    <div class="assessment-card improvement">
+                        <div class="assessment-label">Improvement</div>
+                        <div class="assessment-score improvement-value" id="improvementScore"></div>
+                        <div class="improvement-icon">📈</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current Progress per Module -->
+            <div class="modal-section" id="progressSection">
+                <h3 class="section-title">📚 Current Progress per Module</h3>
+                <div class="progress-list" id="moduleProgressList">
+                    <!-- Module 1 -->
+                    <div class="progress-item" data-module="phonics">
+                        <div class="progress-header">
+                            <span class="module-name">Phonics & Word Study</span>
+                            <span class="progress-percentage"></span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill"></div>
+                        </div>
+                    </div>
+                    <!-- Module 2 -->
+                    <div class="progress-item" data-module="grammar">
+                        <div class="progress-header">
+                            <span class="module-name">Grammar Awareness and Grammatical Structure</span>
+                            <span class="progress-percentage"></span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill"></div>
+                        </div>
+                    </div>
+                    <!-- Module 3 -->
+                    <div class="progress-item" data-module="vocabulary">
+                        <div class="progress-header">
+                            <span class="module-name">Vocabulary and Word Knowledge</span>
+                            <span class="progress-percentage"></span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill"></div>
+                        </div>
+                    </div>
+                    <!-- Module 4 -->
+                    <div class="progress-item" data-module="comprehending">
+                        <div class="progress-header">
+                            <span class="module-name">Comprehending and Analyzing Texts</span>
+                            <span class="progress-percentage"></span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill"></div>
+                        </div>
+                    </div>
+                    <!-- Module 5 -->
+                    <div class="progress-item" data-module="creating">
+                        <div class="progress-header">
+                            <span class="module-name">Creating and Composing Texts</span>
+                            <span class="progress-percentage"></span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Score per Module -->
+            <div class="modal-section" id="scoresSection">
+                <h3 class="section-title">🎯 Score per Module</h3>
+                <div class="score-grid" id="moduleScoreGrid">
+                    <!-- Score Card 1 -->
+                    <div class="score-card" data-module="phonics">
+                        <div class="score-module">Phonics & Word Study</div>
+                        <div class="score-value"></div>
+                        <div class="score-status"></div>
+                    </div>
+                    <!-- Score Card 2 -->
+                    <div class="score-card" data-module="grammar">
+                        <div class="score-module">Grammar Awareness and Grammatical Structure</div>
+                        <div class="score-value"></div>
+                        <div class="score-status"></div>
+                    </div>
+                    <!-- Score Card 3 -->
+                    <div class="score-card" data-module="vocabulary">
+                        <div class="score-module">Vocabulary and Word Knowledge</div>
+                        <div class="score-value"></div>
+                        <div class="score-status"></div>
+                    </div>
+                    <!-- Score Card 4 -->
+                    <div class="score-card" data-module="comprehending">
+                        <div class="score-module">Comprehending and Analyzing Texts</div>
+                        <div class="score-value"></div>
+                        <div class="score-status"></div>
+                    </div>
+                    <!-- Score Card 5 -->
+                    <div class="score-card" data-module="creating">
+                        <div class="score-module">Creating and Composing Texts</div>
+                        <div class="score-value"></div>
+                        <div class="score-status"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interventions -->
+            <div class="modal-section" id="interventionSection">
+                <h3 class="section-title">🔧 Intervention History</h3>
+                <div class="intervention-summary">
+                    <div class="intervention-stat">
+                        <span class="stat-label">Total Interventions</span>
+                        <span class="stat-value" id="totalInterventions"></span>
+                    </div>
+                    <div class="intervention-stat">
+                        <span class="stat-label">Latest Score</span>
+                        <span class="stat-value" id="latestInterventionScore"></span>
+                    </div>
+                </div>
+                <div class="intervention-table-wrapper">
+                    <table class="intervention-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Score</th>
+                                <th>Change</th>
+                            </tr>
+                        </thead>
+                        <tbody id="interventionTableBody">
+                            <!-- Rows populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
