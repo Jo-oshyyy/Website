@@ -1,1 +1,35 @@
-﻿
+﻿<!-- View School Details Modal -->
+<div class="modal modal-wide" id="viewSchoolModal">
+    <div class="modal-header">
+        <h3 id="viewSchoolName"></h3>
+        <button class="modal-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="modal-body">
+        <div class="school-detail-grid">
+            <div class="detail-item">
+                <div class="detail-label">School ID</div>
+                <div class="detail-value" id="viewSchoolIdValue"></div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Barangay</div>
+                <div class="detail-value" id="viewSchoolBarangayValue"></div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Total Students</div>
+                <div class="detail-value" id="viewSchoolStudentCount"></div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Active Status</div>
+                <div class="detail-value active-status">Active</div>
+            </div>
+        </div>
+
+        <div class="students-preview">
+            <h4>Enrolled Students</h4>
+            <div id="viewSchoolStudentsList"></div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn-secondary modal-close">Close</button>
+    </div>
+</div>

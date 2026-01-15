@@ -1,1 +1,29 @@
-﻿
+﻿<!-- Edit School Modal -->
+<div class="modal" id="editSchoolModal">
+    <div class="modal-header">
+        <h3>Edit School Information</h3>
+        <button class="modal-close" aria-label="Close">&times;</button>
+    </div>
+    <form id="editSchoolForm">
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="editSchoolBarangay">Barangay <span class="required-asterisk">*</span></label>
+                <select id="editSchoolBarangay" name="barangay" required>
+                    <option value="">Select Barangay</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="editSchoolName">School Name <span class="required-asterisk">*</span></label>
+                <input type="text" id="editSchoolName" name="schoolName" placeholder="Enter school name" required>
+            </div>
+            <div class="form-group">
+                <label for="editSchoolId">School ID <span class="required-asterisk">*</span></label>
+                <input type="text" id="editSchoolId" name="schoolId" placeholder="Enter school ID" required>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" id="cancelEditSchool">Cancel</button>
+            <button type="submit" class="btn-primary">Save Changes</button>
+        </div>
+    </form>
+</div>

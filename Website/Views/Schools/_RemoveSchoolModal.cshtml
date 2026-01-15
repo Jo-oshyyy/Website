@@ -1,1 +1,17 @@
-﻿
+﻿<!-- Delete School Modal -->
+<div class="modal" id="deleteSchoolModal">
+    <div class="modal-header">
+        <h3>Remove School</h3>
+        <button class="modal-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="modal-body">
+        <p class="confirmation-text">
+            Are you sure you want to remove <strong id="deleteSchoolName"></strong>?
+            This action cannot be undone.
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn-secondary" id="cancelDeleteSchool">Cancel</button>
+        <button type="button" class="btn-danger" id="confirmDeleteSchool">Remove School</button>
+    </div>
+</div>
