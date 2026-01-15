@@ -1,4 +1,4 @@
-﻿@{ ViewBag.Title = "School List"; }
+﻿@{ ViewBag.Title = "Schools"; }
 
 <link href="~/Content/SchoolsStyles.css" rel="stylesheet" />
 
@@ -148,7 +148,7 @@
 <div class="modal" id="viewSchoolModal" style="max-width: 600px;">
     <div class="modal-header">
         <h3 id="viewSchoolName"></h3>
-        <button class="modal-close" aria-label="Close" onclick="closeViewSchoolModal()">&times;</button>
+        <button class="modal-close" aria-label="Close">&times;</button>
     </div>
     <div class="modal-body">
         <div class="school-detail-grid">
@@ -176,7 +176,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn-secondary" onclick="closeViewSchoolModal()">Close</button>
+        <button type="button" class="btn-secondary modal-close">Close</button>
     </div>
 </div>
 

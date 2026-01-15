@@ -1,4 +1,4 @@
-﻿// School Management System
+﻿// School Management System - Enhanced Version
 (function () {
     'use strict';
 
@@ -6,7 +6,7 @@
     // SCHOOLS DATA STRUCTURE
     // ============================================================================
 
-    const SCHOOLS_DATA = {
+    const DEFAULT_SCHOOLS_DATA = {
         schools: [
             {
                 schoolId: "SCH001",
@@ -52,18 +52,106 @@
         barangays: ["San Juan", "Santa Cruz", "Poblacion", "San Pedro", "Bagong Silang"]
     };
 
+    let SCHOOLS_DATA = { schools: [], barangays: [] };
     let sortDirection = {};
     let filteredData = [];
     let currentEditingSchool = null;
     let currentDeletingSchool = null;
 
     // ============================================================================
+    // LOCAL STORAGE MANAGEMENT
+    // ============================================================================
+
+    function loadFromLocalStorage() {
+        try {
+            const savedSchools = localStorage.getItem('schoolsData');
+            const savedBarangays = localStorage.getItem('barangaysData');
+
+            if (savedSchools) {
+                SCHOOLS_DATA.schools = JSON.parse(savedSchools);
+            } else {
+                SCHOOLS_DATA.schools = [...DEFAULT_SCHOOLS_DATA.schools];
+                saveToLocalStorage();
+            }
+
+            if (savedBarangays) {
+                SCHOOLS_DATA.barangays = JSON.parse(savedBarangays);
+            } else {
+                SCHOOLS_DATA.barangays = [...DEFAULT_SCHOOLS_DATA.barangays];
+            }
+
+            console.log('Data loaded from localStorage');
+        } catch (error) {
+            console.error('Error loading from localStorage:', error);
+            SCHOOLS_DATA = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS_DATA));
+        }
+    }
+
+    function saveToLocalStorage() {
+        try {
+            localStorage.setItem('schoolsData', JSON.stringify(SCHOOLS_DATA.schools));
+            localStorage.setItem('barangaysData', JSON.stringify(SCHOOLS_DATA.barangays));
+            console.log('Data saved to localStorage');
+        } catch (error) {
+            console.error('Error saving to localStorage:', error);
+        }
+    }
+
+    function resetToDefaultData() {
+        if (confirm('This will reset all data to default. Are you sure?')) {
+            SCHOOLS_DATA = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS_DATA));
+            saveToLocalStorage();
+            renderTable();
+            setupTableEvents();
+            alert('Data has been reset to default values');
+        }
+    }
+
+    // Expose reset function globally for debugging
+    window.resetSchoolsData = resetToDefaultData;
+
+    // ============================================================================
+    // LOADING STATE MANAGEMENT
+    // ============================================================================
+
+    function showLoading() {
+        const tableBody = document.getElementById('tableBody');
+        if (tableBody) {
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 40px;">
+                        <div style="display: inline-block; width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #0d6efd; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                        <p style="margin-top: 15px; color: #6c757d;">Loading schools data...</p>
+                    </td>
+                </tr>
+            `;
+        }
+    }
+
+    function hideLoading() {
+        // Loading will be replaced by renderTable()
+    }
+
+    // Add CSS for spinner animation
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // ============================================================================
     // INITIALIZATION
     // ============================================================================
 
     document.addEventListener('DOMContentLoaded', function () {
+        showLoading();
+        loadFromLocalStorage();
         initializeSchoolList();
         setupEventListeners();
+        hideLoading();
     });
 
     function initializeSchoolList() {
@@ -74,28 +162,54 @@
 
     function setupEventListeners() {
         // Add School Modal
-        document.getElementById('addSchoolBtn')?.addEventListener('click', openAddSchoolModal);
-        document.getElementById('addSchoolForm')?.addEventListener('submit', handleAddSchool);
-        document.getElementById('cancelAddSchool')?.addEventListener('click', closeAddSchoolModal);
+        const addSchoolBtn = document.getElementById('addSchoolBtn');
+        if (addSchoolBtn) {
+            addSchoolBtn.addEventListener('click', openAddSchoolModal);
+        }
+
+        const addSchoolForm = document.getElementById('addSchoolForm');
+        if (addSchoolForm) {
+            addSchoolForm.addEventListener('submit', handleAddSchool);
+        }
+
+        const cancelAddSchool = document.getElementById('cancelAddSchool');
+        if (cancelAddSchool) {
+            cancelAddSchool.addEventListener('click', closeAddSchoolModal);
+        }
 
         // Edit School Modal
-        document.getElementById('editSchoolForm')?.addEventListener('submit', handleEditSchool);
-        document.getElementById('cancelEditSchool')?.addEventListener('click', closeEditSchoolModal);
+        const editSchoolForm = document.getElementById('editSchoolForm');
+        if (editSchoolForm) {
+            editSchoolForm.addEventListener('submit', handleEditSchool);
+        }
+
+        const cancelEditSchool = document.getElementById('cancelEditSchool');
+        if (cancelEditSchool) {
+            cancelEditSchool.addEventListener('click', closeEditSchoolModal);
+        }
 
         // Delete School Modal
-        document.getElementById('confirmDeleteSchool')?.addEventListener('click', handleDeleteSchool);
-        document.getElementById('cancelDeleteSchool')?.addEventListener('click', closeDeleteSchoolModal);
+        const confirmDeleteSchool = document.getElementById('confirmDeleteSchool');
+        if (confirmDeleteSchool) {
+            confirmDeleteSchool.addEventListener('click', handleDeleteSchool);
+        }
+
+        const cancelDeleteSchool = document.getElementById('cancelDeleteSchool');
+        if (cancelDeleteSchool) {
+            cancelDeleteSchool.addEventListener('click', closeDeleteSchoolModal);
+        }
 
         // Close modals on overlay click
-        document.querySelectorAll('.modal-overlay').forEach(overlay => {
-            overlay.addEventListener('click', function (e) {
+        const modalOverlay = document.getElementById('modalOverlay');
+        if (modalOverlay) {
+            modalOverlay.addEventListener('click', function (e) {
                 if (e.target === this) {
                     closeAllModals();
                 }
             });
-        });
+        }
 
-        // Close buttons
+        // Close buttons - unified approach
         document.querySelectorAll('.modal-close').forEach(btn => {
             btn.addEventListener('click', closeAllModals);
         });
@@ -114,6 +228,10 @@
 
     function populateFilters() {
         const barangayFilter = document.getElementById('barangayFilter');
+        if (!barangayFilter) return;
+
+        // Clear existing options except "All Barangays"
+        barangayFilter.innerHTML = '<option value="">All Barangays</option>';
 
         SCHOOLS_DATA.barangays.forEach(barangay => {
             const option = document.createElement('option');
@@ -123,12 +241,30 @@
         });
 
         barangayFilter.addEventListener('change', filterTable);
-        document.getElementById('resetFilters')?.addEventListener('click', resetFilters);
+
+        const resetFiltersBtn = document.getElementById('resetFilters');
+        if (resetFiltersBtn) {
+            resetFiltersBtn.addEventListener('click', resetFilters);
+        }
     }
 
     function renderTable(data = SCHOOLS_DATA.schools) {
         const tbody = document.getElementById('tableBody');
+        if (!tbody) return;
+
         tbody.innerHTML = '';
+
+        if (data.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 40px; color: #6c757d;">
+                        <p style="font-size: 18px; margin-bottom: 10px;">📚 No schools found</p>
+                        <p>Click "Add New School" to get started</p>
+                    </td>
+                </tr>
+            `;
+            return;
+        }
 
         const totalStudents = data.reduce((sum, school) => sum + school.students.length, 0);
 
@@ -139,21 +275,21 @@
             const row = document.createElement('tr');
             row.className = 'school-row';
             row.innerHTML = `
-                <td><span class="expand-icon">▶</span> ${school.schoolName}</td>
-                <td>${school.schoolId}</td>
-                <td>${school.barangay}</td>
+                <td><span class="expand-icon">▶</span> ${escapeHtml(school.schoolName)}</td>
+                <td>${escapeHtml(school.schoolId)}</td>
+                <td>${escapeHtml(school.barangay)}</td>
                 <td>${percentage}%</td>
                 <td>
                     <div class="action-menu">
                         <button class="kebab-btn" aria-label="Actions">⋮</button>
                         <div class="action-dropdown">
-                            <button class="action-dropdown-item" onclick="viewSchoolDetails('${school.schoolId}')">
+                            <button class="action-dropdown-item" data-action="view" data-school-id="${escapeHtml(school.schoolId)}">
                                 👁️ View School Details
                             </button>
-                            <button class="action-dropdown-item" onclick="openEditSchoolModal('${school.schoolId}')">
+                            <button class="action-dropdown-item" data-action="edit" data-school-id="${escapeHtml(school.schoolId)}">
                                 ✏️ Edit School Information
                             </button>
-                            <button class="action-dropdown-item danger" onclick="openDeleteSchoolModal('${school.schoolId}')">
+                            <button class="action-dropdown-item danger" data-action="delete" data-school-id="${escapeHtml(school.schoolId)}">
                                 🗑️ Remove School
                             </button>
                         </div>
@@ -170,7 +306,7 @@
                     <div class="students-list">
                         ${school.students.length > 0 ? school.students.map(s => `
                             <div class="student-item">
-                                <span class="student-name">${s.name}</span>
+                                <span class="student-name">${escapeHtml(s.name)}</span>
                                 <span class="student-details">Age: ${s.age} | Gender: ${s.gender} | Status: ${s.isActive ? 'Active' : 'Inactive'}</span>
                             </div>
                         `).join('') : '<p style="color: #6c757d; text-align: center;">No students enrolled</p>'}
@@ -180,16 +316,44 @@
             tbody.appendChild(detailsRow);
 
             // Click on school name to expand
-            row.querySelector('td:first-child').addEventListener('click', () => toggleStudentsList(row, detailsRow));
+            const firstCell = row.querySelector('td:first-child');
+            if (firstCell) {
+                firstCell.addEventListener('click', () => toggleStudentsList(row, detailsRow));
+            }
 
-            // Setup kebab menu
+            // Setup kebab menu with event delegation
             const kebabBtn = row.querySelector('.kebab-btn');
             const dropdown = row.querySelector('.action-dropdown');
-            kebabBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                closeAllDropdowns();
-                dropdown.classList.toggle('show');
-            });
+            if (kebabBtn && dropdown) {
+                kebabBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    closeAllDropdowns();
+                    dropdown.classList.toggle('show');
+                });
+
+                // Handle action clicks
+                dropdown.querySelectorAll('.action-dropdown-item').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const action = item.getAttribute('data-action');
+                        const schoolId = item.getAttribute('data-school-id');
+
+                        closeAllDropdowns();
+
+                        switch (action) {
+                            case 'view':
+                                viewSchoolDetails(schoolId);
+                                break;
+                            case 'edit':
+                                openEditSchoolModal(schoolId);
+                                break;
+                            case 'delete':
+                                openDeleteSchoolModal(schoolId);
+                                break;
+                        }
+                    });
+                });
+            }
         });
 
         filteredData = data;
@@ -206,8 +370,15 @@
             th.addEventListener('click', () => sortTable(th.getAttribute('data-sort')));
         });
 
-        document.getElementById('tableSearch')?.addEventListener('input', searchTable);
-        document.getElementById('exportTable')?.addEventListener('click', exportToCSV);
+        const tableSearch = document.getElementById('tableSearch');
+        if (tableSearch) {
+            tableSearch.addEventListener('input', searchTable);
+        }
+
+        const exportTable = document.getElementById('exportTable');
+        if (exportTable) {
+            exportTable.addEventListener('click', exportToCSV);
+        }
     }
 
     function sortTable(column) {
@@ -241,7 +412,7 @@
     }
 
     function filterTable() {
-        const barangayValue = document.getElementById('barangayFilter').value;
+        const barangayValue = document.getElementById('barangayFilter')?.value || '';
 
         let filtered = SCHOOLS_DATA.schools;
 
@@ -265,8 +436,12 @@
     }
 
     function resetFilters() {
-        document.getElementById('barangayFilter').value = '';
-        document.getElementById('tableSearch').value = '';
+        const barangayFilter = document.getElementById('barangayFilter');
+        const tableSearch = document.getElementById('tableSearch');
+
+        if (barangayFilter) barangayFilter.value = '';
+        if (tableSearch) tableSearch.value = '';
+
         renderTable();
         setupTableEvents();
     }
@@ -285,8 +460,9 @@
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'schools_data.csv';
+        a.download = 'schools_data_' + new Date().toISOString().split('T')[0] + '.csv';
         a.click();
+        URL.revokeObjectURL(url);
     }
 
     // ============================================================================
@@ -296,19 +472,23 @@
     function openAddSchoolModal() {
         const modal = document.getElementById('addSchoolModal');
         const overlay = document.getElementById('modalOverlay');
+        if (!modal || !overlay) return;
 
         // Populate barangay dropdown
         const barangaySelect = document.getElementById('addSchoolBarangay');
-        barangaySelect.innerHTML = '<option value="">Select Barangay</option>';
-        SCHOOLS_DATA.barangays.forEach(barangay => {
-            const option = document.createElement('option');
-            option.value = barangay;
-            option.textContent = barangay;
-            barangaySelect.appendChild(option);
-        });
+        if (barangaySelect) {
+            barangaySelect.innerHTML = '<option value="">Select Barangay</option>';
+            SCHOOLS_DATA.barangays.forEach(barangay => {
+                const option = document.createElement('option');
+                option.value = barangay;
+                option.textContent = barangay;
+                barangaySelect.appendChild(option);
+            });
+        }
 
         // Reset form
-        document.getElementById('addSchoolForm').reset();
+        const form = document.getElementById('addSchoolForm');
+        if (form) form.reset();
         clearFormErrors();
 
         modal.classList.add('show');
@@ -316,8 +496,11 @@
     }
 
     function closeAddSchoolModal() {
-        document.getElementById('addSchoolModal').classList.remove('show');
-        document.getElementById('modalOverlay').classList.remove('show');
+        const modal = document.getElementById('addSchoolModal');
+        const overlay = document.getElementById('modalOverlay');
+
+        if (modal) modal.classList.remove('show');
+        if (overlay) overlay.classList.remove('show');
         clearFormErrors();
     }
 
@@ -325,9 +508,9 @@
         e.preventDefault();
         clearFormErrors();
 
-        const schoolName = document.getElementById('addSchoolName').value.trim();
-        const schoolId = document.getElementById('addSchoolId').value.trim();
-        const barangay = document.getElementById('addSchoolBarangay').value;
+        const schoolName = document.getElementById('addSchoolName')?.value.trim() || '';
+        const schoolId = document.getElementById('addSchoolId')?.value.trim() || '';
+        const barangay = document.getElementById('addSchoolBarangay')?.value || '';
 
         // Validation
         let hasError = false;
@@ -361,19 +544,20 @@
         };
 
         SCHOOLS_DATA.schools.push(newSchool);
+        saveToLocalStorage();
         renderTable();
         setupTableEvents();
         closeAddSchoolModal();
 
         // Show success message
-        alert('School added successfully!');
+        showSuccessMessage('School added successfully!');
     }
 
     // ============================================================================
     // EDIT SCHOOL MODAL
     // ============================================================================
 
-    window.openEditSchoolModal = function (schoolId) {
+    function openEditSchoolModal(schoolId) {
         closeAllDropdowns();
         const school = SCHOOLS_DATA.schools.find(s => s.schoolId === schoolId);
         if (!school) return;
@@ -382,29 +566,38 @@
 
         const modal = document.getElementById('editSchoolModal');
         const overlay = document.getElementById('modalOverlay');
+        if (!modal || !overlay) return;
 
         // Populate form
-        document.getElementById('editSchoolName').value = school.schoolName;
-        document.getElementById('editSchoolId').value = school.schoolId;
+        const editSchoolName = document.getElementById('editSchoolName');
+        const editSchoolId = document.getElementById('editSchoolId');
+
+        if (editSchoolName) editSchoolName.value = school.schoolName;
+        if (editSchoolId) editSchoolId.value = school.schoolId;
 
         const barangaySelect = document.getElementById('editSchoolBarangay');
-        barangaySelect.innerHTML = '<option value="">Select Barangay</option>';
-        SCHOOLS_DATA.barangays.forEach(barangay => {
-            const option = document.createElement('option');
-            option.value = barangay;
-            option.textContent = barangay;
-            if (barangay === school.barangay) option.selected = true;
-            barangaySelect.appendChild(option);
-        });
+        if (barangaySelect) {
+            barangaySelect.innerHTML = '<option value="">Select Barangay</option>';
+            SCHOOLS_DATA.barangays.forEach(barangay => {
+                const option = document.createElement('option');
+                option.value = barangay;
+                option.textContent = barangay;
+                if (barangay === school.barangay) option.selected = true;
+                barangaySelect.appendChild(option);
+            });
+        }
 
         clearFormErrors();
         modal.classList.add('show');
         overlay.classList.add('show');
-    };
+    }
 
     function closeEditSchoolModal() {
-        document.getElementById('editSchoolModal').classList.remove('show');
-        document.getElementById('modalOverlay').classList.remove('show');
+        const modal = document.getElementById('editSchoolModal');
+        const overlay = document.getElementById('modalOverlay');
+
+        if (modal) modal.classList.remove('show');
+        if (overlay) overlay.classList.remove('show');
         currentEditingSchool = null;
         clearFormErrors();
     }
@@ -415,9 +608,9 @@
 
         if (!currentEditingSchool) return;
 
-        const schoolName = document.getElementById('editSchoolName').value.trim();
-        const schoolId = document.getElementById('editSchoolId').value.trim();
-        const barangay = document.getElementById('editSchoolBarangay').value;
+        const schoolName = document.getElementById('editSchoolName')?.value.trim() || '';
+        const schoolId = document.getElementById('editSchoolId')?.value.trim() || '';
+        const barangay = document.getElementById('editSchoolBarangay')?.value || '';
 
         // Validation
         let hasError = false;
@@ -448,36 +641,43 @@
         currentEditingSchool.schoolId = schoolId;
         currentEditingSchool.barangay = barangay;
 
+        saveToLocalStorage();
         renderTable();
         setupTableEvents();
         closeEditSchoolModal();
 
-        alert('School updated successfully!');
+        showSuccessMessage('School updated successfully!');
     }
 
     // ============================================================================
     // DELETE SCHOOL MODAL
     // ============================================================================
 
-    window.openDeleteSchoolModal = function (schoolId) {
+    function openDeleteSchoolModal(schoolId) {
         closeAllDropdowns();
         const school = SCHOOLS_DATA.schools.find(s => s.schoolId === schoolId);
         if (!school) return;
 
         currentDeletingSchool = school;
 
-        document.getElementById('deleteSchoolName').textContent = school.schoolName;
+        const deleteSchoolName = document.getElementById('deleteSchoolName');
+        if (deleteSchoolName) {
+            deleteSchoolName.textContent = school.schoolName;
+        }
 
         const modal = document.getElementById('deleteSchoolModal');
         const overlay = document.getElementById('modalOverlay');
 
-        modal.classList.add('show');
-        overlay.classList.add('show');
-    };
+        if (modal) modal.classList.add('show');
+        if (overlay) overlay.classList.add('show');
+    }
 
     function closeDeleteSchoolModal() {
-        document.getElementById('deleteSchoolModal').classList.remove('show');
-        document.getElementById('modalOverlay').classList.remove('show');
+        const modal = document.getElementById('deleteSchoolModal');
+        const overlay = document.getElementById('modalOverlay');
+
+        if (modal) modal.classList.remove('show');
+        if (overlay) overlay.classList.remove('show');
         currentDeletingSchool = null;
     }
 
@@ -487,10 +687,11 @@
         const index = SCHOOLS_DATA.schools.findIndex(s => s.schoolId === currentDeletingSchool.schoolId);
         if (index > -1) {
             SCHOOLS_DATA.schools.splice(index, 1);
+            saveToLocalStorage();
             renderTable();
             setupTableEvents();
             closeDeleteSchoolModal();
-            alert('School removed successfully!');
+            showSuccessMessage('School removed successfully!');
         }
     }
 
@@ -498,43 +699,52 @@
     // VIEW SCHOOL DETAILS MODAL
     // ============================================================================
 
-    window.viewSchoolDetails = function (schoolId) {
+    function viewSchoolDetails(schoolId) {
         closeAllDropdowns();
         const school = SCHOOLS_DATA.schools.find(s => s.schoolId === schoolId);
         if (!school) return;
 
         const modal = document.getElementById('viewSchoolModal');
         const overlay = document.getElementById('modalOverlay');
+        if (!modal || !overlay) return;
 
         // Populate details
-        document.getElementById('viewSchoolName').textContent = school.schoolName;
-        document.getElementById('viewSchoolIdValue').textContent = school.schoolId;
-        document.getElementById('viewSchoolBarangayValue').textContent = school.barangay;
-        document.getElementById('viewSchoolStudentCount').textContent = school.students.length;
+        const viewSchoolName = document.getElementById('viewSchoolName');
+        const viewSchoolIdValue = document.getElementById('viewSchoolIdValue');
+        const viewSchoolBarangayValue = document.getElementById('viewSchoolBarangayValue');
+        const viewSchoolStudentCount = document.getElementById('viewSchoolStudentCount');
+
+        if (viewSchoolName) viewSchoolName.textContent = school.schoolName;
+        if (viewSchoolIdValue) viewSchoolIdValue.textContent = school.schoolId;
+        if (viewSchoolBarangayValue) viewSchoolBarangayValue.textContent = school.barangay;
+        if (viewSchoolStudentCount) viewSchoolStudentCount.textContent = school.students.length;
 
         // Populate students list
         const studentsList = document.getElementById('viewSchoolStudentsList');
-        if (school.students.length > 0) {
-            studentsList.innerHTML = school.students.map(s => `
-                <div class="student-preview-item">
-                    <span class="student-name">${s.name}</span>
-                    <span class="student-details">Age: ${s.age} | ${s.gender === 'M' ? 'Male' : 'Female'} | ${s.isActive ? 'Active' : 'Inactive'}</span>
-                </div>
-            `).join('');
-        } else {
-            studentsList.innerHTML = '<p style="color: #6c757d; text-align: center;">No students enrolled</p>';
+        if (studentsList) {
+            if (school.students.length > 0) {
+                studentsList.innerHTML = school.students.map(s => `
+                    <div class="student-preview-item">
+                        <span class="student-name">${escapeHtml(s.name)}</span>
+                        <span class="student-details">Age: ${s.age} | ${s.gender === 'M' ? 'Male' : 'Female'} | ${s.isActive ? 'Active' : 'Inactive'}</span>
+                    </div>
+                `).join('');
+            } else {
+                studentsList.innerHTML = '<p style="color: #6c757d; text-align: center;">No students enrolled</p>';
+            }
         }
 
         modal.classList.add('show');
         overlay.classList.add('show');
-    };
-
-    function closeViewSchoolModal() {
-        document.getElementById('viewSchoolModal').classList.remove('show');
-        document.getElementById('modalOverlay').classList.remove('show');
     }
 
-    window.closeViewSchoolModal = closeViewSchoolModal;
+    function closeViewSchoolModal() {
+        const modal = document.getElementById('viewSchoolModal');
+        const overlay = document.getElementById('modalOverlay');
+
+        if (modal) modal.classList.remove('show');
+        if (overlay) overlay.classList.remove('show');
+    }
 
     // ============================================================================
     // UTILITY FUNCTIONS
@@ -556,7 +766,10 @@
 
     function showFieldError(fieldId, message) {
         const field = document.getElementById(fieldId);
+        if (!field) return;
+
         const formGroup = field.closest('.form-group');
+        if (!formGroup) return;
 
         field.classList.add('error');
 
@@ -573,5 +786,20 @@
         document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
         document.querySelectorAll('.error-message').forEach(el => el.remove());
     }
+
+    function showSuccessMessage(message) {
+        // Simple alert for now - can be replaced with a toast notification
+        alert(message);
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Expose necessary functions to global scope for HTML onclick handlers
+    window.viewSchoolDetails = viewSchoolDetails;
+    window.closeViewSchoolModal = closeViewSchoolModal;
 
 })();
