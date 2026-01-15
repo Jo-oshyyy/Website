@@ -120,6 +120,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\AnalyticsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Services\AuthService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\AdministrationStyles.css" />
     <Content Include="Content\AnalyticsStyles.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -148,6 +150,7 @@
     <Content Include="Content\MasterfileStyles.css" />
     <Content Include="Content\SchoolsStyles.css" />
     <Content Include="Content\StudentStyles.css" />
+    <Content Include="Scripts\AdministrationScript.js" />
     <Content Include="Scripts\AnalyticsScript.js" />
     <Content Include="Scripts\DashboardScript.js" />
     <Content Include="Scripts\layout.js" />
@@ -205,6 +208,8 @@
     <Content Include="Views\Schools\_EditSchoolModal.cshtml" />
     <Content Include="Views\Schools\_SchoolDetailsModal.cshtml" />
     <Content Include="Views\Schools\_RemoveSchoolModal.cshtml" />
+    <Content Include="Views\Administration\AdministrationView.cshtml" />
+    <Content Include="Views\Administration\_AdministratorDetailsModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

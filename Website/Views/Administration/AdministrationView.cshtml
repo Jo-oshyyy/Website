@@ -1,0 +1,124 @@
+﻿@{ ViewBag.Title = "Administration"; }
+
+<link href="~/Content/AdministrationStyles.css" rel="stylesheet" />
+
+<div class="administration-container">
+    <h2>Administration</h2>
+
+    <div class="tab-container">
+        <div class="tab-headers">
+            <button class="tab-header active" data-tab="administrator-list">
+                <span class="tab-icon">👥</span>
+                Administrator List
+            </button>
+            <button class="tab-header" data-tab="activity-logs">
+                <span class="tab-icon">📋</span>
+                Activity Logs
+            </button>
+        </div>
+
+        <div class="tab-content-container">
+            <!-- ADMINISTRATOR LIST TAB -->
+            <div class="tab-content active" id="administrator-list">
+                <div class="content-header">
+                    <h3>Administrator List</h3>
+                    <p>View and manage all administrators</p>
+                </div>
+
+                <!-- Search and Filters -->
+                <div class="table-controls">
+                    <input type="text" id="administratorSearch" placeholder="Search administrators, roles, or departments..." class="search-input">
+                    <select id="lastActiveFilter" class="filter-select">
+                        <option value="">All Dates</option>
+                        <option value="today">Today</option>
+                        <option value="yesterday">Yesterday</option>
+                        <!-- Dates will be populated by JavaScript -->
+                    </select>
+                </div>
+
+                <!-- Administrator Table -->
+                <div class="table-wrapper">
+                    <table id="administratorTable" class="data-table">
+                        <thead>
+                            <tr>
+                                <th data-sort="administratorName">Administrator Name <span class="sort-icon">⬍</span></th>
+                                <th data-sort="role">Role <span class="sort-icon">⬍</span></th>
+                                <th data-sort="department">Department <span class="sort-icon">⬍</span></th>
+                                <th data-sort="email">Email <span class="sort-icon">⬍</span></th>
+                                <th data-sort="lastActive">Last Active <span class="sort-icon">⬍</span></th>
+                                <th class="actions-column">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="administratorTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-container">
+                    <div class="pagination-info">
+                        Showing <span id="administratorShowingStart">0</span> to <span id="administratorShowingEnd">0</span> of <span id="administratorTotal">0</span> administrators
+                    </div>
+                    <div class="pagination-controls" id="administratorPagination">
+                        <!-- Pagination buttons populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACTIVITY LOGS TAB -->
+            <div class="tab-content" id="activity-logs">
+                <div class="content-header">
+                    <h3>Activity Logs</h3>
+                    <p>Track administrator activities and sessions</p>
+                </div>
+
+                <!-- Search and Filters -->
+                <div class="table-controls">
+                    <input type="text" id="activitySearch" placeholder="Search log ID, administrator, action type, or device..." class="search-input">
+                    <select id="timeOfActionFilter" class="filter-select">
+                        <option value="">All Dates</option>
+                        <option value="today">Today</option>
+                        <option value="yesterday">Yesterday</option>
+                        <!-- Dates will be populated by JavaScript -->
+                    </select>
+                </div>
+
+                <!-- Activity Logs Table -->
+                <div class="table-wrapper">
+                    <table id="activityTable" class="data-table">
+                        <thead>
+                            <tr>
+                                <th data-sort="logId">Log ID <span class="sort-icon">⬍</span></th>
+                                <th data-sort="administratorId">Admin ID <span class="sort-icon">⬍</span></th>
+                                <th data-sort="administratorName">Administrator Name <span class="sort-icon">⬍</span></th>
+                                <th data-sort="actionType">Action Type <span class="sort-icon">⬍</span></th>
+                                <th data-sort="actionTag">Action Tag <span class="sort-icon">⬍</span></th>
+                                <th data-sort="deviceInfo">Device Info <span class="sort-icon">⬍</span></th>
+                                <th data-sort="timeOfAction">Time of Action <span class="sort-icon">⬍</span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="activityTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-container">
+                    <div class="pagination-info">
+                        Showing <span id="activityShowingStart">0</span> to <span id="activityShowingEnd">0</span> of <span id="activityTotal">0</span> logs
+                    </div>
+                    <div class="pagination-controls" id="activityPagination">
+                        <!-- Pagination buttons populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include Administrator Details Modal Partial -->
+@Html.Partial("_AdministratorDetailsModal")
+
+<script src="~/Scripts/AdministrationScript.js"></script>
