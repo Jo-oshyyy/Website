@@ -787,13 +787,14 @@
         const modal = document.getElementById('viewSchoolModal');
         if (!modal || !elements.modalOverlay) return;
 
+        // Update detail fields
         const viewSchoolName = document.getElementById('viewSchoolName');
         const viewSchoolIdValue = document.getElementById('viewSchoolIdValue');
         const viewSchoolBarangayValue = document.getElementById('viewSchoolBarangayValue');
         const viewSchoolStudentCount = document.getElementById('viewSchoolStudentCount');
 
-        if (viewSchoolName) viewSchoolName.textContent = school.schoolName;
         if (viewSchoolIdValue) viewSchoolIdValue.textContent = school.schoolId;
+        if (viewSchoolName) viewSchoolName.textContent = school.schoolName;
         if (viewSchoolBarangayValue) viewSchoolBarangayValue.textContent = school.barangay;
         if (viewSchoolStudentCount) viewSchoolStudentCount.textContent = school.students.length;
 

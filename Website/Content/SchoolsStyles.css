@@ -389,7 +389,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
     z-index: 9998;
     animation: fadeIn 0.3s ease;
 }
@@ -401,16 +401,16 @@
 .modal {
     display: none;
     position: fixed;
-    top: 50px;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     background: white;
-    border-radius: 8px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
     z-index: 9999;
-    max-width: 500px;
-    width: calc(100% - 100px);
-    max-height: calc(100vh - 100px);
+    max-width: 520px;
+    width: calc(100% - 40px);
+    max-height: calc(100vh - 80px);
     overflow-y: auto;
     animation: slideIn 0.3s ease;
     font-family: 'Visby', sans-serif;
@@ -420,45 +420,64 @@
         display: block;
     }
 
-/* View School Modal - Larger size */
-#viewSchoolModal {
-    max-width: calc(100% - 100px);
-    width: calc(100% - 100px);
-}
+    /* View School Modal - Wider size */
+    .modal.modal-wide {
+        max-width: 750px;
+    }
+
+    /* Compact Modal for Delete */
+    .modal.modal-compact {
+        max-width: 450px;
+    }
 
 @keyframes slideIn {
     from {
         opacity: 0;
-        transform: translateX(-50%) translateY(-20px);
+        transform: translate(-50%, -50%) scale(0.95);
     }
 
     to {
         opacity: 1;
-        transform: translateX(-50%) translateY(0);
+        transform: translate(-50%, -50%) scale(1);
     }
 }
 
 .modal-header {
-    padding: 20px 24px;
-    border-bottom: 1px solid #dee2e6;
+    padding: 24px 24px 20px 24px;
+    border-bottom: 1px solid #e9ecef;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    gap: 20px;
 }
 
-    .modal-header h3 {
-        margin: 0;
-        color: #212529;
-        font-size: 20px;
+.modal-header-content {
+    flex: 1;
+}
+
+    .modal-header-content h3 {
+        margin: 0 0 6px 0;
+        color: #1a202c;
+        font-size: 22px;
         font-weight: 600;
         font-family: 'Visby', sans-serif;
+        line-height: 1.3;
     }
+
+.modal-description {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.5;
+    font-family: 'Visby', sans-serif;
+}
 
 .modal-close {
     background: transparent;
     border: none;
-    font-size: 24px;
-    color: #6c757d;
+    font-size: 28px;
+    line-height: 1;
+    color: #94a3b8;
     cursor: pointer;
     padding: 0;
     width: 32px;
@@ -466,14 +485,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 4px;
+    border-radius: 6px;
     transition: all 0.2s;
-    font-family: 'Visby', sans-serif;
+    font-family: Arial, sans-serif;
+    flex-shrink: 0;
+    margin-top: -2px;
 }
 
     .modal-close:hover {
-        background: #e9ecef;
-        color: #212529;
+        background: #f1f5f9;
+        color: #475569;
+    }
+
+    .modal-close:active {
+        background: #e2e8f0;
     }
 
 .modal-body {
@@ -482,21 +507,27 @@
 
 .modal-footer {
     padding: 16px 24px;
-    border-top: 1px solid #dee2e6;
+    border-top: 1px solid #e9ecef;
     display: flex;
     justify-content: flex-end;
-    gap: 10px;
+    gap: 12px;
+    background: #f8fafc;
+    border-radius: 0 0 12px 12px;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
+
+    .form-group:last-child {
+        margin-bottom: 0;
+    }
 
     .form-group label {
         display: block;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
         font-weight: 500;
-        color: #495057;
+        color: #334155;
         font-size: 14px;
         font-family: 'Visby', sans-serif;
     }
@@ -504,38 +535,57 @@
     .form-group input,
     .form-group select {
         width: 100%;
-        padding: 10px 12px;
-        border: 1px solid #ced4da;
-        border-radius: 4px;
+        padding: 10px 14px;
+        border: 1.5px solid #cbd5e1;
+        border-radius: 8px;
         font-size: 14px;
-        transition: border-color 0.2s;
+        transition: all 0.2s;
         box-sizing: border-box;
         font-family: 'Visby', sans-serif;
+        background: #ffffff;
+        color: #1e293b;
     }
+
+        .form-group input:hover,
+        .form-group select:hover {
+            border-color: #94a3b8;
+        }
 
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #0d6efd;
-            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
         .form-group input.error,
         .form-group select.error {
-            border-color: #dc3545;
+            border-color: #ef4444;
+        }
+
+            .form-group input.error:focus,
+            .form-group select.error:focus {
+                box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+            }
+
+        .form-group input::placeholder {
+            color: #94a3b8;
         }
 
 .error-message {
-    color: #dc3545;
-    font-size: 12px;
-    margin-top: 4px;
+    color: #ef4444;
+    font-size: 13px;
+    margin-top: 6px;
     font-family: 'Visby', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .btn-primary, .btn-secondary, .btn-danger {
     padding: 10px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
@@ -544,89 +594,178 @@
 }
 
 .btn-primary {
-    background: #0d6efd;
+    background: #3b82f6;
     color: white;
 }
 
     .btn-primary:hover {
-        background: #0b5ed7;
+        background: #2563eb;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-primary:active {
+        transform: translateY(0);
     }
 
 .btn-secondary {
-    background: #6c757d;
-    color: white;
+    background: #e2e8f0;
+    color: #475569;
 }
 
     .btn-secondary:hover {
-        background: #5a6268;
+        background: #cbd5e1;
+        color: #334155;
     }
 
 .btn-danger {
-    background: #dc3545;
+    background: #ef4444;
     color: white;
 }
 
     .btn-danger:hover {
-        background: #bb2d3b;
+        background: #dc2626;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    }
+
+    .btn-danger:active {
+        transform: translateY(0);
     }
 
 .confirmation-text {
-    font-size: 16px;
-    color: #495057;
-    margin-bottom: 20px;
-    line-height: 1.5;
+    font-size: 15px;
+    color: #475569;
+    margin: 0;
+    line-height: 1.6;
     font-family: 'Visby', sans-serif;
 }
+
+    .confirmation-text strong {
+        color: #1e293b;
+        font-weight: 600;
+    }
 
 .school-detail-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 20px;
+    gap: 14px;
+    margin-bottom: 24px;
 }
 
 .detail-item {
-    padding: 12px;
-    background: #f8f9fa;
-    border-radius: 4px;
-    border-left: 3px solid #0d6efd;
+    padding: 14px 16px;
+    background: #f8fafc;
+    border-radius: 8px;
+    border-left: 3px solid #3b82f6;
 }
 
 .detail-label {
     font-size: 12px;
-    color: #6c757d;
+    color: #64748b;
     font-weight: 500;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
     font-family: 'Visby', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .detail-value {
     font-size: 16px;
-    color: #212529;
+    color: #1e293b;
     font-weight: 600;
     font-family: 'Visby', sans-serif;
 }
 
 .students-preview {
-    margin-top: 20px;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #e9ecef;
 }
 
     .students-preview h4 {
         font-size: 16px;
-        color: #212529;
-        margin-bottom: 12px;
+        color: #1e293b;
+        margin: 0 0 14px 0;
         font-weight: 600;
         font-family: 'Visby', sans-serif;
     }
 
 .student-preview-item {
-    padding: 10px 12px;
-    background: #f8f9fa;
-    border-radius: 4px;
-    margin-bottom: 8px;
+    padding: 12px 14px;
+    background: #f8fafc;
+    border-radius: 8px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border: 1px solid #e2e8f0;
+}
+
+    .student-preview-item:last-child {
+        margin-bottom: 0;
+    }
+
+/* Additional Utility Classes */
+.required-asterisk {
+    color: #ef4444;
+}
+
+.active-status {
+    color: #10b981;
+}
+
+.loading-cell {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 4px solid #e2e8f0;
+    border-top: 4px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.loading-text {
+    margin-top: 16px;
+    color: #64748b;
+    font-family: 'Visby', sans-serif;
+    font-size: 14px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.empty-state-cell {
+    text-align: center;
+    padding: 60px 20px;
+    color: #64748b;
+}
+
+.empty-state-icon {
+    font-size: 18px;
+    margin-bottom: 12px;
+    font-family: 'Visby', sans-serif;
+}
+
+.no-students-text {
+    color: #94a3b8;
+    text-align: center;
+    font-family: 'Visby', sans-serif;
+    font-size: 14px;
+    padding: 20px;
+    font-style: italic;
 }
 
 /* Responsive Design */
@@ -667,14 +806,13 @@
     }
 
     .modal {
-        top: 30px;
-        width: calc(100% - 60px);
-        max-height: calc(100vh - 60px);
+        width: calc(100% - 30px);
+        max-height: calc(100vh - 40px);
     }
 
-    #viewSchoolModal {
-        width: calc(100% - 60px);
-    }
+        .modal.modal-wide {
+            width: calc(100% - 30px);
+        }
 
     .school-detail-grid {
         grid-template-columns: 1fr;
