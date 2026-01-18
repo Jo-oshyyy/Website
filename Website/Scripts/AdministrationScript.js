@@ -2,94 +2,48 @@
 (function () {
     'use strict';
 
-    // ========================================
-    // CONFIGURATION & API ENDPOINTS
-    // ========================================
-    const API_CONFIG = {
-        // Replace these with your actual API endpoints
-        endpoints: {
-            getAdministrators: '/api/administrators/list',
-            getAdministratorById: '/api/administrators/get',
-            getActivityLogs: '/api/administrators/activity-logs',
-            getAdminActivityLogs: '/api/administrators/activity-logs/by-admin'
-        },
-        useMockData: true // Set to false when connecting to real backend
-    };
-
-    // ========================================
-    // SAMPLE DATA (Remove when using real API)
-    // ========================================
-    const MOCK_DATA = {
+    // Sample data - Replace with API calls to your database
+    const ADMINISTRATOR_DATA = {
         administrators: [
             {
-                administratorId: 1,
-                administratorName: "Juan Dela Cruz",
-                email: "juan.delacruz@school.edu",
-                password: "SecurePass123!",
-                lastActive: new Date('2026-01-14T10:30:00')
+                administratorId: 1, administratorName: "Juan Dela Cruz", email: "juan.delacruz@school.edu",
+                password: "SecurePass123!", lastActive: new Date('2026-01-14T10:30:00')
             },
             {
-                administratorId: 2,
-                administratorName: "Maria Santos",
-                email: "maria.santos@school.edu",
-                password: "Maria2026#Pwd",
-                lastActive: new Date('2026-01-14T14:20:00')
+                administratorId: 2, administratorName: "Maria Santos", email: "maria.santos@school.edu",
+                password: "Maria2026#Pwd", lastActive: new Date('2026-01-14T14:20:00')
             },
             {
-                administratorId: 3,
-                administratorName: "Pedro Garcia",
-                email: "pedro.garcia@school.edu",
-                password: "Pedro@2026",
-                lastActive: new Date('2026-01-13T09:15:00')
+                administratorId: 3, administratorName: "Pedro Garcia", email: "pedro.garcia@school.edu",
+                password: "Pedro@2026", lastActive: new Date('2026-01-13T09:15:00')
             },
             {
-                administratorId: 4,
-                administratorName: "Ana Reyes",
-                email: "ana.reyes@school.edu",
-                password: "Ana$ecure99",
-                lastActive: new Date('2026-01-14T11:45:00')
+                administratorId: 4, administratorName: "Ana Reyes", email: "ana.reyes@school.edu",
+                password: "Ana$ecure99", lastActive: new Date('2026-01-14T11:45:00')
             },
             {
-                administratorId: 5,
-                administratorName: "Carlos Lopez",
-                email: "carlos.lopez@school.edu",
-                password: "Carlos2026!",
-                lastActive: new Date('2026-01-12T16:30:00')
+                administratorId: 5, administratorName: "Carlos Lopez", email: "carlos.lopez@school.edu",
+                password: "Carlos2026!", lastActive: new Date('2026-01-12T16:30:00')
             },
             {
-                administratorId: 6,
-                administratorName: "Sofia Cruz",
-                email: "sofia.cruz@school.edu",
-                password: "Sofia#Admin1",
-                lastActive: new Date('2026-01-14T08:00:00')
+                administratorId: 6, administratorName: "Sofia Cruz", email: "sofia.cruz@school.edu",
+                password: "Sofia#Admin1", lastActive: new Date('2026-01-14T08:00:00')
             },
             {
-                administratorId: 7,
-                administratorName: "Miguel Torres",
-                email: "miguel.torres@school.edu",
-                password: "Miguel@Pass26",
-                lastActive: new Date('2026-01-11T13:20:00')
+                administratorId: 7, administratorName: "Miguel Torres", email: "miguel.torres@school.edu",
+                password: "Miguel@Pass26", lastActive: new Date('2026-01-11T13:20:00')
             },
             {
-                administratorId: 8,
-                administratorName: "Isabella Ramos",
-                email: "isabella.ramos@school.edu",
-                password: "Bella2026$",
-                lastActive: new Date('2026-01-14T15:10:00')
+                administratorId: 8, administratorName: "Isabella Ramos", email: "isabella.ramos@school.edu",
+                password: "Bella2026$", lastActive: new Date('2026-01-14T15:10:00')
             },
             {
-                administratorId: 9,
-                administratorName: "Diego Fernandez",
-                email: "diego.fernandez@school.edu",
-                password: "Diego#2026Sec",
-                lastActive: new Date('2026-01-10T10:00:00')
+                administratorId: 9, administratorName: "Diego Fernandez", email: "diego.fernandez@school.edu",
+                password: "Diego#2026Sec", lastActive: new Date('2026-01-10T10:00:00')
             },
             {
-                administratorId: 10,
-                administratorName: "Gabriela Mendoza",
-                email: "gabriela.mendoza@school.edu",
-                password: "Gaby@SecPwd26",
-                lastActive: new Date('2026-01-14T12:30:00')
+                administratorId: 10, administratorName: "Gabriela Mendoza", email: "gabriela.mendoza@school.edu",
+                password: "Gaby@SecPwd26", lastActive: new Date('2026-01-14T12:30:00')
             }
         ],
         activityLogs: [
@@ -111,178 +65,29 @@
         ]
     };
 
-    // ========================================
-    // API SERVICE LAYER
-    // ========================================
-    const ApiService = {
-        /**
-         * Fetch all administrators
-         * Backend should return: { success: bool, data: Administrator[], message: string }
-         */
-        async fetchAdministrators() {
-            if (API_CONFIG.useMockData) {
-                return Promise.resolve({
-                    success: true,
-                    data: MOCK_DATA.administrators,
-                    message: 'Success'
-                });
-            }
+    // Pagination state
+    let currentAdministratorPage = 1;
+    let currentActivityPage = 1;
+    const rowsPerPage = 10;
 
-            try {
-                const response = await fetch(API_CONFIG.endpoints.getAdministrators);
-                const result = await response.json();
-                // Convert date strings to Date objects
-                if (result.success && result.data) {
-                    result.data = result.data.map(admin => ({
-                        ...admin,
-                        lastActive: new Date(admin.lastActive)
-                    }));
-                }
-                return result;
-            } catch (error) {
-                console.error('Error fetching administrators:', error);
-                return { success: false, data: [], message: error.message };
-            }
-        },
+    // Filtered data
+    let filteredAdministrators = [];
+    let filteredActivities = [];
 
-        /**
-         * Fetch specific administrator by ID
-         * Backend should return: { success: bool, data: Administrator, message: string }
-         */
-        async fetchAdministratorById(administratorId) {
-            if (API_CONFIG.useMockData) {
-                const admin = MOCK_DATA.administrators.find(a => a.administratorId === administratorId);
-                return Promise.resolve({
-                    success: !!admin,
-                    data: admin,
-                    message: admin ? 'Success' : 'Administrator not found'
-                });
-            }
+    // Sort state
+    let administratorSortColumn = null;
+    let administratorSortAsc = true;
+    let activitySortColumn = null;
+    let activitySortAsc = true;
 
-            try {
-                const response = await fetch(`${API_CONFIG.endpoints.getAdministratorById}?id=${administratorId}`);
-                const result = await response.json();
-                if (result.success && result.data) {
-                    result.data.lastActive = new Date(result.data.lastActive);
-                }
-                return result;
-            } catch (error) {
-                console.error('Error fetching administrator:', error);
-                return { success: false, data: null, message: error.message };
-            }
-        },
-
-        /**
-         * Fetch all activity logs
-         * Backend should return: { success: bool, data: ActivityLog[], message: string }
-         */
-        async fetchActivityLogs() {
-            if (API_CONFIG.useMockData) {
-                return Promise.resolve({
-                    success: true,
-                    data: MOCK_DATA.activityLogs,
-                    message: 'Success'
-                });
-            }
-
-            try {
-                const response = await fetch(API_CONFIG.endpoints.getActivityLogs);
-                const result = await response.json();
-                if (result.success && result.data) {
-                    result.data = result.data.map(log => ({
-                        ...log,
-                        timeOfAction: new Date(log.timeOfAction)
-                    }));
-                }
-                return result;
-            } catch (error) {
-                console.error('Error fetching activity logs:', error);
-                return { success: false, data: [], message: error.message };
-            }
-        },
-
-        /**
-         * Fetch activity logs for specific administrator
-         * Backend should return: { success: bool, data: ActivityLog[], message: string }
-         */
-        async fetchAdminActivityLogs(administratorId) {
-            if (API_CONFIG.useMockData) {
-                const logs = MOCK_DATA.activityLogs.filter(log => log.administratorId === administratorId);
-                return Promise.resolve({
-                    success: true,
-                    data: logs,
-                    message: 'Success'
-                });
-            }
-
-            try {
-                const response = await fetch(`${API_CONFIG.endpoints.getAdminActivityLogs}?adminId=${administratorId}`);
-                const result = await response.json();
-                if (result.success && result.data) {
-                    result.data = result.data.map(log => ({
-                        ...log,
-                        timeOfAction: new Date(log.timeOfAction)
-                    }));
-                }
-                return result;
-            } catch (error) {
-                console.error('Error fetching admin activity logs:', error);
-                return { success: false, data: [], message: error.message };
-            }
-        }
-    };
-
-    // ========================================
-    // STATE MANAGEMENT
-    // ========================================
-    const AppState = {
-        administrators: [],
-        activityLogs: [],
-        filteredAdministrators: [],
-        filteredActivities: [],
-        currentAdministratorPage: 1,
-        currentActivityPage: 1,
-        rowsPerPage: 10,
-        administratorSortColumn: null,
-        administratorSortAsc: true,
-        activitySortColumn: null,
-        activitySortAsc: true
-    };
-
-    // ========================================
-    // UTILITY FUNCTIONS
-    // ========================================
-    function formatDateForDropdown(date) {
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        const month = months[date.getMonth()];
-        const day = String(date.getDate()).padStart(2, '0');
-        const year = date.getFullYear();
-        return `${month}. ${day}, ${year}`;
-    }
-
-    function formatDateTimeForDisplay(date) {
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        const month = months[date.getMonth()];
-        const day = String(date.getDate()).padStart(2, '0');
-        const year = date.getFullYear();
-        const hours = String(date.getHours()).padStart(2, '0');
-        const minutes = String(date.getMinutes()).padStart(2, '0');
-        return `${month}. ${day}, ${year} ${hours}:${minutes}`;
-    }
-
-    // ========================================
-    // INITIALIZATION
-    // ========================================
-    document.addEventListener('DOMContentLoaded', async function () {
+    // Initialize when DOM is ready
+    document.addEventListener('DOMContentLoaded', function () {
         initializeTabs();
-        await initializeAdministratorList();
+        initializeAdministratorList();
         populateDateDropdowns();
-        setupModalControls();
     });
 
-    // ========================================
-    // TAB FUNCTIONALITY
-    // ========================================
+    // Tab functionality
     function initializeTabs() {
         const tabHeaders = document.querySelectorAll('.tab-header');
 
@@ -294,14 +99,19 @@
         });
     }
 
-    async function switchTab(targetTabId) {
+    function switchTab(targetTabId) {
         const tabHeaders = document.querySelectorAll('.tab-header');
         const tabContents = document.querySelectorAll('.tab-content');
 
-        tabHeaders.forEach(header => header.classList.remove('active'));
-        tabContents.forEach(content => content.classList.remove('active'));
+        tabHeaders.forEach(function (header) {
+            header.classList.remove('active');
+        });
 
-        const activeHeader = document.querySelector(`.tab-header[data-tab="${targetTabId}"]`);
+        tabContents.forEach(function (content) {
+            content.classList.remove('active');
+        });
+
+        const activeHeader = document.querySelector('.tab-header[data-tab="' + targetTabId + '"]');
         const activeContent = document.getElementById(targetTabId);
 
         if (activeHeader && activeContent) {
@@ -309,8 +119,8 @@
             activeContent.classList.add('active');
 
             // Load data for the tab
-            if (targetTabId === 'activity-logs' && AppState.activityLogs.length === 0) {
-                await initializeActivityLogs();
+            if (targetTabId === 'activity-logs' && filteredActivities.length === 0) {
+                initializeActivityLogs();
             }
         }
 
@@ -321,9 +131,7 @@
         }
     }
 
-    // ========================================
-    // DATE DROPDOWN POPULATION
-    // ========================================
+    // Populate date dropdowns
     function populateDateDropdowns() {
         const lastActiveFilter = document.getElementById('lastActiveFilter');
         const timeOfActionFilter = document.getElementById('timeOfActionFilter');
@@ -347,27 +155,43 @@
         }
     }
 
-    // ========================================
-    // ADMINISTRATOR LIST FUNCTIONALITY
-    // ========================================
-    async function initializeAdministratorList() {
-        const result = await ApiService.fetchAdministrators();
+    function formatDateForDropdown(date) {
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const month = months[date.getMonth()];
+        const day = String(date.getDate()).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${month}. ${day}, ${year}`;
+    }
 
-        if (result.success) {
-            AppState.administrators = result.data;
-            AppState.filteredAdministrators = [...result.data];
-            renderAdministratorTable();
-            setupAdministratorControls();
-        } else {
-            console.error('Failed to load administrators:', result.message);
-            showError('Failed to load administrators. Please refresh the page.');
-        }
+    function formatDateTimeForDisplay(date) {
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const month = months[date.getMonth()];
+        const day = String(date.getDate()).padStart(2, '0');
+        const year = date.getFullYear();
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        return `${month}. ${day}, ${year} ${hours}:${minutes}`;
+    }
+
+    // Administrator List functionality
+    function initializeAdministratorList() {
+        filteredAdministrators = [...ADMINISTRATOR_DATA.administrators];
+        renderAdministratorTable();
+        setupAdministratorControls();
     }
 
     function setupAdministratorControls() {
-        document.getElementById('administratorSearch').addEventListener('input', filterAdministrators);
-        document.getElementById('lastActiveFilter').addEventListener('change', filterAdministrators);
+        // Search
+        document.getElementById('administratorSearch').addEventListener('input', function (e) {
+            filterAdministrators();
+        });
 
+        // Date filter
+        document.getElementById('lastActiveFilter').addEventListener('change', function (e) {
+            filterAdministrators();
+        });
+
+        // Sort headers
         document.querySelectorAll('#administratorTable th[data-sort]').forEach(th => {
             th.addEventListener('click', function () {
                 sortAdministrators(this.getAttribute('data-sort'));
@@ -379,7 +203,7 @@
         const searchTerm = document.getElementById('administratorSearch').value.toLowerCase();
         const dateFilter = document.getElementById('lastActiveFilter').value;
 
-        AppState.filteredAdministrators = AppState.administrators.filter(administrator => {
+        filteredAdministrators = ADMINISTRATOR_DATA.administrators.filter(administrator => {
             const matchesSearch =
                 administrator.administratorName.toLowerCase().includes(searchTerm) ||
                 administrator.email.toLowerCase().includes(searchTerm);
@@ -399,19 +223,19 @@
             return matchesSearch && matchesDate;
         });
 
-        AppState.currentAdministratorPage = 1;
+        currentAdministratorPage = 1;
         renderAdministratorTable();
     }
 
     function sortAdministrators(column) {
-        if (AppState.administratorSortColumn === column) {
-            AppState.administratorSortAsc = !AppState.administratorSortAsc;
+        if (administratorSortColumn === column) {
+            administratorSortAsc = !administratorSortAsc;
         } else {
-            AppState.administratorSortColumn = column;
-            AppState.administratorSortAsc = true;
+            administratorSortColumn = column;
+            administratorSortAsc = true;
         }
 
-        AppState.filteredAdministrators.sort((a, b) => {
+        filteredAdministrators.sort((a, b) => {
             let valA, valB;
 
             if (column === 'administratorName') {
@@ -425,8 +249,8 @@
                 valB = b.lastActive.getTime();
             }
 
-            if (valA < valB) return AppState.administratorSortAsc ? -1 : 1;
-            if (valA > valB) return AppState.administratorSortAsc ? 1 : -1;
+            if (valA < valB) return administratorSortAsc ? -1 : 1;
+            if (valA > valB) return administratorSortAsc ? 1 : -1;
             return 0;
         });
 
@@ -435,9 +259,9 @@
 
     function renderAdministratorTable() {
         const tbody = document.getElementById('administratorTableBody');
-        const start = (AppState.currentAdministratorPage - 1) * AppState.rowsPerPage;
-        const end = start + AppState.rowsPerPage;
-        const pageData = AppState.filteredAdministrators.slice(start, end);
+        const start = (currentAdministratorPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const pageData = filteredAdministrators.slice(start, end);
 
         tbody.innerHTML = pageData.map(administrator => `
             <tr>
@@ -459,45 +283,47 @@
             </tr>
         `).join('');
 
+        // Setup action buttons
         setupActionButtons();
         updateAdministratorPagination();
     }
 
     function setupActionButtons() {
+        // Toggle dropdowns
         document.querySelectorAll('.kebab-btn').forEach(btn => {
             btn.addEventListener('click', function (e) {
                 e.stopPropagation();
                 const dropdown = this.nextElementSibling;
+
+                // Close all other dropdowns
                 document.querySelectorAll('.action-dropdown').forEach(d => {
                     if (d !== dropdown) d.classList.remove('show');
                 });
+
                 dropdown.classList.toggle('show');
             });
         });
 
+        // View details
         document.querySelectorAll('.view-details-btn').forEach(btn => {
-            btn.addEventListener('click', async function () {
+            btn.addEventListener('click', function () {
                 const administratorId = parseInt(this.getAttribute('data-administrator-id'));
-                await showAdministratorDetails(administratorId);
+                showAdministratorDetails(administratorId);
+
+                // Close dropdown
                 document.querySelectorAll('.action-dropdown').forEach(d => d.classList.remove('show'));
             });
         });
 
+        // Close dropdowns when clicking outside
         document.addEventListener('click', function () {
             document.querySelectorAll('.action-dropdown').forEach(d => d.classList.remove('show'));
         });
     }
 
-    async function showAdministratorDetails(administratorId) {
-        // Fetch administrator details
-        const adminResult = await ApiService.fetchAdministratorById(administratorId);
-
-        if (!adminResult.success) {
-            showError('Failed to load administrator details.');
-            return;
-        }
-
-        const administrator = adminResult.data;
+    function showAdministratorDetails(administratorId) {
+        const administrator = ADMINISTRATOR_DATA.administrators.find(a => a.administratorId === administratorId);
+        if (!administrator) return;
 
         // Check if modal elements exist
         const nameEl = document.getElementById('administratorName');
@@ -516,12 +342,13 @@
         passwordEl.textContent = '••••••••••';
         lastActiveEl.textContent = formatDateTimeForDisplay(administrator.lastActive);
 
-        // Fetch activity logs for this administrator
-        const logsResult = await ApiService.fetchAdminActivityLogs(administratorId);
-        const activityTableBody = document.getElementById('adminActivityLogsBody');
+        // Get activity logs for this administrator
+        const adminLogs = ADMINISTRATOR_DATA.activityLogs.filter(log => log.administratorId === administratorId);
 
-        if (logsResult.success && logsResult.data.length > 0) {
-            activityTableBody.innerHTML = logsResult.data.map(log => `
+        // Populate activity logs table
+        const activityTableBody = document.getElementById('adminActivityLogsBody');
+        if (adminLogs.length > 0) {
+            activityTableBody.innerHTML = adminLogs.map(log => `
                 <tr>
                     <td>${log.logId}</td>
                     <td><span class="action-badge action-${log.actionType.toLowerCase().replace(/\s+/g, '-')}">${log.actionType}</span></td>
@@ -543,11 +370,41 @@
         document.body.style.overflow = 'hidden';
     }
 
+    // Modal controls
+    document.addEventListener('DOMContentLoaded', function () {
+        // Close modal button
+        const closeBtn = document.getElementById('closeModal');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeModal);
+        }
+
+        // Close when clicking outside
+        const modal = document.getElementById('administratorModal');
+        if (modal) {
+            modal.addEventListener('click', function (e) {
+                if (e.target === this) closeModal();
+            });
+        }
+
+        // Close with Escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeModal();
+        });
+    });
+
+    function closeModal() {
+        const modal = document.getElementById('administratorModal');
+        if (modal) {
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+    }
+
     function updateAdministratorPagination() {
-        const total = AppState.filteredAdministrators.length;
-        const totalPages = Math.ceil(total / AppState.rowsPerPage);
-        const start = (AppState.currentAdministratorPage - 1) * AppState.rowsPerPage + 1;
-        const end = Math.min(start + AppState.rowsPerPage - 1, total);
+        const total = filteredAdministrators.length;
+        const totalPages = Math.ceil(total / rowsPerPage);
+        const start = (currentAdministratorPage - 1) * rowsPerPage + 1;
+        const end = Math.min(start + rowsPerPage - 1, total);
 
         document.getElementById('administratorShowingStart').textContent = total > 0 ? start : 0;
         document.getElementById('administratorShowingEnd').textContent = end;
@@ -560,10 +417,10 @@
         const prevBtn = document.createElement('button');
         prevBtn.textContent = '← Previous';
         prevBtn.className = 'pagination-btn';
-        prevBtn.disabled = AppState.currentAdministratorPage === 1;
+        prevBtn.disabled = currentAdministratorPage === 1;
         prevBtn.addEventListener('click', () => {
-            if (AppState.currentAdministratorPage > 1) {
-                AppState.currentAdministratorPage--;
+            if (currentAdministratorPage > 1) {
+                currentAdministratorPage--;
                 renderAdministratorTable();
             }
         });
@@ -571,16 +428,16 @@
 
         // Page numbers
         for (let i = 1; i <= totalPages; i++) {
-            if (i === 1 || i === totalPages || (i >= AppState.currentAdministratorPage - 1 && i <= AppState.currentAdministratorPage + 1)) {
+            if (i === 1 || i === totalPages || (i >= currentAdministratorPage - 1 && i <= currentAdministratorPage + 1)) {
                 const pageBtn = document.createElement('button');
                 pageBtn.textContent = i;
-                pageBtn.className = 'pagination-btn' + (i === AppState.currentAdministratorPage ? ' active' : '');
+                pageBtn.className = 'pagination-btn' + (i === currentAdministratorPage ? ' active' : '');
                 pageBtn.addEventListener('click', () => {
-                    AppState.currentAdministratorPage = i;
+                    currentAdministratorPage = i;
                     renderAdministratorTable();
                 });
                 pagination.appendChild(pageBtn);
-            } else if (i === AppState.currentAdministratorPage - 2 || i === AppState.currentAdministratorPage + 2) {
+            } else if (i === currentAdministratorPage - 2 || i === currentAdministratorPage + 2) {
                 const dots = document.createElement('span');
                 dots.textContent = '...';
                 dots.className = 'pagination-dots';
@@ -592,37 +449,35 @@
         const nextBtn = document.createElement('button');
         nextBtn.textContent = 'Next →';
         nextBtn.className = 'pagination-btn';
-        nextBtn.disabled = AppState.currentAdministratorPage === totalPages || totalPages === 0;
+        nextBtn.disabled = currentAdministratorPage === totalPages || totalPages === 0;
         nextBtn.addEventListener('click', () => {
-            if (AppState.currentAdministratorPage < totalPages) {
-                AppState.currentAdministratorPage++;
+            if (currentAdministratorPage < totalPages) {
+                currentAdministratorPage++;
                 renderAdministratorTable();
             }
         });
         pagination.appendChild(nextBtn);
     }
 
-    // ========================================
-    // ACTIVITY LOGS FUNCTIONALITY
-    // ========================================
-    async function initializeActivityLogs() {
-        const result = await ApiService.fetchActivityLogs();
-
-        if (result.success) {
-            AppState.activityLogs = result.data;
-            AppState.filteredActivities = [...result.data];
-            renderActivityTable();
-            setupActivityControls();
-        } else {
-            console.error('Failed to load activity logs:', result.message);
-            showError('Failed to load activity logs. Please refresh the page.');
-        }
+    // Activity Logs functionality
+    function initializeActivityLogs() {
+        filteredActivities = [...ADMINISTRATOR_DATA.activityLogs];
+        renderActivityTable();
+        setupActivityControls();
     }
 
     function setupActivityControls() {
-        document.getElementById('activitySearch').addEventListener('input', filterActivities);
-        document.getElementById('timeOfActionFilter').addEventListener('change', filterActivities);
+        // Search
+        document.getElementById('activitySearch').addEventListener('input', function (e) {
+            filterActivities();
+        });
 
+        // Date filter
+        document.getElementById('timeOfActionFilter').addEventListener('change', function (e) {
+            filterActivities();
+        });
+
+        // Sort headers
         document.querySelectorAll('#activityTable th[data-sort]').forEach(th => {
             th.addEventListener('click', function () {
                 sortActivities(this.getAttribute('data-sort'));
@@ -634,7 +489,7 @@
         const searchTerm = document.getElementById('activitySearch').value.toLowerCase();
         const dateFilter = document.getElementById('timeOfActionFilter').value;
 
-        AppState.filteredActivities = AppState.activityLogs.filter(log => {
+        filteredActivities = ADMINISTRATOR_DATA.activityLogs.filter(log => {
             const matchesSearch =
                 String(log.logId).includes(searchTerm) ||
                 String(log.administratorId).includes(searchTerm) ||
@@ -658,19 +513,19 @@
             return matchesSearch && matchesDate;
         });
 
-        AppState.currentActivityPage = 1;
+        currentActivityPage = 1;
         renderActivityTable();
     }
 
     function sortActivities(column) {
-        if (AppState.activitySortColumn === column) {
-            AppState.activitySortAsc = !AppState.activitySortAsc;
+        if (activitySortColumn === column) {
+            activitySortAsc = !activitySortAsc;
         } else {
-            AppState.activitySortColumn = column;
-            AppState.activitySortAsc = true;
+            activitySortColumn = column;
+            activitySortAsc = true;
         }
 
-        AppState.filteredActivities.sort((a, b) => {
+        filteredActivities.sort((a, b) => {
             let valA, valB;
 
             if (column === 'logId' || column === 'administratorId') {
@@ -684,8 +539,8 @@
                 valB = b[column].toLowerCase();
             }
 
-            if (valA < valB) return AppState.activitySortAsc ? -1 : 1;
-            if (valA > valB) return AppState.activitySortAsc ? 1 : -1;
+            if (valA < valB) return activitySortAsc ? -1 : 1;
+            if (valA > valB) return activitySortAsc ? 1 : -1;
             return 0;
         });
 
@@ -694,9 +549,9 @@
 
     function renderActivityTable() {
         const tbody = document.getElementById('activityTableBody');
-        const start = (AppState.currentActivityPage - 1) * AppState.rowsPerPage;
-        const end = start + AppState.rowsPerPage;
-        const pageData = AppState.filteredActivities.slice(start, end);
+        const start = (currentActivityPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const pageData = filteredActivities.slice(start, end);
 
         tbody.innerHTML = pageData.map(log => `
             <tr>
@@ -714,10 +569,10 @@
     }
 
     function updateActivityPagination() {
-        const total = AppState.filteredActivities.length;
-        const totalPages = Math.ceil(total / AppState.rowsPerPage);
-        const start = (AppState.currentActivityPage - 1) * AppState.rowsPerPage + 1;
-        const end = Math.min(start + AppState.rowsPerPage - 1, total);
+        const total = filteredActivities.length;
+        const totalPages = Math.ceil(total / rowsPerPage);
+        const start = (currentActivityPage - 1) * rowsPerPage + 1;
+        const end = Math.min(start + rowsPerPage - 1, total);
 
         document.getElementById('activityShowingStart').textContent = total > 0 ? start : 0;
         document.getElementById('activityShowingEnd').textContent = end;
@@ -730,10 +585,10 @@
         const prevBtn = document.createElement('button');
         prevBtn.textContent = '← Previous';
         prevBtn.className = 'pagination-btn';
-        prevBtn.disabled = AppState.currentActivityPage === 1;
+        prevBtn.disabled = currentActivityPage === 1;
         prevBtn.addEventListener('click', () => {
-            if (AppState.currentActivityPage > 1) {
-                AppState.currentActivityPage--;
+            if (currentActivityPage > 1) {
+                currentActivityPage--;
                 renderActivityTable();
             }
         });
@@ -741,16 +596,16 @@
 
         // Page numbers
         for (let i = 1; i <= totalPages; i++) {
-            if (i === 1 || i === totalPages || (i >= AppState.currentActivityPage - 1 && i <= AppState.currentActivityPage + 1)) {
+            if (i === 1 || i === totalPages || (i >= currentActivityPage - 1 && i <= currentActivityPage + 1)) {
                 const pageBtn = document.createElement('button');
                 pageBtn.textContent = i;
-                pageBtn.className = 'pagination-btn' + (i === AppState.currentActivityPage ? ' active' : '');
+                pageBtn.className = 'pagination-btn' + (i === currentActivityPage ? ' active' : '');
                 pageBtn.addEventListener('click', () => {
-                    AppState.currentActivityPage = i;
+                    currentActivityPage = i;
                     renderActivityTable();
                 });
                 pagination.appendChild(pageBtn);
-            } else if (i === AppState.currentActivityPage - 2 || i === AppState.currentActivityPage + 2) {
+            } else if (i === currentActivityPage - 2 || i === currentActivityPage + 2) {
                 const dots = document.createElement('span');
                 dots.textContent = '...';
                 dots.className = 'pagination-dots';
@@ -762,52 +617,14 @@
         const nextBtn = document.createElement('button');
         nextBtn.textContent = 'Next →';
         nextBtn.className = 'pagination-btn';
-        nextBtn.disabled = AppState.currentActivityPage === totalPages || totalPages === 0;
+        nextBtn.disabled = currentActivityPage === totalPages || totalPages === 0;
         nextBtn.addEventListener('click', () => {
-            if (AppState.currentActivityPage < totalPages) {
-                AppState.currentActivityPage++;
+            if (currentActivityPage < totalPages) {
+                currentActivityPage++;
                 renderActivityTable();
             }
         });
         pagination.appendChild(nextBtn);
-    }
-
-    // ========================================
-    // MODAL CONTROLS
-    // ========================================
-    function setupModalControls() {
-        const closeBtn = document.getElementById('closeModal');
-        if (closeBtn) {
-            closeBtn.addEventListener('click', closeModal);
-        }
-
-        const modal = document.getElementById('administratorModal');
-        if (modal) {
-            modal.addEventListener('click', function (e) {
-                if (e.target === this) closeModal();
-            });
-        }
-
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') closeModal();
-        });
-    }
-
-    function closeModal() {
-        const modal = document.getElementById('administratorModal');
-        if (modal) {
-            modal.classList.remove('show');
-            document.body.style.overflow = '';
-        }
-    }
-
-    // ========================================
-    // ERROR HANDLING
-    // ========================================
-    function showError(message) {
-        // You can customize this to use your preferred notification system
-        alert(message);
-        console.error(message);
     }
 
 })();
