@@ -27,7 +27,7 @@
 
                 <!-- Search and Filters -->
                 <div class="table-controls">
-                    <input type="text" id="administratorSearch" placeholder="Search administrators, roles, or departments..." class="search-input">
+                    <input type="text" id="administratorSearch" placeholder="Search administrators or email..." class="search-input">
                     <select id="lastActiveFilter" class="filter-select">
                         <option value="">All Dates</option>
                         <option value="today">Today</option>
@@ -42,8 +42,6 @@
                         <thead>
                             <tr>
                                 <th data-sort="administratorName">Administrator Name <span class="sort-icon">⬍</span></th>
-                                <th data-sort="role">Role <span class="sort-icon">⬍</span></th>
-                                <th data-sort="department">Department <span class="sort-icon">⬍</span></th>
                                 <th data-sort="email">Email <span class="sort-icon">⬍</span></th>
                                 <th data-sort="lastActive">Last Active <span class="sort-icon">⬍</span></th>
                                 <th class="actions-column">Actions</th>
@@ -118,7 +116,59 @@
     </div>
 </div>
 
-<!-- Include Administrator Details Modal Partial -->
-@Html.Partial("_AdministratorDetailsModal")
+<!-- Administrator Details Modal -->
+<div id="administratorModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Administrator Details</h2>
+            <button class="modal-close" id="closeModal">&times;</button>
+        </div>
+        <div class="modal-body" id="modalBody">
+            <!-- Basic Information -->
+            <div class="modal-section" id="basicInfoSection">
+                <h3 class="section-title">📋 Basic Information</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Name</span>
+                        <span class="info-value" id="administratorName"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Email</span>
+                        <span class="info-value" id="administratorEmail"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Last Active</span>
+                        <span class="info-value" id="administratorLastActive"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Password</span>
+                        <span class="info-value password-masked" id="administratorPassword">••••••••••</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity Logs Section -->
+            <div class="modal-section" id="activityLogsSection">
+                <h3 class="section-title">📊 Activity Logs</h3>
+                <div class="activity-logs-table-wrapper">
+                    <table class="activity-logs-table">
+                        <thead>
+                            <tr>
+                                <th>Log ID</th>
+                                <th>Action Type</th>
+                                <th>Action Tag</th>
+                                <th>Device Info</th>
+                                <th>Time of Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminActivityLogsBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="~/Scripts/AdministrationScript.js"></script>
