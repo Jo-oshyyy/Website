@@ -6,44 +6,34 @@
     const ADMINISTRATOR_DATA = {
         administrators: [
             {
-                administratorId: 1, administratorName: "Juan Dela Cruz", email: "juan.delacruz@school.edu",
-                password: "SecurePass123!", lastActive: new Date('2026-01-14T10:30:00')
+                administratorId: 1, administratorName: "Juan Dela Cruz", role: "Super Admin", department: "IT Department", email: "juan.delacruz@school.edu", lastActive: new Date('2026-01-14T10:30:00')
             },
             {
-                administratorId: 2, administratorName: "Maria Santos", email: "maria.santos@school.edu",
-                password: "Maria2026#Pwd", lastActive: new Date('2026-01-14T14:20:00')
+                administratorId: 2, administratorName: "Maria Santos", role: "Admin", department: "Academic Affairs", email: "maria.santos@school.edu", lastActive: new Date('2026-01-14T14:20:00')
             },
             {
-                administratorId: 3, administratorName: "Pedro Garcia", email: "pedro.garcia@school.edu",
-                password: "Pedro@2026", lastActive: new Date('2026-01-13T09:15:00')
+                administratorId: 3, administratorName: "Pedro Garcia", role: "Moderator", department: "Student Services", email: "pedro.garcia@school.edu", lastActive: new Date('2026-01-13T09:15:00')
             },
             {
-                administratorId: 4, administratorName: "Ana Reyes", email: "ana.reyes@school.edu",
-                password: "Ana$ecure99", lastActive: new Date('2026-01-14T11:45:00')
+                administratorId: 4, administratorName: "Ana Reyes", role: "Admin", department: "HR Department", email: "ana.reyes@school.edu", lastActive: new Date('2026-01-14T11:45:00')
             },
             {
-                administratorId: 5, administratorName: "Carlos Lopez", email: "carlos.lopez@school.edu",
-                password: "Carlos2026!", lastActive: new Date('2026-01-12T16:30:00')
+                administratorId: 5, administratorName: "Carlos Lopez", role: "Moderator", department: "IT Department", email: "carlos.lopez@school.edu", lastActive: new Date('2026-01-12T16:30:00')
             },
             {
-                administratorId: 6, administratorName: "Sofia Cruz", email: "sofia.cruz@school.edu",
-                password: "Sofia#Admin1", lastActive: new Date('2026-01-14T08:00:00')
+                administratorId: 6, administratorName: "Sofia Cruz", role: "Super Admin", department: "Academic Affairs", email: "sofia.cruz@school.edu", lastActive: new Date('2026-01-14T08:00:00')
             },
             {
-                administratorId: 7, administratorName: "Miguel Torres", email: "miguel.torres@school.edu",
-                password: "Miguel@Pass26", lastActive: new Date('2026-01-11T13:20:00')
+                administratorId: 7, administratorName: "Miguel Torres", role: "Admin", department: "Finance", email: "miguel.torres@school.edu", lastActive: new Date('2026-01-11T13:20:00')
             },
             {
-                administratorId: 8, administratorName: "Isabella Ramos", email: "isabella.ramos@school.edu",
-                password: "Bella2026$", lastActive: new Date('2026-01-14T15:10:00')
+                administratorId: 8, administratorName: "Isabella Ramos", role: "Moderator", department: "Student Services", email: "isabella.ramos@school.edu", lastActive: new Date('2026-01-14T15:10:00')
             },
             {
-                administratorId: 9, administratorName: "Diego Fernandez", email: "diego.fernandez@school.edu",
-                password: "Diego#2026Sec", lastActive: new Date('2026-01-10T10:00:00')
+                administratorId: 9, administratorName: "Diego Fernandez", role: "Admin", department: "IT Department", email: "diego.fernandez@school.edu", lastActive: new Date('2026-01-10T10:00:00')
             },
             {
-                administratorId: 10, administratorName: "Gabriela Mendoza", email: "gabriela.mendoza@school.edu",
-                password: "Gaby@SecPwd26", lastActive: new Date('2026-01-14T12:30:00')
+                administratorId: 10, administratorName: "Gabriela Mendoza", role: "Super Admin", department: "HR Department", email: "gabriela.mendoza@school.edu", lastActive: new Date('2026-01-14T12:30:00')
             }
         ],
         activityLogs: [
@@ -58,10 +48,7 @@
             { logId: 1009, administratorId: 9, administratorName: "Diego Fernandez", actionType: "Logout", actionTag: "Web", deviceInfo: "Edge 120 / Windows 10", timeOfAction: new Date('2026-01-10T10:00:30') },
             { logId: 1010, administratorId: 10, administratorName: "Gabriela Mendoza", actionType: "Database Backup", actionTag: "System Maintenance", deviceInfo: "Chrome / Android 13", timeOfAction: new Date('2026-01-14T12:30:18') },
             { logId: 1011, administratorId: 1, administratorName: "Juan Dela Cruz", actionType: "Permission Update", actionTag: "Access Control", deviceInfo: "Chrome 120 / Windows 11", timeOfAction: new Date('2026-01-14T11:15:22') },
-            { logId: 1012, administratorId: 2, administratorName: "Maria Santos", actionType: "Logout", actionTag: "Mobile", deviceInfo: "Safari / iOS 17", timeOfAction: new Date('2026-01-14T16:45:33') },
-            { logId: 1013, administratorId: 1, administratorName: "Juan Dela Cruz", actionType: "User Update", actionTag: "User Management", deviceInfo: "Chrome 120 / Windows 11", timeOfAction: new Date('2026-01-13T14:25:10') },
-            { logId: 1014, administratorId: 3, administratorName: "Pedro Garcia", actionType: "Login", actionTag: "Web", deviceInfo: "Firefox 121 / Ubuntu", timeOfAction: new Date('2026-01-13T08:45:30') },
-            { logId: 1015, administratorId: 5, administratorName: "Carlos Lopez", actionType: "Settings Changed", actionTag: "System Config", deviceInfo: "Chrome / Android 14", timeOfAction: new Date('2026-01-12T15:20:45') }
+            { logId: 1012, administratorId: 2, administratorName: "Maria Santos", actionType: "Logout", actionTag: "Mobile", deviceInfo: "Safari / iOS 17", timeOfAction: new Date('2026-01-14T16:45:33') }
         ]
     };
 
@@ -206,6 +193,8 @@
         filteredAdministrators = ADMINISTRATOR_DATA.administrators.filter(administrator => {
             const matchesSearch =
                 administrator.administratorName.toLowerCase().includes(searchTerm) ||
+                administrator.role.toLowerCase().includes(searchTerm) ||
+                administrator.department.toLowerCase().includes(searchTerm) ||
                 administrator.email.toLowerCase().includes(searchTerm);
 
             let matchesDate = true;
@@ -241,6 +230,12 @@
             if (column === 'administratorName') {
                 valA = a.administratorName.toLowerCase();
                 valB = b.administratorName.toLowerCase();
+            } else if (column === 'role') {
+                valA = a.role.toLowerCase();
+                valB = b.role.toLowerCase();
+            } else if (column === 'department') {
+                valA = a.department.toLowerCase();
+                valB = b.department.toLowerCase();
             } else if (column === 'email') {
                 valA = a.email.toLowerCase();
                 valB = b.email.toLowerCase();
@@ -266,6 +261,8 @@
         tbody.innerHTML = pageData.map(administrator => `
             <tr>
                 <td>${administrator.administratorName}</td>
+                <td>${administrator.role}</td>
+                <td>${administrator.department}</td>
                 <td>${administrator.email}</td>
                 <td>${formatDateTimeForDisplay(administrator.lastActive)}</td>
                 <td class="actions-cell">
@@ -325,45 +322,12 @@
         const administrator = ADMINISTRATOR_DATA.administrators.find(a => a.administratorId === administratorId);
         if (!administrator) return;
 
-        // Check if modal elements exist
-        const nameEl = document.getElementById('administratorName');
-        const emailEl = document.getElementById('administratorEmail');
-        const passwordEl = document.getElementById('administratorPassword');
-        const lastActiveEl = document.getElementById('administratorLastActive');
-
-        if (!nameEl || !emailEl || !passwordEl || !lastActiveEl) {
-            console.error('Modal elements not found. Make sure the modal HTML is loaded.');
-            return;
-        }
-
-        // Populate basic information
-        nameEl.textContent = administrator.administratorName;
-        emailEl.textContent = administrator.email;
-        passwordEl.textContent = '••••••••••';
-        lastActiveEl.textContent = formatDateTimeForDisplay(administrator.lastActive);
-
-        // Get activity logs for this administrator
-        const adminLogs = ADMINISTRATOR_DATA.activityLogs.filter(log => log.administratorId === administratorId);
-
-        // Populate activity logs table
-        const activityTableBody = document.getElementById('adminActivityLogsBody');
-        if (adminLogs.length > 0) {
-            activityTableBody.innerHTML = adminLogs.map(log => `
-                <tr>
-                    <td>${log.logId}</td>
-                    <td><span class="action-badge action-${log.actionType.toLowerCase().replace(/\s+/g, '-')}">${log.actionType}</span></td>
-                    <td><span class="tag-badge">${log.actionTag}</span></td>
-                    <td>${log.deviceInfo}</td>
-                    <td>${formatDateTimeForDisplay(log.timeOfAction)}</td>
-                </tr>
-            `).join('');
-        } else {
-            activityTableBody.innerHTML = `
-                <tr>
-                    <td colspan="5" class="no-logs-message">No activity logs found for this administrator.</td>
-                </tr>
-            `;
-        }
+        // Populate modal with administrator details
+        document.getElementById('administratorName').textContent = administrator.administratorName;
+        document.getElementById('administratorRole').textContent = administrator.role;
+        document.getElementById('administratorDepartment').textContent = administrator.department;
+        document.getElementById('administratorEmail').textContent = administrator.email;
+        document.getElementById('administratorLastActive').textContent = formatDateTimeForDisplay(administrator.lastActive);
 
         // Show modal
         document.getElementById('administratorModal').classList.add('show');
