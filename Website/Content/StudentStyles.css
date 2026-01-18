@@ -387,7 +387,9 @@
     padding: 0 4px;
 }
 
-/* Modal Styles */
+/* Enhanced Modal Styles for Student Details */
+
+/* Modal Overlay */
 .modal {
     display: none;
     position: fixed;
@@ -395,7 +397,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 9999;
     overflow-y: auto;
     animation: fadeIn 0.3s;
@@ -412,11 +414,21 @@
     background: white;
     border-radius: 12px;
     width: 100%;
-    max-width: 900px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    max-width: 1200px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     animation: slideDown 0.3s;
     margin: auto;
     position: relative;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes slideDown {
@@ -480,7 +492,7 @@
 }
 
 .modal-section {
-    margin-bottom: 30px;
+    margin-bottom: 35px;
 }
 
     .modal-section:last-child {
@@ -488,12 +500,15 @@
     }
 
 .section-title {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     color: #212529;
     margin: 0 0 20px 0;
-    padding-bottom: 10px;
+    padding-bottom: 12px;
     border-bottom: 2px solid #e9ecef;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 /* Basic Information Grid */
@@ -507,6 +522,10 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 3px solid #0d6efd;
 }
 
 .info-label {
@@ -523,11 +542,12 @@
     color: #212529;
 }
 
-/* Assessment Cards */
-.assessment-cards {
+/* Growth Tracking Section */
+.assessment-summary {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
+    margin-bottom: 25px;
 }
 
 .assessment-card {
@@ -535,61 +555,129 @@
     padding: 20px;
     border-radius: 8px;
     border-left: 4px solid #0d6efd;
+    text-align: center;
 }
 
-    .assessment-card.improvement {
+    .assessment-card.pre {
+        border-left-color: #6c757d;
+    }
+
+    .assessment-card.post {
         border-left-color: #198754;
-        background: linear-gradient(135deg, #d1e7dd 0%, #f8f9fa 100%);
+    }
+
+    .assessment-card.improvement {
+        border-left-color: #ffc107;
+        background: linear-gradient(135deg, #fff3cd 0%, #f8f9fa 100%);
     }
 
 .assessment-label {
     font-size: 13px;
     font-weight: 600;
     color: #6c757d;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     text-transform: uppercase;
 }
 
 .assessment-score {
-    font-size: 32px;
+    font-size: 36px;
     font-weight: 700;
     color: #212529;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .improvement-value {
     color: #198754;
 }
 
-.assessment-bar {
-    height: 8px;
-    background: #dee2e6;
-    border-radius: 4px;
-    overflow: hidden;
+.assessment-sublabel {
+    font-size: 11px;
+    color: #6c757d;
 }
 
-.assessment-fill {
-    height: 100%;
-    border-radius: 4px;
-    transition: width 1s ease;
+/* Placement Badges */
+.placement-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 25px;
 }
 
-.improvement-icon {
-    font-size: 24px;
+.placement-card {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
     text-align: center;
-    margin-top: 8px;
 }
 
-/* Progress List */
-.progress-list {
+.placement-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #6c757d;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.placement-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+    .placement-badge.beginner {
+        background: #f8d7da;
+        color: #842029;
+    }
+
+    .placement-badge.below-grade {
+        background: #fff3cd;
+        color: #664d03;
+    }
+
+    .placement-badge.expected-grade {
+        background: #d1e7dd;
+        color: #0f5132;
+    }
+
+/* Chart Containers */
+.chart-container {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.chart-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.chart-wrapper {
+    position: relative;
+    height: 400px;
+}
+
+.radar-chart-wrapper {
+    position: relative;
+    height: 450px;
+}
+
+/* Module Progress List */
+.module-progress-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
 }
 
 .progress-item {
     background: #f8f9fa;
-    padding: 16px;
+    padding: 15px;
     border-radius: 8px;
 }
 
@@ -602,7 +690,7 @@
 
 .module-name {
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     color: #212529;
 }
 
@@ -624,62 +712,15 @@
     background: linear-gradient(90deg, #0d6efd 0%, #6610f2 100%);
     border-radius: 5px;
     transition: width 1s ease;
+    width: 0;
 }
 
-/* Score Grid */
-.score-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 15px;
-}
-
-.score-card {
-    background: #f8f9fa;
-    padding: 16px;
-    border-radius: 8px;
-    border-left: 4px solid #0d6efd;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.score-module {
-    font-size: 13px;
-    font-weight: 600;
-    color: #6c757d;
-}
-
-.score-value {
-    font-size: 28px;
-    font-weight: 700;
-    color: #212529;
-}
-
-.score-status {
-    font-size: 12px;
-    font-weight: 600;
-    padding: 4px 8px;
-    border-radius: 4px;
-    display: inline-block;
-    width: fit-content;
-}
-
-    .score-status.passing {
-        background: #d1e7dd;
-        color: #0f5132;
-    }
-
-    .score-status.needs-improvement {
-        background: #fff3cd;
-        color: #664d03;
-    }
-
-/* Intervention Section */
+/* Intervention Summary Cards */
 .intervention-summary {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .intervention-stat {
@@ -690,6 +731,7 @@
     flex-direction: column;
     gap: 8px;
     border-left: 4px solid #ffc107;
+    text-align: center;
 }
 
 .stat-label {
@@ -700,11 +742,17 @@
 }
 
 .stat-value {
-    font-size: 32px;
+    font-size: 36px;
     font-weight: 700;
     color: #212529;
 }
 
+.stat-sublabel {
+    font-size: 11px;
+    color: #6c757d;
+}
+
+/* Intervention Table */
 .intervention-table-wrapper {
     overflow-x: auto;
     border-radius: 8px;
@@ -715,6 +763,7 @@
     width: 100%;
     border-collapse: collapse;
     font-size: 14px;
+    background: white;
 }
 
     .intervention-table thead {
@@ -739,92 +788,108 @@
         border-bottom: none;
     }
 
-.positive-change {
-    color: #198754;
+    .intervention-table tbody tr:hover {
+        background: #f8f9fa;
+    }
+
+.pass-badge, .fail-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
     font-weight: 600;
+    text-transform: uppercase;
 }
 
-.negative-change {
-    color: #dc3545;
-    font-weight: 600;
+.pass-badge {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+.fail-badge {
+    background: #f8d7da;
+    color: #842029;
+}
+
+/* Dark Mode Support */
+body.dark-mode .modal-content {
+    background: #2D3748;
+}
+
+body.dark-mode .modal-header {
+    border-bottom-color: #4A5568;
+}
+
+    body.dark-mode .modal-header h2 {
+        color: #E2E8F0;
+    }
+
+body.dark-mode .modal-close {
+    color: #A0AEC0;
+}
+
+    body.dark-mode .modal-close:hover {
+        background: #374151;
+        color: #E2E8F0;
+    }
+
+body.dark-mode .section-title {
+    color: #E2E8F0;
+    border-bottom-color: #4A5568;
+}
+
+body.dark-mode .info-item,
+body.dark-mode .assessment-card,
+body.dark-mode .placement-card,
+body.dark-mode .chart-container,
+body.dark-mode .progress-item,
+body.dark-mode .intervention-stat {
+    background: #1A202C;
+    color: #E2E8F0;
+}
+
+body.dark-mode .info-label,
+body.dark-mode .assessment-label,
+body.dark-mode .placement-title,
+body.dark-mode .stat-label {
+    color: #A0AEC0;
+}
+
+body.dark-mode .info-value,
+body.dark-mode .assessment-score,
+body.dark-mode .stat-value,
+body.dark-mode .module-name {
+    color: #E2E8F0;
+}
+
+body.dark-mode .intervention-table {
+    background: #2D3748;
+}
+
+    body.dark-mode .intervention-table thead {
+        background: #1A202C;
+    }
+
+    body.dark-mode .intervention-table th {
+        color: #E2E8F0;
+        border-bottom-color: #4A5568;
+    }
+
+    body.dark-mode .intervention-table td {
+        color: #A0AEC0;
+        border-bottom-color: #4A5568;
+    }
+
+    body.dark-mode .intervention-table tbody tr:hover {
+        background: #374151;
+    }
+
+body.dark-mode .progress-bar-container {
+    background: #374151;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .student-container h2 {
-        display: block;
-        text-align: center;
-        border-bottom: 2px solid #333;
-    }
-
-    .tab-headers {
-        flex-direction: row;
-    }
-
-    .tab-header {
-        border-bottom: 3px solid transparent;
-        border-left: none;
-        justify-content: center;
-        padding: 16px 8px;
-    }
-
-        .tab-header:not(.active) {
-            font-size: 0;
-        }
-
-            .tab-header:not(.active) .tab-icon {
-                font-size: 24px;
-            }
-
-        .tab-header.active {
-            font-size: 16px;
-            border-bottom-color: #0d6efd;
-            border-left: none;
-        }
-
-    .tab-content-container {
-        padding: 15px;
-    }
-
-    .content-header h3 {
-        font-size: 20px;
-    }
-
-    .table-controls {
-        flex-direction: column;
-    }
-
-    .search-input,
-    .filter-select {
-        width: 100%;
-        min-width: 100%;
-    }
-
-    .data-table {
-        font-size: 12px;
-    }
-
-        .data-table th,
-        .data-table td {
-            padding: 10px 8px;
-        }
-
-    .pagination-container {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .pagination-controls {
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    .pagination-btn {
-        padding: 6px 10px;
-        font-size: 13px;
-    }
-
-    /* Modal responsive */
     .modal {
         padding: 20px 10px;
         align-items: flex-start;
@@ -855,153 +920,239 @@
     }
 
     .info-grid,
-    .assessment-cards,
-    .score-grid,
+    .assessment-summary,
+    .placement-comparison,
     .intervention-summary {
         grid-template-columns: 1fr;
     }
-}
 
-/* Dark mode support */
-body.dark-mode .student-container h2 {
-    color: #E2E8F0;
-    border-bottom-color: #E2E8F0;
-}
-
-body.dark-mode .tab-container {
-    background: #2D3748;
-}
-
-body.dark-mode .tab-headers {
-    background: #1A202C;
-    border-bottom: 2px solid #4A5568;
-}
-
-body.dark-mode .tab-header {
-    color: #A0AEC0;
-}
-
-    body.dark-mode .tab-header:hover {
-        background: #2D3748;
-        color: #E2E8F0;
+    .chart-wrapper {
+        height: 300px;
     }
 
-    body.dark-mode .tab-header.active {
-        color: #63B3ED;
-        background: #2D3748;
-        border-bottom-color: #63B3ED;
+    .radar-chart-wrapper {
+        height: 350px;
     }
 
-body.dark-mode .content-header {
-    border-bottom-color: #4A5568;
+    .section-title {
+        font-size: 18px;
+    }
 }
 
-    body.dark-mode .content-header h3 {
-        color: #E2E8F0;
+@media (max-width: 480px) {
+    .assessment-score,
+    .stat-value {
+        font-size: 28px;
     }
 
-    body.dark-mode .content-header p {
-        color: #A0AEC0;
+    .intervention-table {
+        font-size: 12px;
     }
 
-body.dark-mode .search-input,
-body.dark-mode .filter-select {
-    background: #2D3748;
-    color: #E2E8F0;
-    border-color: #4A5568;
-}
-
-body.dark-mode .data-table {
-    background: #2D3748;
-}
-
-    body.dark-mode .data-table thead {
-        background: #1A202C;
-    }
-
-    body.dark-mode .data-table th {
-        color: #E2E8F0;
-        border-bottom-color: #4A5568;
-    }
-
-        body.dark-mode .data-table th:hover {
-            background: #374151;
+        .intervention-table th,
+        .intervention-table td {
+            padding: 8px;
         }
-
-    body.dark-mode .data-table td {
-        color: #A0AEC0;
-        border-bottom-color: #4A5568;
-    }
-
-    body.dark-mode .data-table tbody tr:hover {
-        background: #374151;
-    }
-
-body.dark-mode .pagination-btn {
-    background: #2D3748;
-    color: #E2E8F0;
-    border-color: #4A5568;
 }
 
-    body.dark-mode .pagination-btn:hover:not(:disabled) {
-        background: #374151;
-    }
+/* ========================================
+   ADD THESE STYLES TO THE END OF StudentStyles.css
+   ======================================== */
 
-    body.dark-mode .pagination-btn.active {
-        background: #63B3ED;
-        color: #1A202C;
-        border-color: #63B3ED;
-    }
-
-body.dark-mode .pagination-info {
-    color: #A0AEC0;
+/* Assessment Summary Cards - Enhanced */
+.assessment-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 25px;
 }
 
+.assessment-card.pre {
+    border-left-color: #6c757d;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.assessment-card.post {
+    border-left-color: #198754;
+    background: linear-gradient(135deg, #d1f4e0 0%, #e8f5e9 100%);
+}
+
+.assessment-sublabel {
+    font-size: 11px;
+    color: #495057;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+/* Placement Level Cards */
+.placement-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.placement-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #e9ecef;
+}
+
+.placement-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #495057;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.placement-badge {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+    .placement-badge.beginner {
+        background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        color: #ffffff;
+    }
+
+    .placement-badge.below-grade {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        color: #ffffff;
+    }
+
+    .placement-badge.expected-grade {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: #ffffff;
+    }
+
+/* Chart Containers */
+.chart-container {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.chart-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #212529;
+    margin-bottom: 15px;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.chart-wrapper {
+    position: relative;
+    height: 400px;
+}
+
+.radar-chart-wrapper {
+    position: relative;
+    height: 450px;
+}
+
+/* Module Progress List Updates */
+.module-progress-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Intervention Summary Updates */
+.stat-sublabel {
+    font-size: 11px;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+/* Pass/Fail Badges */
+.pass-badge, .fail-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.pass-badge {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+}
+
+.fail-badge {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: #ffffff;
+}
+
+/* Dark Mode Support for New Elements */
+body.dark-mode .placement-card,
+body.dark-mode .chart-container {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-color: #334155;
+}
+
+body.dark-mode .placement-title,
+body.dark-mode .chart-title {
+    color: #f1f5f9;
+    border-bottom-color: #334155;
+}
+
+body.dark-mode .assessment-sublabel,
+body.dark-mode .stat-sublabel {
+    color: #cbd5e1;
+}
+
+body.dark-mode .assessment-card.pre {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+}
+
+body.dark-mode .assessment-card.post {
+    background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+}
+
+/* Responsive Design Updates */
 @media (max-width: 768px) {
-    body.dark-mode .student-container h2 {
-        display: block;
-        text-align: center;
-        border-bottom: 2px solid #E2E8F0;
+    .placement-comparison {
+        grid-template-columns: 1fr;
     }
 
-    body.dark-mode .tab-header.active {
-        border-bottom-color: #63B3ED;
-        border-left: none;
+    .chart-wrapper {
+        height: 300px;
+    }
+
+    .radar-chart-wrapper {
+        height: 350px;
     }
 }
 
-/*STYLES FOR STUDENT DETAILS MODAL*/
-/* Progress Bar Animation Styles  */
-.assessment-fill {
-    width: 0; /* Start at 0 for animation */
-    transition: width 1s ease;
-}
-
-    .assessment-fill.pre-assessment {
-        background: #6c757d;
+@media (max-width: 480px) {
+    .assessment-score,
+    .stat-value {
+        font-size: 28px;
     }
 
-    .assessment-fill.post-assessment {
-        background: #198754;
+    .chart-wrapper {
+        height: 250px;
     }
 
-.progress-bar-fill {
-    width: 0; /* Start at 0 for animation */
-}
-
-/* Hidden by default for intervention table rows */
-#interventionTableBody tr {
-    animation: fadeInRow 0.3s ease;
-}
-
-@keyframes fadeInRow {
-    from {
-        opacity: 0;
-        transform: translateX(-10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
+    .radar-chart-wrapper {
+        height: 300px;
     }
 }

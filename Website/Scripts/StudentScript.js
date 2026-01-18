@@ -1,107 +1,127 @@
-﻿// Student Module Script
+﻿// Enhanced Student Module Script with Chart.js Integration
 (function () {
     'use strict';
 
-    // Sample data - Replace with API calls to your database
+    // Sample enhanced data structure - Ready for backend integration
     const STUDENT_DATA = {
         students: [
             {
-                studentId: 1, studentName: "Juan Dela Cruz", gender: "Male", age: 12, birthday: "2014-03-15", schoolName: "Riverside Elementary", barangay: "San Juan", lastActive: new Date('2026-01-14T10:30:00'),
-                preAssessment: 65, postAssessment: 85,
-                moduleProgress: { phonics: 80, grammar: 75, vocabulary: 90, comprehending: 70, creating: 65 },
-                moduleScores: { phonics: 82, grammar: 78, vocabulary: 88, comprehending: 75, creating: 70 },
-                interventions: { count: 3, latestScore: 78, history: [{ date: '2026-01-10', score: 65 }, { date: '2026-01-12', score: 72 }, { date: '2026-01-14', score: 78 }] }
+                studentId: 1,
+                studentName: "Juan Dela Cruz",
+                gender: "Male",
+                age: 12,
+                birthday: "2014-03-15",
+                schoolName: "Riverside Elementary",
+                barangay: "San Juan",
+                dateJoined: "2025-09-01",
+                lastActive: new Date('2026-01-14T10:30:00'),
+                preAssessment: 65,
+                postAssessment: 85,
+                initialPlacement: "Below Grade Level",
+                currentPlacement: "At Expected Grade Level",
+                initialAbility: { phonics: 60, vocabulary: 65, grammar: 62, comprehending: 68, creating: 63 },
+                currentAbility: { phonics: 82, vocabulary: 88, grammar: 78, comprehending: 85, creating: 80 },
+                masteryGrades: { phonics: 82, vocabulary: 88, grammar: 78, comprehending: 85, creating: 80 },
+                moduleProgress: { phonics: 85, vocabulary: 92, grammar: 80, comprehending: 88, creating: 82 },
+                quizScores: {
+                    phonics: [6.5, 6.8, 7.2, 7.5, 7.8, 8.0, 8.2, 8.3, 8.5, 8.4, 8.6, 8.7],
+                    vocabulary: [7.0, 7.2, 7.5, 7.8, 8.0, 8.3, 8.5, 8.7, 8.8, 8.9, 9.0, 9.1],
+                    grammar: [6.0, 6.3, 6.5, 6.8, 7.0, 7.2, 7.5, 7.6, 7.8, 7.9, 8.0, 8.1],
+                    comprehending: [7.2, 7.4, 7.6, 7.8, 8.0, 8.2, 8.4, 8.5, 8.6, 8.7, 8.8, 8.9],
+                    creating: [6.8, 7.0, 7.2, 7.4, 7.6, 7.8, 8.0, 8.1, 8.2, 8.3, 8.4, 8.5]
+                },
+                interventions: [
+                    { date: '2025-10-15', moduleName: 'Phonics & Word Study', activity: 'Stage 1', score: 65, pass: false },
+                    { date: '2025-10-22', moduleName: 'Grammar Awareness & Grammatical Structures', activity: '1st Intervention', score: 72, pass: false },
+                    { date: '2025-11-05', moduleName: 'Phonics & Word Study', activity: 'Stage 2', score: 78, pass: true },
+                    { date: '2025-11-18', moduleName: 'Creating & Composing Text', activity: '1st Intervention', score: 80, pass: true },
+                    { date: '2025-12-02', moduleName: 'Vocabulary & Word Knowledge', activity: 'Stage 1', score: 85, pass: true },
+                    { date: '2025-12-15', moduleName: 'Comprehending & Analyzing Text', activity: '2nd Intervention', score: 88, pass: true }
+                ]
             },
             {
-                studentId: 2, studentName: "Maria Santos", gender: "Female", age: 11, birthday: "2015-07-22", schoolName: "Riverside Elementary", barangay: "San Juan", lastActive: new Date('2026-01-14T14:20:00'),
-                preAssessment: 70, postAssessment: 90,
-                moduleProgress: { phonics: 85, grammar: 88, vocabulary: 92, comprehending: 80, creating: 75 },
-                moduleScores: { phonics: 87, grammar: 85, vocabulary: 90, comprehending: 82, creating: 78 },
-                interventions: { count: 2, latestScore: 85, history: [{ date: '2026-01-08', score: 70 }, { date: '2026-01-13', score: 85 }] }
+                studentId: 2,
+                studentName: "Maria Santos",
+                gender: "Female",
+                age: 11,
+                birthday: "2015-07-22",
+                schoolName: "Riverside Elementary",
+                barangay: "San Juan",
+                dateJoined: "2025-09-01",
+                lastActive: new Date('2026-01-14T14:20:00'),
+                preAssessment: 70,
+                postAssessment: 90,
+                initialPlacement: "Below Grade Level",
+                currentPlacement: "At Expected Grade Level",
+                initialAbility: { phonics: 68, vocabulary: 70, grammar: 72, comprehending: 70, creating: 68 },
+                currentAbility: { phonics: 87, vocabulary: 90, grammar: 85, comprehending: 90, creating: 88 },
+                masteryGrades: { phonics: 87, vocabulary: 90, grammar: 85, comprehending: 90, creating: 88 },
+                moduleProgress: { phonics: 90, vocabulary: 95, grammar: 88, comprehending: 92, creating: 90 },
+                quizScores: {
+                    phonics: [7.0, 7.2, 7.5, 7.8, 8.0, 8.2, 8.4, 8.6, 8.7, 8.8, 8.9, 9.0],
+                    vocabulary: [7.2, 7.5, 7.7, 8.0, 8.2, 8.5, 8.7, 8.8, 9.0, 9.1, 9.2, 9.3],
+                    grammar: [6.8, 7.0, 7.3, 7.5, 7.8, 8.0, 8.2, 8.4, 8.5, 8.6, 8.7, 8.8],
+                    comprehending: [7.5, 7.7, 8.0, 8.2, 8.4, 8.6, 8.8, 8.9, 9.0, 9.1, 9.2, 9.3],
+                    creating: [7.0, 7.3, 7.5, 7.8, 8.0, 8.2, 8.5, 8.6, 8.8, 8.9, 9.0, 9.1]
+                },
+                interventions: [
+                    { date: '2025-10-20', moduleName: 'Grammar Awareness & Grammatical Structures', activity: 'Stage 1', score: 75, pass: true },
+                    { date: '2025-11-10', moduleName: 'Phonics & Word Study', activity: '1st Intervention', score: 82, pass: true },
+                    { date: '2025-12-05', moduleName: 'Creating & Composing Text', activity: 'Stage 1', score: 88, pass: true }
+                ]
             },
             {
-                studentId: 3, studentName: "Pedro Garcia", gender: "Male", age: 13, birthday: "2013-11-08", schoolName: "Mountainview High School", barangay: "Santa Cruz", lastActive: new Date('2026-01-13T09:15:00'),
-                preAssessment: 55, postAssessment: 72,
-                moduleProgress: { phonics: 65, grammar: 60, vocabulary: 70, comprehending: 58, creating: 55 },
-                moduleScores: { phonics: 68, grammar: 65, vocabulary: 72, comprehending: 62, creating: 60 },
-                interventions: { count: 5, latestScore: 68, history: [{ date: '2026-01-05', score: 55 }, { date: '2026-01-07', score: 60 }, { date: '2026-01-09', score: 63 }, { date: '2026-01-11', score: 65 }, { date: '2026-01-13', score: 68 }] }
-            },
-            {
-                studentId: 4, studentName: "Ana Reyes", gender: "Female", age: 15, birthday: "2011-02-14", schoolName: "Mountainview High School", barangay: "Santa Cruz", lastActive: new Date('2026-01-14T11:45:00'),
-                preAssessment: 80, postAssessment: 95,
-                moduleProgress: { phonics: 95, grammar: 92, vocabulary: 98, comprehending: 90, creating: 88 },
-                moduleScores: { phonics: 94, grammar: 90, vocabulary: 96, comprehending: 88, creating: 85 },
-                interventions: { count: 1, latestScore: 92, history: [{ date: '2026-01-12', score: 92 }] }
-            },
-            {
-                studentId: 5, studentName: "Carlos Lopez", gender: "Male", age: 14, birthday: "2012-09-30", schoolName: "Central Academy", barangay: "San Juan", lastActive: new Date('2026-01-12T16:30:00'),
-                preAssessment: 60, postAssessment: 78,
-                moduleProgress: { phonics: 72, grammar: 70, vocabulary: 80, comprehending: 68, creating: 65 },
-                moduleScores: { phonics: 75, grammar: 72, vocabulary: 78, comprehending: 70, creating: 68 },
-                interventions: { count: 4, latestScore: 75, history: [{ date: '2026-01-06', score: 60 }, { date: '2026-01-08', score: 68 }, { date: '2026-01-10', score: 72 }, { date: '2026-01-12', score: 75 }] }
-            },
-            {
-                studentId: 6, studentName: "Sofia Cruz", gender: "Female", age: 16, birthday: "2010-05-18", schoolName: "Central Academy", barangay: "San Juan", lastActive: new Date('2026-01-14T08:00:00'),
-                preAssessment: 75, postAssessment: 92,
-                moduleProgress: { phonics: 90, grammar: 88, vocabulary: 95, comprehending: 85, creating: 82 },
-                moduleScores: { phonics: 89, grammar: 86, vocabulary: 93, comprehending: 83, creating: 80 },
-                interventions: { count: 2, latestScore: 88, history: [{ date: '2026-01-09', score: 82 }, { date: '2026-01-13', score: 88 }] }
-            },
-            {
-                studentId: 7, studentName: "Miguel Torres", gender: "Male", age: 12, birthday: "2014-12-25", schoolName: "Bayside Learning Center", barangay: "Poblacion", lastActive: new Date('2026-01-11T13:20:00'),
-                preAssessment: 50, postAssessment: 68,
-                moduleProgress: { phonics: 60, grammar: 58, vocabulary: 65, comprehending: 55, creating: 52 },
-                moduleScores: { phonics: 62, grammar: 60, vocabulary: 68, comprehending: 58, creating: 55 },
-                interventions: { count: 6, latestScore: 65, history: [{ date: '2026-01-02', score: 50 }, { date: '2026-01-04', score: 55 }, { date: '2026-01-06', score: 58 }, { date: '2026-01-08', score: 60 }, { date: '2026-01-10', score: 63 }, { date: '2026-01-11', score: 65 }] }
-            },
-            {
-                studentId: 8, studentName: "Isabella Ramos", gender: "Female", age: 13, birthday: "2013-08-07", schoolName: "Bayside Learning Center", barangay: "Poblacion", lastActive: new Date('2026-01-14T15:10:00'),
-                preAssessment: 85, postAssessment: 98,
-                moduleProgress: { phonics: 98, grammar: 95, vocabulary: 100, comprehending: 92, creating: 90 },
-                moduleScores: { phonics: 96, grammar: 93, vocabulary: 98, comprehending: 90, creating: 88 },
-                interventions: { count: 1, latestScore: 95, history: [{ date: '2026-01-13', score: 95 }] }
-            },
-            {
-                studentId: 9, studentName: "Diego Fernandez", gender: "Male", age: 11, birthday: "2015-04-12", schoolName: "Riverside Elementary", barangay: "San Juan", lastActive: new Date('2026-01-10T10:00:00'),
-                preAssessment: 58, postAssessment: 75,
-                moduleProgress: { phonics: 70, grammar: 68, vocabulary: 78, comprehending: 65, creating: 62 },
-                moduleScores: { phonics: 72, grammar: 70, vocabulary: 76, comprehending: 68, creating: 65 },
-                interventions: { count: 3, latestScore: 72, history: [{ date: '2026-01-05', score: 62 }, { date: '2026-01-08', score: 68 }, { date: '2026-01-10', score: 72 }] }
-            },
-            {
-                studentId: 10, studentName: "Gabriela Mendoza", gender: "Female", age: 14, birthday: "2012-10-20", schoolName: "Mountainview High School", barangay: "Santa Cruz", lastActive: new Date('2026-01-14T12:30:00'),
-                preAssessment: 72, postAssessment: 88,
-                moduleProgress: { phonics: 85, grammar: 82, vocabulary: 90, comprehending: 78, creating: 75 },
-                moduleScores: { phonics: 84, grammar: 80, vocabulary: 88, comprehending: 76, creating: 73 },
-                interventions: { count: 2, latestScore: 82, history: [{ date: '2026-01-11', score: 75 }, { date: '2026-01-14', score: 82 }] }
+                studentId: 3,
+                studentName: "Pedro Garcia",
+                gender: "Male",
+                age: 13,
+                birthday: "2013-11-08",
+                schoolName: "Mountainview High School",
+                barangay: "Santa Cruz",
+                dateJoined: "2025-09-05",
+                lastActive: new Date('2026-01-13T09:15:00'),
+                preAssessment: 55,
+                postAssessment: 72,
+                initialPlacement: "Beginner",
+                currentPlacement: "Below Grade Level",
+                initialAbility: { phonics: 50, vocabulary: 55, grammar: 52, comprehending: 58, creating: 52 },
+                currentAbility: { phonics: 68, vocabulary: 72, grammar: 65, comprehending: 75, creating: 70 },
+                masteryGrades: { phonics: 68, vocabulary: 72, grammar: 65, comprehending: 75, creating: 70 },
+                moduleProgress: { phonics: 70, vocabulary: 75, grammar: 68, comprehending: 78, creating: 72 },
+                quizScores: {
+                    phonics: [5.0, 5.2, 5.5, 5.8, 6.0, 6.2, 6.4, 6.5, 6.6, 6.7, 6.8, 6.9],
+                    vocabulary: [5.5, 5.7, 6.0, 6.2, 6.4, 6.6, 6.8, 6.9, 7.0, 7.1, 7.2, 7.3],
+                    grammar: [4.8, 5.0, 5.2, 5.5, 5.7, 5.9, 6.1, 6.2, 6.4, 6.5, 6.6, 6.7],
+                    comprehending: [5.8, 6.0, 6.3, 6.5, 6.8, 7.0, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7],
+                    creating: [5.2, 5.4, 5.7, 6.0, 6.2, 6.5, 6.7, 6.8, 6.9, 7.0, 7.1, 7.2]
+                },
+                interventions: [
+                    { date: '2025-10-10', moduleName: 'Phonics & Word Study', activity: 'Stage 1', score: 55, pass: false },
+                    { date: '2025-10-25', moduleName: 'Grammar Awareness & Grammatical Structures', activity: '1st Intervention', score: 60, pass: false },
+                    { date: '2025-11-08', moduleName: 'Phonics & Word Study', activity: '2nd Intervention', score: 63, pass: false },
+                    { date: '2025-11-22', moduleName: 'Creating & Composing Text', activity: 'Stage 1', score: 65, pass: false },
+                    { date: '2025-12-06', moduleName: 'Vocabulary & Word Knowledge', activity: '1st Intervention', score: 68, pass: false }
+                ]
             }
         ],
         activityLogs: [
             { logId: 1001, studentId: 1, studentName: "Juan Dela Cruz", sessionType: "Login", sessionTag: "Web", deviceInfo: "Chrome 120 / Windows 11", timeOfAction: new Date('2026-01-14T10:30:15') },
             { logId: 1002, studentId: 2, studentName: "Maria Santos", sessionType: "Quiz", sessionTag: "Math", deviceInfo: "Safari / iOS 17", timeOfAction: new Date('2026-01-14T14:20:30') },
-            { logId: 1003, studentId: 3, studentName: "Pedro Garcia", sessionType: "Logout", sessionTag: "Web", deviceInfo: "Firefox 121 / Ubuntu", timeOfAction: new Date('2026-01-13T09:15:45') },
-            { logId: 1004, studentId: 4, studentName: "Ana Reyes", sessionType: "Assignment", sessionTag: "Science", deviceInfo: "Edge 120 / Windows 10", timeOfAction: new Date('2026-01-14T11:45:20') },
-            { logId: 1005, studentId: 5, studentName: "Carlos Lopez", sessionType: "Login", sessionTag: "Mobile", deviceInfo: "Chrome / Android 14", timeOfAction: new Date('2026-01-12T16:30:10') },
-            { logId: 1006, studentId: 6, studentName: "Sofia Cruz", sessionType: "Quiz", sessionTag: "English", deviceInfo: "Safari / macOS", timeOfAction: new Date('2026-01-14T08:00:25') },
-            { logId: 1007, studentId: 7, studentName: "Miguel Torres", sessionType: "Login", sessionTag: "Web", deviceInfo: "Chrome 120 / Windows 11", timeOfAction: new Date('2026-01-11T13:20:40') },
-            { logId: 1008, studentId: 8, studentName: "Isabella Ramos", sessionType: "Assignment", sessionTag: "History", deviceInfo: "Firefox 121 / Windows 11", timeOfAction: new Date('2026-01-14T15:10:55') },
-            { logId: 1009, studentId: 9, studentName: "Diego Fernandez", sessionType: "Logout", sessionTag: "Web", deviceInfo: "Edge 120 / Windows 10", timeOfAction: new Date('2026-01-10T10:00:30') },
-            { logId: 1010, studentId: 10, studentName: "Gabriela Mendoza", sessionType: "Quiz", sessionTag: "Math", deviceInfo: "Chrome / Android 13", timeOfAction: new Date('2026-01-14T12:30:18') },
-            { logId: 1011, studentId: 1, studentName: "Juan Dela Cruz", sessionType: "Quiz", sessionTag: "Science", deviceInfo: "Chrome 120 / Windows 11", timeOfAction: new Date('2026-01-14T11:15:22') },
-            { logId: 1012, studentId: 2, studentName: "Maria Santos", sessionType: "Logout", sessionTag: "Mobile", deviceInfo: "Safari / iOS 17", timeOfAction: new Date('2026-01-14T16:45:33') }
+            { logId: 1003, studentId: 3, studentName: "Pedro Garcia", sessionType: "Logout", sessionTag: "Web", deviceInfo: "Firefox 121 / Ubuntu", timeOfAction: new Date('2026-01-13T09:15:45') }
         ]
     };
 
-    // Pagination state
+    // Chart instances for cleanup
+    let abilityChart = null;
+    let radarChart = null;
+    let quizChart = null;
+
+    // Pagination and filtering state
     let currentStudentPage = 1;
     let currentActivityPage = 1;
     const rowsPerPage = 10;
-
-    // Filtered data
     let filteredStudents = [];
     let filteredActivities = [];
-
-    // Sort state
     let studentSortColumn = null;
     let studentSortAsc = true;
     let activitySortColumn = null;
@@ -112,31 +132,399 @@
         initializeTabs();
         initializeStudentList();
         populateDateDropdowns();
+        setupModalControls();
     });
 
-    // Tab functionality
-    function initializeTabs() {
-        const tabHeaders = document.querySelectorAll('.tab-header');
+    // Helper Functions
+    function getPlacementClass(placement) {
+        if (placement === "Beginner") return "beginner";
+        if (placement === "Below Grade Level") return "below-grade";
+        if (placement === "At Expected Grade Level") return "expected-grade";
+        return "beginner";
+    }
 
-        tabHeaders.forEach(function (header) {
+    function percentageToGrade(percentage) {
+        if (percentage >= 97) return 'A+';
+        if (percentage >= 93) return 'A';
+        if (percentage >= 90) return 'A-';
+        if (percentage >= 87) return 'B+';
+        if (percentage >= 83) return 'B';
+        if (percentage >= 80) return 'B-';
+        if (percentage >= 77) return 'C+';
+        if (percentage >= 73) return 'C';
+        if (percentage >= 70) return 'C-';
+        if (percentage >= 67) return 'D+';
+        if (percentage >= 63) return 'D';
+        if (percentage >= 60) return 'D-';
+        return 'F';
+    }
+
+    function getChartColors() {
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        return {
+            textColor: isDarkMode ? '#E2E8F0' : '#495057',
+            gridColor: isDarkMode ? '#4A5568' : '#dee2e6',
+            backgroundColor: isDarkMode ? '#2D3748' : '#ffffff'
+        };
+    }
+
+    // Show Student Details Modal
+    function showStudentDetails(studentId) {
+        const student = STUDENT_DATA.students.find(s => s.studentId === studentId);
+        if (!student) return;
+
+        // 1. Populate Basic Information
+        document.getElementById('studentName').textContent = student.studentName;
+        document.getElementById('studentAge').textContent = student.age + ' years old';
+        document.getElementById('studentBirthday').textContent = new Date(student.birthday).toLocaleDateString('en-US', {
+            year: 'numeric', month: 'long', day: 'numeric'
+        });
+        document.getElementById('studentGender').textContent = student.gender;
+        document.getElementById('studentSchool').textContent = student.schoolName;
+        document.getElementById('studentBarangay').textContent = student.barangay;
+        document.getElementById('studentDateJoined').textContent = new Date(student.dateJoined).toLocaleDateString('en-US', {
+            year: 'numeric', month: 'long', day: 'numeric'
+        });
+        document.getElementById('studentLastActive').textContent = student.lastActive.toLocaleDateString('en-US', {
+            year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
+        });
+
+        // 2. Growth Tracking - Assessment Scores
+        document.getElementById('preAssessmentScore').textContent = student.preAssessment + '%';
+        document.getElementById('postAssessmentScore').textContent = student.postAssessment + '%';
+        document.getElementById('improvementScore').textContent = '+' + (student.postAssessment - student.preAssessment) + '%';
+
+        // Placement Badges
+        const initialBadge = document.getElementById('initialPlacementBadge');
+        initialBadge.textContent = student.initialPlacement;
+        initialBadge.className = 'placement-badge ' + getPlacementClass(student.initialPlacement);
+
+        const currentBadge = document.getElementById('currentPlacementBadge');
+        currentBadge.textContent = student.currentPlacement;
+        currentBadge.className = 'placement-badge ' + getPlacementClass(student.currentPlacement);
+
+        // 3. Module Progress Bars
+        document.querySelectorAll('.module-progress-list .progress-item').forEach(item => {
+            const moduleKey = item.getAttribute('data-module');
+            const progress = student.moduleProgress[moduleKey];
+            item.querySelector('.progress-percentage').textContent = progress + '%';
+
+            // Reset then animate
+            const fillBar = item.querySelector('.progress-bar-fill');
+            fillBar.style.width = '0%';
+            setTimeout(() => {
+                fillBar.style.width = progress + '%';
+            }, 100);
+        });
+
+        // 4. Intervention Summary
+        const passCount = student.interventions.filter(i => i.pass).length;
+        const totalCount = student.interventions.length;
+        const successRate = totalCount > 0 ? Math.round((passCount / totalCount) * 100) : 0;
+
+        document.getElementById('totalInterventions').textContent = totalCount;
+        document.getElementById('recoverySuccessRate').textContent = successRate + '%';
+
+        // Intervention Table
+        const tbody = document.getElementById('interventionTableBody');
+        tbody.innerHTML = '';
+
+        student.interventions.forEach(intervention => {
+            const row = document.createElement('tr');
+
+            row.innerHTML = `
+                <td>${new Date(intervention.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
+                <td>${intervention.moduleName}</td>
+                <td>${intervention.activity}</td>
+                <td><strong>${intervention.score}%</strong></td>
+                <td><span class="${intervention.pass ? 'pass-badge' : 'fail-badge'}">${intervention.pass ? 'Pass' : 'Fail'}</span></td>
+            `;
+
+            tbody.appendChild(row);
+        });
+
+        // Render Charts
+        renderAbilityComparisonChart(student);
+        renderMasteryRadarChart(student);
+        renderQuizTrendsChart(student);
+
+        // Show Modal
+        document.getElementById('studentModal').classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Chart 1: Stacked Bar Chart - Initial vs Current Ability
+    function renderAbilityComparisonChart(student) {
+        if (abilityChart) abilityChart.destroy();
+
+        const ctx = document.getElementById('abilityComparisonChart').getContext('2d');
+        const colors = getChartColors();
+        const subdomains = ['Phonics & Word Study', 'Vocabulary & Word Knowledge',
+            'Grammar Awareness', 'Comprehending Text', 'Creating Text'];
+        const keys = ['phonics', 'vocabulary', 'grammar', 'comprehending', 'creating'];
+
+        const initialData = keys.map(key => student.initialAbility[key]);
+        const currentData = keys.map(key => student.currentAbility[key]);
+
+        abilityChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: subdomains,
+                datasets: [
+                    {
+                        label: 'Initial Ability',
+                        data: initialData,
+                        backgroundColor: 'rgba(108, 117, 125, 0.7)',
+                        borderColor: 'rgba(108, 117, 125, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Current Ability',
+                        data: currentData,
+                        backgroundColor: 'rgba(25, 135, 84, 0.7)',
+                        borderColor: 'rgba(25, 135, 84, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: { color: colors.textColor, font: { size: 12 } }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                return context.dataset.label + ': ' + context.parsed.y + '%';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: colors.textColor, font: { size: 10 } },
+                        grid: { color: colors.gridColor }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            color: colors.textColor,
+                            callback: function (value) { return value + '%'; }
+                        },
+                        grid: { color: colors.gridColor }
+                    }
+                }
+            }
+        });
+    }
+
+    // Chart 2: Radar Chart - Current Mastery with Letter Grades
+    function renderMasteryRadarChart(student) {
+        if (radarChart) radarChart.destroy();
+
+        const ctx = document.getElementById('masteryRadarChart').getContext('2d');
+        const colors = getChartColors();
+        const subdomains = ['Phonics & Word Study', 'Vocabulary & Word Knowledge',
+            'Grammar Awareness', 'Comprehending Text', 'Creating Text'];
+        const keys = ['phonics', 'vocabulary', 'grammar', 'comprehending', 'creating'];
+
+        const masteryData = keys.map(key => student.masteryGrades[key]);
+        const gradeLabels = keys.map(key => percentageToGrade(student.masteryGrades[key]));
+
+        radarChart = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: subdomains,
+                datasets: [{
+                    label: 'Current Mastery',
+                    data: masteryData,
+                    backgroundColor: 'rgba(13, 110, 253, 0.2)',
+                    borderColor: 'rgba(13, 110, 253, 1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(13, 110, 253, 1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(13, 110, 253, 1)',
+                    pointRadius: 5,
+                    pointHoverRadius: 7
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: { color: colors.textColor, font: { size: 12 } }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                const index = context.dataIndex;
+                                return 'Score: ' + context.parsed.r + '% (Grade: ' + gradeLabels[index] + ')';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            color: colors.textColor,
+                            backdropColor: 'transparent',
+                            stepSize: 20
+                        },
+                        grid: { color: colors.gridColor },
+                        pointLabels: {
+                            color: colors.textColor,
+                            font: { size: 10 }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Chart 3: Line Chart - Quiz Trends (1-10 scale, 12 quizzes)
+    function renderQuizTrendsChart(student) {
+        if (quizChart) quizChart.destroy();
+
+        const ctx = document.getElementById('quizTrendsChart').getContext('2d');
+        const colors = getChartColors();
+        const quizLabels = Array.from({ length: 12 }, (_, i) => 'Quiz ' + (i + 1));
+
+        const datasets = [
+            {
+                label: 'Phonics & Word Study',
+                data: student.quizScores.phonics,
+                backgroundColor: 'rgba(220, 38, 38, 0.5)',
+                borderColor: 'rgba(220, 38, 38, 1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            },
+            {
+                label: 'Vocabulary & Word Knowledge',
+                data: student.quizScores.vocabulary,
+                backgroundColor: 'rgba(37, 99, 235, 0.5)',
+                borderColor: 'rgba(37, 99, 235, 1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            },
+            {
+                label: 'Grammar Awareness',
+                data: student.quizScores.grammar,
+                backgroundColor: 'rgba(234, 179, 8, 0.5)',
+                borderColor: 'rgba(234, 179, 8, 1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            },
+            {
+                label: 'Comprehending Text',
+                data: student.quizScores.comprehending,
+                backgroundColor: 'rgba(34, 197, 94, 0.5)',
+                borderColor: 'rgba(34, 197, 94, 1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            },
+            {
+                label: 'Creating Text',
+                data: student.quizScores.creating,
+                backgroundColor: 'rgba(168, 85, 247, 0.5)',
+                borderColor: 'rgba(168, 85, 247, 1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }
+        ];
+
+        quizChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: quizLabels,
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: { color: colors.textColor, font: { size: 10 } }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                return context.dataset.label + ': ' + context.parsed.y.toFixed(1) + '/10';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: colors.textColor, font: { size: 9 } },
+                        grid: { color: colors.gridColor }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 10,
+                        ticks: {
+                            color: colors.textColor,
+                            stepSize: 1,
+                            callback: function (value) { return value + '/10'; }
+                        },
+                        grid: { color: colors.gridColor }
+                    }
+                }
+            }
+        });
+    }
+
+    // Modal Controls
+    function setupModalControls() {
+        document.getElementById('closeModal').addEventListener('click', closeModal);
+        document.getElementById('studentModal').addEventListener('click', function (e) {
+            if (e.target === this) closeModal();
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeModal();
+        });
+    }
+
+    function closeModal() {
+        document.getElementById('studentModal').classList.remove('show');
+        document.body.style.overflow = '';
+
+        // Destroy charts
+        if (abilityChart) { abilityChart.destroy(); abilityChart = null; }
+        if (radarChart) { radarChart.destroy(); radarChart = null; }
+        if (quizChart) { quizChart.destroy(); quizChart = null; }
+    }
+
+    // Tab Functionality
+    function initializeTabs() {
+        document.querySelectorAll('.tab-header').forEach(header => {
             header.addEventListener('click', function () {
-                const targetTab = this.getAttribute('data-tab');
-                switchTab(targetTab);
+                switchTab(this.getAttribute('data-tab'));
             });
         });
     }
 
     function switchTab(targetTabId) {
-        const tabHeaders = document.querySelectorAll('.tab-header');
-        const tabContents = document.querySelectorAll('.tab-content');
-
-        tabHeaders.forEach(function (header) {
-            header.classList.remove('active');
-        });
-
-        tabContents.forEach(function (content) {
-            content.classList.remove('active');
-        });
+        document.querySelectorAll('.tab-header').forEach(h => h.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
 
         const activeHeader = document.querySelector('.tab-header[data-tab="' + targetTabId + '"]');
         const activeContent = document.getElementById(targetTabId);
@@ -145,62 +533,13 @@
             activeHeader.classList.add('active');
             activeContent.classList.add('active');
 
-            // Load data for the tab
             if (targetTabId === 'activity-logs' && filteredActivities.length === 0) {
                 initializeActivityLogs();
             }
         }
-
-        try {
-            sessionStorage.setItem('activeStudentTab', targetTabId);
-        } catch (e) {
-            console.warn('Session storage not available');
-        }
     }
 
-    // Populate date dropdowns
-    function populateDateDropdowns() {
-        const lastActiveFilter = document.getElementById('lastActiveFilter');
-        const timeOfActionFilter = document.getElementById('timeOfActionFilter');
-
-        // Generate past 7 days
-        for (let i = 2; i <= 7; i++) {
-            const date = new Date();
-            date.setDate(date.getDate() - i);
-            const formatted = formatDateForDropdown(date);
-            const value = date.toISOString().split('T')[0];
-
-            const option1 = document.createElement('option');
-            option1.value = value;
-            option1.textContent = formatted;
-            lastActiveFilter.appendChild(option1);
-
-            const option2 = document.createElement('option');
-            option2.value = value;
-            option2.textContent = formatted;
-            timeOfActionFilter.appendChild(option2);
-        }
-    }
-
-    function formatDateForDropdown(date) {
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        const month = months[date.getMonth()];
-        const day = String(date.getDate()).padStart(2, '0');
-        const year = date.getFullYear();
-        return `${month}. ${day}, ${year}`;
-    }
-
-    function formatDateTimeForDisplay(date) {
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        const month = months[date.getMonth()];
-        const day = String(date.getDate()).padStart(2, '0');
-        const year = date.getFullYear();
-        const hours = String(date.getHours()).padStart(2, '0');
-        const minutes = String(date.getMinutes()).padStart(2, '0');
-        return `${month}. ${day}, ${year} ${hours}:${minutes}`;
-    }
-
-    // Student List functionality
+    // Student List Functionality
     function initializeStudentList() {
         filteredStudents = [...STUDENT_DATA.students];
         renderStudentTable();
@@ -208,17 +547,8 @@
     }
 
     function setupStudentControls() {
-        // Search
-        document.getElementById('studentSearch').addEventListener('input', function (e) {
-            filterStudents();
-        });
-
-        // Date filter
-        document.getElementById('lastActiveFilter').addEventListener('change', function (e) {
-            filterStudents();
-        });
-
-        // Sort headers
+        document.getElementById('studentSearch').addEventListener('input', filterStudents);
+        document.getElementById('lastActiveFilter').addEventListener('change', filterStudents);
         document.querySelectorAll('#studentTable th[data-sort]').forEach(th => {
             th.addEventListener('click', function () {
                 sortStudents(this.getAttribute('data-sort'));
@@ -231,16 +561,14 @@
         const dateFilter = document.getElementById('lastActiveFilter').value;
 
         filteredStudents = STUDENT_DATA.students.filter(student => {
-            const matchesSearch =
-                student.studentName.toLowerCase().includes(searchTerm) ||
+            const matchesSearch = student.studentName.toLowerCase().includes(searchTerm) ||
                 student.schoolName.toLowerCase().includes(searchTerm) ||
                 student.barangay.toLowerCase().includes(searchTerm) ||
                 student.gender.toLowerCase().includes(searchTerm);
 
             let matchesDate = true;
             if (dateFilter === 'today') {
-                const today = new Date().toDateString();
-                matchesDate = student.lastActive.toDateString() === today;
+                matchesDate = student.lastActive.toDateString() === new Date().toDateString();
             } else if (dateFilter === 'yesterday') {
                 const yesterday = new Date();
                 yesterday.setDate(yesterday.getDate() - 1);
@@ -266,22 +594,12 @@
 
         filteredStudents.sort((a, b) => {
             let valA, valB;
-
-            if (column === 'studentName') {
-                valA = a.studentName.toLowerCase();
-                valB = b.studentName.toLowerCase();
-            } else if (column === 'gender') {
-                valA = a.gender.toLowerCase();
-                valB = b.gender.toLowerCase();
-            } else if (column === 'schoolName') {
-                valA = a.schoolName.toLowerCase();
-                valB = b.schoolName.toLowerCase();
-            } else if (column === 'barangay') {
-                valA = a.barangay.toLowerCase();
-                valB = b.barangay.toLowerCase();
-            } else if (column === 'lastActive') {
+            if (column === 'lastActive') {
                 valA = a.lastActive.getTime();
                 valB = b.lastActive.getTime();
+            } else {
+                valA = String(a[column]).toLowerCase();
+                valB = String(b[column]).toLowerCase();
             }
 
             if (valA < valB) return studentSortAsc ? -1 : 1;
@@ -304,7 +622,7 @@
                 <td>${student.gender}</td>
                 <td>${student.schoolName}</td>
                 <td>${student.barangay}</td>
-                <td>${formatDateTimeForDisplay(student.lastActive)}</td>
+                <td>${student.lastActive.toLocaleString('en-US', { month: 'short', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</td>
                 <td class="actions-cell">
                     <div class="action-menu">
                         <button class="kebab-btn" data-student-id="${student.studentId}">
@@ -320,160 +638,33 @@
             </tr>
         `).join('');
 
-        // Setup action buttons
         setupActionButtons();
         updateStudentPagination();
     }
 
     function setupActionButtons() {
-        // Toggle dropdowns
         document.querySelectorAll('.kebab-btn').forEach(btn => {
             btn.addEventListener('click', function (e) {
                 e.stopPropagation();
                 const dropdown = this.nextElementSibling;
-
-                // Close all other dropdowns
                 document.querySelectorAll('.action-dropdown').forEach(d => {
                     if (d !== dropdown) d.classList.remove('show');
                 });
-
                 dropdown.classList.toggle('show');
             });
         });
 
-        // View details
         document.querySelectorAll('.view-details-btn').forEach(btn => {
             btn.addEventListener('click', function () {
                 const studentId = parseInt(this.getAttribute('data-student-id'));
                 showStudentDetails(studentId);
-
-                // Close dropdown
                 document.querySelectorAll('.action-dropdown').forEach(d => d.classList.remove('show'));
             });
         });
 
-        // Close dropdowns when clicking outside
         document.addEventListener('click', function () {
             document.querySelectorAll('.action-dropdown').forEach(d => d.classList.remove('show'));
         });
-    }
-
-    function showStudentDetails(studentId) {
-        const student = STUDENT_DATA.students.find(s => s.studentId === studentId);
-        if (!student) return;
-
-        // Basic Information
-        document.getElementById('studentName').textContent = student.studentName;
-        document.getElementById('studentGender').textContent = student.gender;
-        document.getElementById('studentAge').textContent = student.age + ' years old';
-        document.getElementById('studentBirthday').textContent = new Date(student.birthday).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-        document.getElementById('studentSchool').textContent = student.schoolName;
-        document.getElementById('studentBarangay').textContent = student.barangay;
-
-        // Assessment Scores
-        document.getElementById('preAssessmentScore').textContent = student.preAssessment + '%';
-        document.getElementById('postAssessmentScore').textContent = student.postAssessment + '%';
-        document.getElementById('improvementScore').textContent = '+' + (student.postAssessment - student.preAssessment) + '%';
-
-        // Set progress bar widths with animation
-        setTimeout(() => {
-            document.getElementById('preAssessmentBar').style.width = student.preAssessment + '%';
-            document.getElementById('postAssessmentBar').style.width = student.postAssessment + '%';
-        }, 100);
-
-        // Module Progress
-        document.querySelectorAll('#moduleProgressList .progress-item').forEach(item => {
-            const moduleKey = item.getAttribute('data-module');
-            const progress = student.moduleProgress[moduleKey];
-            item.querySelector('.progress-percentage').textContent = progress + '%';
-
-            setTimeout(() => {
-                item.querySelector('.progress-bar-fill').style.width = progress + '%';
-            }, 100);
-        });
-
-        // Module Scores
-        document.querySelectorAll('#moduleScoreGrid .score-card').forEach(card => {
-            const moduleKey = card.getAttribute('data-module');
-            const score = student.moduleScores[moduleKey];
-            const isPassing = score >= 75;
-
-            card.querySelector('.score-value').textContent = score + '%';
-
-            const statusElement = card.querySelector('.score-status');
-            statusElement.textContent = isPassing ? '✓ Passing' : '⚠ Needs Improvement';
-            statusElement.className = 'score-status ' + (isPassing ? 'passing' : 'needs-improvement');
-        });
-
-        // Interventions Summary
-        document.getElementById('totalInterventions').textContent = student.interventions.count;
-        document.getElementById('latestInterventionScore').textContent = student.interventions.latestScore + '%';
-
-        // Interventions Table
-        const tbody = document.getElementById('interventionTableBody');
-        tbody.innerHTML = '';
-
-        student.interventions.history.forEach((intervention, index) => {
-            const prevScore = index > 0 ? student.interventions.history[index - 1].score : student.preAssessment;
-            const change = intervention.score - prevScore;
-
-            const row = document.createElement('tr');
-
-            const cellNum = document.createElement('td');
-            cellNum.textContent = index + 1;
-
-            const cellDate = document.createElement('td');
-            cellDate.textContent = new Date(intervention.date).toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric'
-            });
-
-            const cellScore = document.createElement('td');
-            const strongScore = document.createElement('strong');
-            strongScore.textContent = intervention.score + '%';
-            cellScore.appendChild(strongScore);
-
-            const cellChange = document.createElement('td');
-            cellChange.textContent = (change >= 0 ? '+' : '') + change + '%';
-            cellChange.className = change >= 0 ? 'positive-change' : 'negative-change';
-
-            row.appendChild(cellNum);
-            row.appendChild(cellDate);
-            row.appendChild(cellScore);
-            row.appendChild(cellChange);
-
-            tbody.appendChild(row);
-        });
-
-        // Show modal
-        document.getElementById('studentModal').classList.add('show');
-        document.body.style.overflow = 'hidden';
-    }
-
-    // Modal controls
-    document.addEventListener('DOMContentLoaded', function () {
-        // Close modal button
-        document.getElementById('closeModal').addEventListener('click', closeModal);
-
-        // Close when clicking outside
-        document.getElementById('studentModal').addEventListener('click', function (e) {
-            if (e.target === this) closeModal();
-        });
-
-        // Close with Escape key
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') closeModal();
-        });
-    });
-
-    function closeModal() {
-        document.getElementById('studentModal').classList.remove('show');
-        document.body.style.overflow = '';
     }
 
     function updateStudentPagination() {
@@ -489,7 +680,6 @@
         const pagination = document.getElementById('studentPagination');
         pagination.innerHTML = '';
 
-        // Previous button
         const prevBtn = document.createElement('button');
         prevBtn.textContent = '← Previous';
         prevBtn.className = 'pagination-btn';
@@ -502,7 +692,6 @@
         });
         pagination.appendChild(prevBtn);
 
-        // Page numbers
         for (let i = 1; i <= totalPages; i++) {
             if (i === 1 || i === totalPages || (i >= currentStudentPage - 1 && i <= currentStudentPage + 1)) {
                 const pageBtn = document.createElement('button');
@@ -521,7 +710,6 @@
             }
         }
 
-        // Next button
         const nextBtn = document.createElement('button');
         nextBtn.textContent = 'Next →';
         nextBtn.className = 'pagination-btn';
@@ -535,7 +723,30 @@
         pagination.appendChild(nextBtn);
     }
 
-    // Activity Logs functionality
+    // Date Dropdowns
+    function populateDateDropdowns() {
+        const lastActiveFilter = document.getElementById('lastActiveFilter');
+        const timeOfActionFilter = document.getElementById('timeOfActionFilter');
+
+        for (let i = 2; i <= 7; i++) {
+            const date = new Date();
+            date.setDate(date.getDate() - i);
+            const formatted = date.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+            const value = date.toISOString().split('T')[0];
+
+            const option1 = document.createElement('option');
+            option1.value = value;
+            option1.textContent = formatted;
+            lastActiveFilter.appendChild(option1);
+
+            const option2 = document.createElement('option');
+            option2.value = value;
+            option2.textContent = formatted;
+            timeOfActionFilter.appendChild(option2);
+        }
+    }
+
+    // Activity Logs Functionality
     function initializeActivityLogs() {
         filteredActivities = [...STUDENT_DATA.activityLogs];
         renderActivityTable();
@@ -543,17 +754,8 @@
     }
 
     function setupActivityControls() {
-        // Search
-        document.getElementById('activitySearch').addEventListener('input', function (e) {
-            filterActivities();
-        });
-
-        // Date filter
-        document.getElementById('timeOfActionFilter').addEventListener('change', function (e) {
-            filterActivities();
-        });
-
-        // Sort headers
+        document.getElementById('activitySearch').addEventListener('input', filterActivities);
+        document.getElementById('timeOfActionFilter').addEventListener('change', filterActivities);
         document.querySelectorAll('#activityTable th[data-sort]').forEach(th => {
             th.addEventListener('click', function () {
                 sortActivities(this.getAttribute('data-sort'));
@@ -566,8 +768,7 @@
         const dateFilter = document.getElementById('timeOfActionFilter').value;
 
         filteredActivities = STUDENT_DATA.activityLogs.filter(log => {
-            const matchesSearch =
-                String(log.logId).includes(searchTerm) ||
+            const matchesSearch = String(log.logId).includes(searchTerm) ||
                 String(log.studentId).includes(searchTerm) ||
                 log.studentName.toLowerCase().includes(searchTerm) ||
                 log.sessionType.toLowerCase().includes(searchTerm) ||
@@ -576,8 +777,7 @@
 
             let matchesDate = true;
             if (dateFilter === 'today') {
-                const today = new Date().toDateString();
-                matchesDate = log.timeOfAction.toDateString() === today;
+                matchesDate = log.timeOfAction.toDateString() === new Date().toDateString();
             } else if (dateFilter === 'yesterday') {
                 const yesterday = new Date();
                 yesterday.setDate(yesterday.getDate() - 1);
@@ -603,7 +803,6 @@
 
         filteredActivities.sort((a, b) => {
             let valA, valB;
-
             if (column === 'logId' || column === 'studentId') {
                 valA = a[column];
                 valB = b[column];
@@ -637,7 +836,7 @@
                 <td><span class="session-badge session-${log.sessionType.toLowerCase()}">${log.sessionType}</span></td>
                 <td><span class="tag-badge">${log.sessionTag}</span></td>
                 <td>${log.deviceInfo}</td>
-                <td>${formatDateTimeForDisplay(log.timeOfAction)}</td>
+                <td>${log.timeOfAction.toLocaleString('en-US', { month: 'short', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</td>
             </tr>
         `).join('');
 
@@ -657,7 +856,6 @@
         const pagination = document.getElementById('activityPagination');
         pagination.innerHTML = '';
 
-        // Previous button
         const prevBtn = document.createElement('button');
         prevBtn.textContent = '← Previous';
         prevBtn.className = 'pagination-btn';
@@ -670,7 +868,6 @@
         });
         pagination.appendChild(prevBtn);
 
-        // Page numbers
         for (let i = 1; i <= totalPages; i++) {
             if (i === 1 || i === totalPages || (i >= currentActivityPage - 1 && i <= currentActivityPage + 1)) {
                 const pageBtn = document.createElement('button');
@@ -689,7 +886,6 @@
             }
         }
 
-        // Next button
         const nextBtn = document.createElement('button');
         nextBtn.textContent = 'Next →';
         nextBtn.className = 'pagination-btn';

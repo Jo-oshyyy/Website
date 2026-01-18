@@ -1,4 +1,4 @@
-﻿@* Partial View: _StudentDetailsModal.cshtml *@
+﻿@* Updated Partial View: _StudentDetailsModal.cshtml *@
 
 <div id="studentModal" class="modal">
     <div class="modal-content">
@@ -8,17 +8,13 @@
         </div>
         <div class="modal-body" id="modalBody">
 
-            <!-- Basic Information -->
+            <!-- 1. Basic Information -->
             <div class="modal-section" id="basicInfoSection">
-                <h3 class="section-title">📋 Basic Information</h3>
+                <h3 class="section-title">👤 Basic Information</h3>
                 <div class="info-grid">
                     <div class="info-item">
                         <span class="info-label">Name</span>
                         <span class="info-value" id="studentName"></span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label">Gender</span>
-                        <span class="info-value" id="studentGender"></span>
                     </div>
                     <div class="info-item">
                         <span class="info-label">Age</span>
@@ -29,6 +25,10 @@
                         <span class="info-value" id="studentBirthday"></span>
                     </div>
                     <div class="info-item">
+                        <span class="info-label">Gender</span>
+                        <span class="info-value" id="studentGender"></span>
+                    </div>
+                    <div class="info-item">
                         <span class="info-label">School</span>
                         <span class="info-value" id="studentSchool"></span>
                     </div>
@@ -36,40 +36,75 @@
                         <span class="info-label">Barangay</span>
                         <span class="info-value" id="studentBarangay"></span>
                     </div>
+                    <div class="info-item">
+                        <span class="info-label">Date Joined</span>
+                        <span class="info-value" id="studentDateJoined"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Last Active</span>
+                        <span class="info-value" id="studentLastActive"></span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Assessment Scores -->
-            <div class="modal-section" id="assessmentSection">
-                <h3 class="section-title">📊 Assessment Scores</h3>
-                <div class="assessment-cards">
-                    <div class="assessment-card">
+            <!-- 2. Growth Tracking -->
+            <div class="modal-section" id="growthTrackingSection">
+                <h3 class="section-title">📈 Growth Tracking</h3>
+
+                <!-- Assessment Summary Cards -->
+                <div class="assessment-summary">
+                    <div class="assessment-card pre">
                         <div class="assessment-label">Pre-Assessment</div>
                         <div class="assessment-score" id="preAssessmentScore"></div>
-                        <div class="assessment-bar">
-                            <div class="assessment-fill pre-assessment" id="preAssessmentBar"></div>
-                        </div>
+                        <div class="assessment-sublabel">Initial Ability</div>
                     </div>
-                    <div class="assessment-card">
+                    <div class="assessment-card post">
                         <div class="assessment-label">Post-Assessment</div>
                         <div class="assessment-score" id="postAssessmentScore"></div>
-                        <div class="assessment-bar">
-                            <div class="assessment-fill post-assessment" id="postAssessmentBar"></div>
-                        </div>
+                        <div class="assessment-sublabel">Current Ability</div>
                     </div>
                     <div class="assessment-card improvement">
                         <div class="assessment-label">Improvement</div>
                         <div class="assessment-score improvement-value" id="improvementScore"></div>
-                        <div class="improvement-icon">📈</div>
+                        <div class="assessment-sublabel">Total Growth</div>
+                    </div>
+                </div>
+
+                <!-- Placement Level Comparison -->
+                <div class="placement-comparison">
+                    <div class="placement-card">
+                        <div class="placement-title">Initial Placement</div>
+                        <span class="placement-badge" id="initialPlacementBadge"></span>
+                    </div>
+                    <div class="placement-card">
+                        <div class="placement-title">Current Placement</div>
+                        <span class="placement-badge" id="currentPlacementBadge"></span>
+                    </div>
+                </div>
+
+                <!-- Stacked Bar Chart: Initial vs Current Ability -->
+                <div class="chart-container">
+                    <div class="chart-title">Ability Comparison by Subdomain</div>
+                    <div class="chart-wrapper">
+                        <canvas id="abilityComparisonChart"></canvas>
                     </div>
                 </div>
             </div>
 
-            <!-- Current Progress per Module -->
-            <div class="modal-section" id="progressSection">
-                <h3 class="section-title">📚 Current Progress per Module</h3>
-                <div class="progress-list" id="moduleProgressList">
-                    <!-- Module 1 -->
+            <!-- 3. Module Mastery -->
+            <div class="modal-section" id="moduleMasterySection">
+                <h3 class="section-title">🎯 Module Mastery</h3>
+
+                <!-- Radar Chart: Current Mastery -->
+                <div class="chart-container">
+                    <div class="chart-title">Current Mastery Per Subdomain (Letter Grades)</div>
+                    <div class="radar-chart-wrapper">
+                        <canvas id="masteryRadarChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Progress Percentage per Subdomain -->
+                <div class="module-progress-list">
                     <div class="progress-item" data-module="phonics">
                         <div class="progress-header">
                             <span class="module-name">Phonics & Word Study</span>
@@ -79,40 +114,36 @@
                             <div class="progress-bar-fill"></div>
                         </div>
                     </div>
-                    <!-- Module 2 -->
-                    <div class="progress-item" data-module="grammar">
-                        <div class="progress-header">
-                            <span class="module-name">Grammar Awareness and Grammatical Structure</span>
-                            <span class="progress-percentage"></span>
-                        </div>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar-fill"></div>
-                        </div>
-                    </div>
-                    <!-- Module 3 -->
                     <div class="progress-item" data-module="vocabulary">
                         <div class="progress-header">
-                            <span class="module-name">Vocabulary and Word Knowledge</span>
+                            <span class="module-name">Vocabulary & Word Knowledge</span>
                             <span class="progress-percentage"></span>
                         </div>
                         <div class="progress-bar-container">
                             <div class="progress-bar-fill"></div>
                         </div>
                     </div>
-                    <!-- Module 4 -->
+                    <div class="progress-item" data-module="grammar">
+                        <div class="progress-header">
+                            <span class="module-name">Grammar Awareness & Grammatical Structures</span>
+                            <span class="progress-percentage"></span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill"></div>
+                        </div>
+                    </div>
                     <div class="progress-item" data-module="comprehending">
                         <div class="progress-header">
-                            <span class="module-name">Comprehending and Analyzing Texts</span>
+                            <span class="module-name">Comprehending & Analyzing Text</span>
                             <span class="progress-percentage"></span>
                         </div>
                         <div class="progress-bar-container">
                             <div class="progress-bar-fill"></div>
                         </div>
                     </div>
-                    <!-- Module 5 -->
                     <div class="progress-item" data-module="creating">
                         <div class="progress-header">
-                            <span class="module-name">Creating and Composing Texts</span>
+                            <span class="module-name">Creating & Composing Text</span>
                             <span class="progress-percentage"></span>
                         </div>
                         <div class="progress-bar-container">
@@ -120,66 +151,44 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Score per Module -->
-            <div class="modal-section" id="scoresSection">
-                <h3 class="section-title">🎯 Score per Module</h3>
-                <div class="score-grid" id="moduleScoreGrid">
-                    <!-- Score Card 1 -->
-                    <div class="score-card" data-module="phonics">
-                        <div class="score-module">Phonics & Word Study</div>
-                        <div class="score-value"></div>
-                        <div class="score-status"></div>
-                    </div>
-                    <!-- Score Card 2 -->
-                    <div class="score-card" data-module="grammar">
-                        <div class="score-module">Grammar Awareness and Grammatical Structure</div>
-                        <div class="score-value"></div>
-                        <div class="score-status"></div>
-                    </div>
-                    <!-- Score Card 3 -->
-                    <div class="score-card" data-module="vocabulary">
-                        <div class="score-module">Vocabulary and Word Knowledge</div>
-                        <div class="score-value"></div>
-                        <div class="score-status"></div>
-                    </div>
-                    <!-- Score Card 4 -->
-                    <div class="score-card" data-module="comprehending">
-                        <div class="score-module">Comprehending and Analyzing Texts</div>
-                        <div class="score-value"></div>
-                        <div class="score-status"></div>
-                    </div>
-                    <!-- Score Card 5 -->
-                    <div class="score-card" data-module="creating">
-                        <div class="score-module">Creating and Composing Texts</div>
-                        <div class="score-value"></div>
-                        <div class="score-status"></div>
+                <!-- Stacked Area Chart: Quiz Scores Over Time -->
+                <div class="chart-container">
+                    <div class="chart-title">Quiz Performance Trends by Subdomain</div>
+                    <div class="chart-wrapper">
+                        <canvas id="quizTrendsChart"></canvas>
                     </div>
                 </div>
             </div>
 
-            <!-- Interventions -->
+            <!-- 4. Intervention History -->
             <div class="modal-section" id="interventionSection">
                 <h3 class="section-title">🔧 Intervention History</h3>
+
+                <!-- Intervention Summary Cards -->
                 <div class="intervention-summary">
                     <div class="intervention-stat">
                         <span class="stat-label">Total Interventions</span>
                         <span class="stat-value" id="totalInterventions"></span>
+                        <span class="stat-sublabel">Completed</span>
                     </div>
                     <div class="intervention-stat">
-                        <span class="stat-label">Latest Score</span>
-                        <span class="stat-value" id="latestInterventionScore"></span>
+                        <span class="stat-label">Recovery Success</span>
+                        <span class="stat-value" id="recoverySuccessRate"></span>
+                        <span class="stat-sublabel">Pass Rate</span>
                     </div>
                 </div>
+
+                <!-- Intervention History Table -->
                 <div class="intervention-table-wrapper">
                     <table class="intervention-table">
                         <thead>
                             <tr>
-                                <th>#</th>
                                 <th>Date</th>
+                                <th>Module Name</th>
+                                <th>Activity</th>
                                 <th>Score</th>
-                                <th>Change</th>
+                                <th>Result</th>
                             </tr>
                         </thead>
                         <tbody id="interventionTableBody">
