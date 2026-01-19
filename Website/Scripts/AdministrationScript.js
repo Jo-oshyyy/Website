@@ -80,11 +80,16 @@
     let activitySortColumn = null;
     let activitySortAsc = true;
 
+    // Current administrator for editing/removing
+    let currentEditAdministratorId = null;
+    let currentRemoveAdministratorId = null;
+
     // Initialize when DOM is ready
     document.addEventListener('DOMContentLoaded', function () {
         initializeTabs();
         initializeAdministratorList();
         populateDateDropdowns();
+        initializeModals();
     });
 
     // Tab functionality
@@ -191,6 +196,11 @@
             filterAdministrators();
         });
 
+        // Add Administrator button
+        document.getElementById('addAdministratorBtn').addEventListener('click', function () {
+            openAddAdministratorModal();
+        });
+
         // Sort headers
         document.querySelectorAll('#administratorTable th[data-sort]').forEach(th => {
             th.addEventListener('click', function () {
@@ -275,7 +285,13 @@
                         </button>
                         <div class="action-dropdown">
                             <button class="action-item view-details-btn" data-administrator-id="${administrator.administratorId}">
-                                <span class="action-icon">👁️</span> View Details
+                                <span class="action-icon">👁️</span> View Administrator
+                            </button>
+                            <button class="action-item edit-btn edit-administrator-btn" data-administrator-id="${administrator.administratorId}">
+                                <span class="action-icon">✏️</span> Edit Administrator
+                            </button>
+                            <button class="action-item remove-btn remove-administrator-btn" data-administrator-id="${administrator.administratorId}">
+                                <span class="action-icon">🗑️</span> Remove Administrator
                             </button>
                         </div>
                     </div>
@@ -309,16 +325,36 @@
             btn.addEventListener('click', function () {
                 const administratorId = parseInt(this.getAttribute('data-administrator-id'));
                 showAdministratorDetails(administratorId);
+                closeAllDropdowns();
+            });
+        });
 
-                // Close dropdown
-                document.querySelectorAll('.action-dropdown').forEach(d => d.classList.remove('show'));
+        // Edit administrator
+        document.querySelectorAll('.edit-administrator-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const administratorId = parseInt(this.getAttribute('data-administrator-id'));
+                openEditAdministratorModal(administratorId);
+                closeAllDropdowns();
+            });
+        });
+
+        // Remove administrator
+        document.querySelectorAll('.remove-administrator-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const administratorId = parseInt(this.getAttribute('data-administrator-id'));
+                openRemoveAdministratorModal(administratorId);
+                closeAllDropdowns();
             });
         });
 
         // Close dropdowns when clicking outside
         document.addEventListener('click', function () {
-            document.querySelectorAll('.action-dropdown').forEach(d => d.classList.remove('show'));
+            closeAllDropdowns();
         });
+    }
+
+    function closeAllDropdowns() {
+        document.querySelectorAll('.action-dropdown').forEach(d => d.classList.remove('show'));
     }
 
     function showAdministratorDetails(administratorId) {
@@ -355,38 +391,192 @@
         }
 
         // Show modal
-        document.getElementById('administratorModal').classList.add('show');
-        document.body.style.overflow = 'hidden';
+        openModal('administratorModal');
     }
 
     // Modal controls
-    document.addEventListener('DOMContentLoaded', function () {
-        // Close modal button
-        const closeBtn = document.getElementById('closeModal');
-        if (closeBtn) {
-            closeBtn.addEventListener('click', closeModal);
-        }
+    function initializeModals() {
+        // Administrator Details Modal
+        setupModalControls('administratorModal', 'closeModal');
 
-        // Close when clicking outside
-        const modal = document.getElementById('administratorModal');
-        if (modal) {
-            modal.addEventListener('click', function (e) {
-                if (e.target === this) closeModal();
-            });
-        }
+        // Add Administrator Modal
+        setupModalControls('addAdministratorModal', 'closeAddModal');
+        document.getElementById('cancelAddBtn').addEventListener('click', () => closeModal('addAdministratorModal'));
+        document.getElementById('confirmAddBtn').addEventListener('click', handleAddAdministrator);
+
+        // Edit Administrator Modal
+        setupModalControls('editAdministratorModal', 'closeEditModal');
+        document.getElementById('cancelEditBtn').addEventListener('click', () => closeModal('editAdministratorModal'));
+        document.getElementById('saveChangesBtn').addEventListener('click', handleEditAdministrator);
+
+        // Remove Administrator Modal
+        setupModalControls('removeAdministratorModal', 'closeRemoveModal');
+        document.getElementById('cancelRemoveBtn').addEventListener('click', () => closeModal('removeAdministratorModal'));
+        document.getElementById('confirmRemoveBtn').addEventListener('click', handleRemoveAdministrator);
 
         // Close with Escape key
         document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') closeModal();
+            if (e.key === 'Escape') {
+                closeAllModals();
+            }
         });
-    });
+    }
 
-    function closeModal() {
-        const modal = document.getElementById('administratorModal');
+    function setupModalControls(modalId, closeButtonId) {
+        const modal = document.getElementById(modalId);
+        const closeBtn = document.getElementById(closeButtonId);
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => closeModal(modalId));
+        }
+
+        if (modal) {
+            modal.addEventListener('click', function (e) {
+                if (e.target === this) closeModal(modalId);
+            });
+        }
+    }
+
+    function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
         if (modal) {
             modal.classList.remove('show');
             document.body.style.overflow = '';
         }
+    }
+
+    function closeAllModals() {
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.classList.remove('show');
+        });
+        document.body.style.overflow = '';
+    }
+
+    // Add Administrator Modal
+    function openAddAdministratorModal() {
+        // Clear form
+        document.getElementById('addAdminName').value = '';
+        document.getElementById('addAdminEmail').value = '';
+        document.getElementById('addAdminPassword').value = '';
+
+        openModal('addAdministratorModal');
+    }
+
+    function handleAddAdministrator() {
+        const name = document.getElementById('addAdminName').value.trim();
+        const email = document.getElementById('addAdminEmail').value.trim();
+        const password = document.getElementById('addAdminPassword').value;
+
+        if (!name || !email || !password) {
+            alert('Please fill in all fields.');
+            return;
+        }
+
+        // Generate new ID
+        const newId = Math.max(...ADMINISTRATOR_DATA.administrators.map(a => a.administratorId)) + 1;
+
+        // Create new administrator
+        const newAdmin = {
+            administratorId: newId,
+            administratorName: name,
+            email: email,
+            password: password,
+            lastActive: new Date()
+        };
+
+        // Add to data
+        ADMINISTRATOR_DATA.administrators.push(newAdmin);
+
+        // Refresh table
+        filterAdministrators();
+
+        // Close modal
+        closeModal('addAdministratorModal');
+
+        alert('Administrator added successfully!');
+    }
+
+    // Edit Administrator Modal
+    function openEditAdministratorModal(administratorId) {
+        const administrator = ADMINISTRATOR_DATA.administrators.find(a => a.administratorId === administratorId);
+        if (!administrator) return;
+
+        currentEditAdministratorId = administratorId;
+
+        // Populate form
+        document.getElementById('editAdminId').value = administrator.administratorId;
+        document.getElementById('editAdminName').value = administrator.administratorName;
+        document.getElementById('editAdminEmail').value = administrator.email;
+        document.getElementById('editAdminPassword').value = ''; // Don't show password
+
+        openModal('editAdministratorModal');
+    }
+
+    function handleEditAdministrator() {
+        const name = document.getElementById('editAdminName').value.trim();
+        const email = document.getElementById('editAdminEmail').value.trim();
+        const password = document.getElementById('editAdminPassword').value;
+
+        if (!name || !email) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+
+        // Find and update administrator
+        const administrator = ADMINISTRATOR_DATA.administrators.find(a => a.administratorId === currentEditAdministratorId);
+        if (administrator) {
+            administrator.administratorName = name;
+            administrator.email = email;
+            if (password) {
+                administrator.password = password;
+            }
+        }
+
+        // Refresh table
+        filterAdministrators();
+
+        // Close modal
+        closeModal('editAdministratorModal');
+
+        alert('Administrator updated successfully!');
+    }
+
+    // Remove Administrator Modal
+    function openRemoveAdministratorModal(administratorId) {
+        const administrator = ADMINISTRATOR_DATA.administrators.find(a => a.administratorId === administratorId);
+        if (!administrator) return;
+
+        currentRemoveAdministratorId = administratorId;
+
+        // Set administrator name in confirmation message
+        document.getElementById('removeAdminId').value = administrator.administratorId;
+        document.getElementById('removeAdminName').textContent = administrator.administratorName;
+
+        openModal('removeAdministratorModal');
+    }
+
+    function handleRemoveAdministrator() {
+        // Remove from data
+        const index = ADMINISTRATOR_DATA.administrators.findIndex(a => a.administratorId === currentRemoveAdministratorId);
+        if (index !== -1) {
+            ADMINISTRATOR_DATA.administrators.splice(index, 1);
+        }
+
+        // Refresh table
+        filterAdministrators();
+
+        // Close modal
+        closeModal('removeAdministratorModal');
+
+        alert('Administrator removed successfully!');
     }
 
     function updateAdministratorPagination() {
@@ -616,4 +806,4 @@
         pagination.appendChild(nextBtn);
     }
 
-})();
+})()

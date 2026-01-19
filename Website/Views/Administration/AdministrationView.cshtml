@@ -34,6 +34,10 @@
                         <option value="yesterday">Yesterday</option>
                         <!-- Dates will be populated by JavaScript -->
                     </select>
+                    <button class="add-admin-btn" id="addAdministratorBtn">
+                        <span>➕</span>
+                        Add New Administrator
+                    </button>
                 </div>
 
                 <!-- Administrator Table -->
@@ -116,7 +120,12 @@
     </div>
 </div>
 
-<!-- Include Administrator Details Modal Partial -->
-@Html.Partial("_AdministratorDetailsModal")
+@* Render modals outside the container *@
+@section modals {
+    @Html.Partial("_AdministratorDetailsModal")
+    @Html.Partial("_RemoveAdministratorModal")
+    @Html.Partial("_AddAdministratorModal")
+    @Html.Partial("_EditAdministratorModal")
+}
 
 <script src="~/Scripts/AdministrationScript.js"></script>

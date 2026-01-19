@@ -75,8 +75,11 @@ body {
     font-family: 'Visby', sans-serif;
     min-height: 100vh;
     position: relative;
-    overflow-x: hidden;
+    overflow: hidden; /* Changed from overflow-x: hidden */
     transition: background 0.5s ease;
+    height: 100vh; /* Added */
+    display: flex; /* Added */
+    flex-direction: column; /* Added */
 }
 
     body.dark-mode {
@@ -205,9 +208,11 @@ body.dark-mode .theme-toggle .moon-icon {
     color: #666666;
     padding: 0;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    position: relative;
+    position: sticky; /* Changed from relative */
+    top: 0; /* Added */
     z-index: 1000;
     height: 60px;
+    flex-shrink: 0; /* Added */
 }
 
 body.dark-mode .NavBar {
@@ -758,6 +763,9 @@ body.dark-mode .dropdown-divider {
     padding: 30px;
     position: relative;
     z-index: 1;
+    flex: 1; /* Added */
+    overflow-y: auto; /* Added */
+    overflow-x: hidden; /* Added */
 }
 
 /* ==================== LOGOUT MODAL STYLES ==================== */
@@ -960,6 +968,7 @@ body.dark-mode .logout-modal-content {
         transition: max-height 0.3s ease-out;
         background-color: rgba(255, 255, 255, 0.98);
         backdrop-filter: blur(10px);
+        z-index: 999; /* Added to ensure it appears below navbar but above content */
     }
 
     body.dark-mode .NavBar-Content-Middle {

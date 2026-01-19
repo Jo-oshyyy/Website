@@ -210,6 +210,9 @@
     <Content Include="Views\Schools\_RemoveSchoolModal.cshtml" />
     <Content Include="Views\Administration\AdministrationView.cshtml" />
     <Content Include="Views\Administration\_AdministratorDetailsModal.cshtml" />
+    <Content Include="Views\Administration\_AddAdministratorModal.cshtml" />
+    <Content Include="Views\Administration\_EditAdministratorModal.cshtml" />
+    <Content Include="Views\Administration\_RemoveAdministratorModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
