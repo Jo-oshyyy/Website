@@ -44,6 +44,86 @@
             {
                 administratorId: 10, administratorName: "Gabriela Mendoza", email: "gabriela.mendoza@school.edu",
                 password: "Gaby@SecPwd26", lastActive: new Date('2026-01-14T12:30:00')
+            },
+            {
+                administratorId: 11, administratorName: "Roberto Santiago", email: "roberto.santiago@school.edu",
+                password: "Roberto2026!", lastActive: new Date('2026-01-14T09:20:00')
+            },
+            {
+                administratorId: 12, administratorName: "Carmen Flores", email: "carmen.flores@school.edu",
+                password: "Carmen#Secure1", lastActive: new Date('2026-01-13T16:45:00')
+            },
+            {
+                administratorId: 13, administratorName: "Luis Morales", email: "luis.morales@school.edu",
+                password: "Luis@Pass2026", lastActive: new Date('2026-01-14T11:30:00')
+            },
+            {
+                administratorId: 14, administratorName: "Elena Rodriguez", email: "elena.rodriguez@school.edu",
+                password: "Elena$2026Pwd", lastActive: new Date('2026-01-12T14:15:00')
+            },
+            {
+                administratorId: 15, administratorName: "Francisco Hernandez", email: "francisco.hernandez@school.edu",
+                password: "Francisco#26", lastActive: new Date('2026-01-14T10:00:00')
+            },
+            {
+                administratorId: 16, administratorName: "Patricia Diaz", email: "patricia.diaz@school.edu",
+                password: "Patricia2026!", lastActive: new Date('2026-01-13T15:20:00')
+            },
+            {
+                administratorId: 17, administratorName: "Antonio Martinez", email: "antonio.martinez@school.edu",
+                password: "Antonio@Sec26", lastActive: new Date('2026-01-14T08:45:00')
+            },
+            {
+                administratorId: 18, administratorName: "Rosa Gonzalez", email: "rosa.gonzalez@school.edu",
+                password: "Rosa#Pass2026", lastActive: new Date('2026-01-12T13:00:00')
+            },
+            {
+                administratorId: 19, administratorName: "Manuel Castro", email: "manuel.castro@school.edu",
+                password: "Manuel$2026", lastActive: new Date('2026-01-14T12:15:00')
+            },
+            {
+                administratorId: 20, administratorName: "Teresa Ortiz", email: "teresa.ortiz@school.edu",
+                password: "Teresa@Secure1", lastActive: new Date('2026-01-13T10:30:00')
+            },
+            {
+                administratorId: 21, administratorName: "Jorge Ramirez", email: "jorge.ramirez@school.edu",
+                password: "Jorge2026#Pwd", lastActive: new Date('2026-01-14T14:00:00')
+            },
+            {
+                administratorId: 22, administratorName: "Laura Jimenez", email: "laura.jimenez@school.edu",
+                password: "Laura#Secure26", lastActive: new Date('2026-01-12T11:45:00')
+            },
+            {
+                administratorId: 23, administratorName: "Ricardo Vargas", email: "ricardo.vargas@school.edu",
+                password: "Ricardo@2026", lastActive: new Date('2026-01-14T09:00:00')
+            },
+            {
+                administratorId: 24, administratorName: "Beatriz Romero", email: "beatriz.romero@school.edu",
+                password: "Beatriz$Pass26", lastActive: new Date('2026-01-13T14:30:00')
+            },
+            {
+                administratorId: 25, administratorName: "Alberto Navarro", email: "alberto.navarro@school.edu",
+                password: "Alberto2026!", lastActive: new Date('2026-01-14T13:20:00')
+            },
+            {
+                administratorId: 26, administratorName: "Claudia Ruiz", email: "claudia.ruiz@school.edu",
+                password: "Claudia#26Sec", lastActive: new Date('2026-01-12T10:15:00')
+            },
+            {
+                administratorId: 27, administratorName: "Fernando Gil", email: "fernando.gil@school.edu",
+                password: "Fernando@Pass1", lastActive: new Date('2026-01-14T15:45:00')
+            },
+            {
+                administratorId: 28, administratorName: "Daniela Soto", email: "daniela.soto@school.edu",
+                password: "Daniela$2026", lastActive: new Date('2026-01-13T12:00:00')
+            },
+            {
+                administratorId: 29, administratorName: "Javier Molina", email: "javier.molina@school.edu",
+                password: "Javier#Secure", lastActive: new Date('2026-01-14T11:00:00')
+            },
+            {
+                administratorId: 30, administratorName: "Veronica Nunez", email: "veronica.nunez@school.edu",
+                password: "Veronica@2026", lastActive: new Date('2026-01-12T15:30:00')
             }
         ],
         activityLogs: [
@@ -68,7 +148,8 @@
     // Pagination state
     let currentAdministratorPage = 1;
     let currentActivityPage = 1;
-    const rowsPerPage = 10;
+    let administratorRowsPerPage = 10;
+    let activityRowsPerPage = 10;
 
     // Filtered data
     let filteredAdministrators = [];
@@ -196,6 +277,13 @@
             filterAdministrators();
         });
 
+        // Rows per page
+        document.getElementById('administratorRowsPerPage').addEventListener('change', function (e) {
+            administratorRowsPerPage = parseInt(this.value);
+            currentAdministratorPage = 1;
+            renderAdministratorTable();
+        });
+
         // Add Administrator button
         document.getElementById('addAdministratorBtn').addEventListener('click', function () {
             openAddAdministratorModal();
@@ -265,42 +353,60 @@
         });
 
         renderAdministratorTable();
+
+        // Update sort icons
+        document.querySelectorAll('#administratorTable th[data-sort]').forEach(th => {
+            th.classList.remove('sort-asc', 'sort-desc');
+        });
+        const activeHeader = document.querySelector(`#administratorTable th[data-sort="${column}"]`);
+        if (activeHeader) {
+            activeHeader.classList.add(administratorSortAsc ? 'sort-asc' : 'sort-desc');
+        }
     }
 
     function renderAdministratorTable() {
         const tbody = document.getElementById('administratorTableBody');
-        const start = (currentAdministratorPage - 1) * rowsPerPage;
-        const end = start + rowsPerPage;
+        const start = (currentAdministratorPage - 1) * administratorRowsPerPage;
+        const end = start + administratorRowsPerPage;
         const pageData = filteredAdministrators.slice(start, end);
 
-        tbody.innerHTML = pageData.map(administrator => `
-            <tr>
-                <td>${administrator.administratorName}</td>
-                <td>${administrator.email}</td>
-                <td>${formatDateTimeForDisplay(administrator.lastActive)}</td>
-                <td class="actions-cell">
-                    <div class="action-menu">
-                        <button class="kebab-btn" data-administrator-id="${administrator.administratorId}">
-                            <span class="kebab-icon">⋮</span>
-                        </button>
-                        <div class="action-dropdown">
-                            <button class="action-item view-details-btn" data-administrator-id="${administrator.administratorId}">
-                                <span class="action-icon">👁️</span> View Administrator
+        if (pageData.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="4" class="no-logs-message">No administrators found.</td>
+                </tr>
+            `;
+        } else {
+            tbody.innerHTML = pageData.map(administrator => `
+                <tr>
+                    <td>${administrator.administratorName}</td>
+                    <td>${administrator.email}</td>
+                    <td>${formatDateTimeForDisplay(administrator.lastActive)}</td>
+                    <td class="actions-cell">
+                        <div class="action-menu">
+                            <button class="kebab-btn" data-administrator-id="${administrator.administratorId}">
+                                <span class="kebab-icon">⋮</span>
                             </button>
-                            <button class="action-item edit-btn edit-administrator-btn" data-administrator-id="${administrator.administratorId}">
-                                <span class="action-icon">✏️</span> Edit Administrator
-                            </button>
-                            <button class="action-item remove-btn remove-administrator-btn" data-administrator-id="${administrator.administratorId}">
-                                <span class="action-icon">🗑️</span> Remove Administrator
-                            </button>
+                            <div class="action-dropdown">
+                                <button class="action-item view-details-btn" data-administrator-id="${administrator.administratorId}">
+                                    <span class="action-icon">👁️</span> View Administrator
+                                </button>
+                                <button class="action-item edit-btn edit-administrator-btn" data-administrator-id="${administrator.administratorId}">
+                                    <span class="action-icon">✏️</span> Edit Administrator
+                                </button>
+                                <button class="action-item remove-btn remove-administrator-btn" data-administrator-id="${administrator.administratorId}">
+                                    <span class="action-icon">🗑️</span> Remove Administrator
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-        `).join('');
+                    </td>
+                </tr>
+            `).join('');
 
-        // Setup action buttons
-        setupActionButtons();
+            // Setup action buttons only if there's data
+            setupActionButtons();
+        }
+
         updateAdministratorPagination();
     }
 
@@ -315,6 +421,11 @@
                 document.querySelectorAll('.action-dropdown').forEach(d => {
                     if (d !== dropdown) d.classList.remove('show');
                 });
+
+                // Position dropdown using fixed positioning
+                const rect = this.getBoundingClientRect();
+                dropdown.style.top = (rect.bottom + 5) + 'px';
+                dropdown.style.left = (rect.right - 180) + 'px';
 
                 dropdown.classList.toggle('show');
             });
@@ -581,9 +692,9 @@
 
     function updateAdministratorPagination() {
         const total = filteredAdministrators.length;
-        const totalPages = Math.ceil(total / rowsPerPage);
-        const start = (currentAdministratorPage - 1) * rowsPerPage + 1;
-        const end = Math.min(start + rowsPerPage - 1, total);
+        const totalPages = Math.ceil(total / administratorRowsPerPage);
+        const start = (currentAdministratorPage - 1) * administratorRowsPerPage + 1;
+        const end = Math.min(start + administratorRowsPerPage - 1, total);
 
         document.getElementById('administratorShowingStart').textContent = total > 0 ? start : 0;
         document.getElementById('administratorShowingEnd').textContent = end;
@@ -656,6 +767,13 @@
             filterActivities();
         });
 
+        // Rows per page
+        document.getElementById('activityRowsPerPage').addEventListener('change', function (e) {
+            activityRowsPerPage = parseInt(this.value);
+            currentActivityPage = 1;
+            renderActivityTable();
+        });
+
         // Sort headers
         document.querySelectorAll('#activityTable th[data-sort]').forEach(th => {
             th.addEventListener('click', function () {
@@ -724,34 +842,51 @@
         });
 
         renderActivityTable();
+
+        // Update sort icons
+        document.querySelectorAll('#activityTable th[data-sort]').forEach(th => {
+            th.classList.remove('sort-asc', 'sort-desc');
+        });
+        const activeHeader = document.querySelector(`#activityTable th[data-sort="${column}"]`);
+        if (activeHeader) {
+            activeHeader.classList.add(activitySortAsc ? 'sort-asc' : 'sort-desc');
+        }
     }
 
     function renderActivityTable() {
         const tbody = document.getElementById('activityTableBody');
-        const start = (currentActivityPage - 1) * rowsPerPage;
-        const end = start + rowsPerPage;
+        const start = (currentActivityPage - 1) * activityRowsPerPage;
+        const end = start + activityRowsPerPage;
         const pageData = filteredActivities.slice(start, end);
 
-        tbody.innerHTML = pageData.map(log => `
-            <tr>
-                <td>${log.logId}</td>
-                <td>${log.administratorId}</td>
-                <td>${log.administratorName}</td>
-                <td><span class="action-badge action-${log.actionType.toLowerCase().replace(/\s+/g, '-')}">${log.actionType}</span></td>
-                <td><span class="tag-badge">${log.actionTag}</span></td>
-                <td>${log.deviceInfo}</td>
-                <td>${formatDateTimeForDisplay(log.timeOfAction)}</td>
-            </tr>
-        `).join('');
+        if (pageData.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="7" class="no-logs-message">No activity logs found.</td>
+                </tr>
+            `;
+        } else {
+            tbody.innerHTML = pageData.map(log => `
+                <tr>
+                    <td>${log.logId}</td>
+                    <td>${log.administratorId}</td>
+                    <td>${log.administratorName}</td>
+                    <td><span class="action-badge action-${log.actionType.toLowerCase().replace(/\s+/g, '-')}">${log.actionType}</span></td>
+                    <td><span class="tag-badge">${log.actionTag}</span></td>
+                    <td>${log.deviceInfo}</td>
+                    <td>${formatDateTimeForDisplay(log.timeOfAction)}</td>
+                </tr>
+            `).join('');
+        }
 
         updateActivityPagination();
     }
 
     function updateActivityPagination() {
         const total = filteredActivities.length;
-        const totalPages = Math.ceil(total / rowsPerPage);
-        const start = (currentActivityPage - 1) * rowsPerPage + 1;
-        const end = Math.min(start + rowsPerPage - 1, total);
+        const totalPages = Math.ceil(total / activityRowsPerPage);
+        const start = (currentActivityPage - 1) * activityRowsPerPage + 1;
+        const end = Math.min(start + activityRowsPerPage - 1, total);
 
         document.getElementById('activityShowingStart').textContent = total > 0 ? start : 0;
         document.getElementById('activityShowingEnd').textContent = end;

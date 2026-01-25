@@ -59,8 +59,15 @@
 
                 <!-- Pagination -->
                 <div class="pagination-container">
-                    <div class="pagination-info">
-                        Showing <span id="administratorShowingStart">0</span> to <span id="administratorShowingEnd">0</span> of <span id="administratorTotal">0</span> administrators
+                    <div class="pagination-left">
+                        <select id="administratorRowsPerPage" class="rows-per-page-select">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select>
+                        <div class="pagination-info">
+                            Showing <span id="administratorShowingStart">0</span> to <span id="administratorShowingEnd">0</span> of <span id="administratorTotal">0</span> administrators
+                        </div>
                     </div>
                     <div class="pagination-controls" id="administratorPagination">
                         <!-- Pagination buttons populated by JavaScript -->
@@ -108,8 +115,15 @@
 
                 <!-- Pagination -->
                 <div class="pagination-container">
-                    <div class="pagination-info">
-                        Showing <span id="activityShowingStart">0</span> to <span id="activityShowingEnd">0</span> of <span id="activityTotal">0</span> logs
+                    <div class="pagination-left">
+                        <select id="activityRowsPerPage" class="rows-per-page-select">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select>
+                        <div class="pagination-info">
+                            Showing <span id="activityShowingStart">0</span> to <span id="activityShowingEnd">0</span> of <span id="activityTotal">0</span> logs
+                        </div>
                     </div>
                     <div class="pagination-controls" id="activityPagination">
                         <!-- Pagination buttons populated by JavaScript -->
