@@ -26,12 +26,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const sidebarToggle = document.getElementById('sidebarToggle');
     const sidebar = document.querySelector('.Sidebar');
 
-    // Check for saved sidebar state
-    const savedSidebarState = localStorage.getItem('sidebarCollapsed');
-    if (savedSidebarState === 'true') {
-        sidebar.classList.add('collapsed');
+    // Remove no-transition class after state is applied to enable smooth transitions
+    if (sidebar && sidebar.classList.contains('no-transition')) {
+        // Force reflow to ensure the class is applied
+        sidebar.offsetHeight;
+        // Remove no-transition after a brief moment
+        setTimeout(function () {
+            sidebar.classList.remove('no-transition');
+        }, 50);
     }
 
+    // This is just for the toggle button functionality
     if (sidebarToggle && sidebar) {
         sidebarToggle.addEventListener('click', function () {
             sidebar.classList.toggle('collapsed');

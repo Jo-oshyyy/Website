@@ -361,6 +361,12 @@ body.dark-mode .Sidebar {
     background-color: rgba(74, 59, 107, 0.95);
 }
 
+/* Prevent flash by removing transition on page load */
+.Sidebar.no-transition,
+.Sidebar.no-transition ~ .Main-Container {
+    transition: none !important;
+}
+
 .Sidebar.collapsed {
     width: 60px;
 }
