@@ -35,140 +35,171 @@
         </svg>
     </button>
 
-    <!-- Navigation Bar -->
-    <div class="NavBar">
-        <div class="NavBar-Container">
-            <!-- NavBar: Left -->
-            <div class="NavBar-Content-Left">
-                <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+    <!-- Top Navigation Bar -->
+    <div class="TopBar">
+        <div class="topbar-left">
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            <button class="sidebar-toggle mobile-toggle" id="mobileSidebarToggle" aria-label="Open menu">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            @Html.ActionLink("LiteRise", "Index", "Dashboard", null, new { @class = "topbar-brand" })
+        </div>
+
+        <div class="topbar-right">
+            <div class="dropdown-container">
+                <button class="topbar-icon-btn" id="notificationsToggle" aria-label="Notifications" aria-expanded="false">
+                    <span class="glyphicon glyphicon-bell"></span>
+                    <span class="notification-badge">5</span>
                 </button>
-                @Html.ActionLink("LiteRise", "Index", "Dashboard", null, new { @class = "navbar-brand" })
+                <div class="notifications-panel" id="notificationsPanel">
+                    <div class="notifications-header">
+                        <h3>Notifications</h3>
+                    </div>
+                    <div class="notifications-list">
+                        <a href="#" class="notification-item unread">
+                            <div class="notification-icon success">
+                                <span class="glyphicon glyphicon-ok-circle"></span>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-text">
+                                    <strong>John Smith</strong> submitted Final Project Report
+                                </div>
+                                <div class="notification-time">2 hours ago</div>
+                            </div>
+                        </a>
+                        <a href="#" class="notification-item unread">
+                            <div class="notification-icon warning">
+                                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-text">
+                                    <strong>Sarah Johnson</strong> requested grade review for Quiz #5
+                                </div>
+                                <div class="notification-time">5 hours ago</div>
+                            </div>
+                        </a>
+                        <a href="#" class="notification-item unread">
+                            <div class="notification-icon info">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-text">
+                                    New student <strong>Mike Davis</strong> enrolled in Computer Science 101
+                                </div>
+                                <div class="notification-time">1 day ago</div>
+                            </div>
+                        </a>
+                        <a href="#" class="notification-item">
+                            <div class="notification-icon success">
+                                <span class="glyphicon glyphicon-upload"></span>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-text">
+                                    Database backup completed successfully
+                                </div>
+                                <div class="notification-time">2 days ago</div>
+                            </div>
+                        </a>
+                        <a href="#" class="notification-item">
+                            <div class="notification-icon error">
+                                <span class="glyphicon glyphicon-alert"></span>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-text">
+                                    System maintenance scheduled for this weekend
+                                </div>
+                                <div class="notification-time">3 days ago</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <!-- NavBar: Middle -->
-            <div class="NavBar-Content-Middle">
-                <ul class="nav navbar-nav navbar-center">
-                    <li>@Html.ActionLink("Dashboard", "Index", "Dashboard", null, new { @class = "nav-link", data_page = "Dashboard" })</li>
-                    <li>@Html.ActionLink("Students", "Index", "Student", null, new { @class = "nav-link", data_page = "Students" })</li>
-                    <li>@Html.ActionLink("Schools", "Index", "Schools", null, new { @class = "nav-link", data_page = "Schools" })</li>
-                    <li>@Html.ActionLink("Masterfile", "Index", "Masterfile", null, new { @class = "nav-link", data_page = "Masterfile" })</li>
-                    <li>@Html.ActionLink("Analytics", "Index", "Analytics", null, new { @class = "nav-link", data_page = "Analytics" })</li>
-                    <li>@Html.ActionLink("Administration", "Index", "Administration", null, new { @class = "nav-link", data_page = "Administration" })</li>
-                </ul>
-            </div>
-
-            <!-- NavBar: Right -->
-            <div class="NavBar-Content-Right">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="notifications-dropdown">
-                        <a href="javascript:void(0);" id="notificationsToggle" aria-label="Notifications" aria-expanded="false">
-                            <span class="glyphicon glyphicon-bell"></span>
-                            <span class="notification-badge">5</span>
-                        </a>
-                        <div class="notifications-panel" id="notificationsPanel">
-                            <div class="notifications-header">
-                                <h3>Notifications</h3>
-
-                            </div>
-
-                            <div class="notifications-list">
-                                <a href="#" class="notification-item unread">
-                                    <div class="notification-icon success">
-                                        <span class="glyphicon glyphicon-ok-circle"></span>
-                                    </div>
-                                    <div class="notification-content">
-                                        <div class="notification-text">
-                                            <strong>John Smith</strong> submitted Final Project Report
-                                        </div>
-                                        <div class="notification-time">2 hours ago</div>
-                                    </div>
-                                </a>
-
-                                <a href="#" class="notification-item unread">
-                                    <div class="notification-icon warning">
-                                        <span class="glyphicon glyphicon-exclamation-sign"></span>
-                                    </div>
-                                    <div class="notification-content">
-                                        <div class="notification-text">
-                                            <strong>Sarah Johnson</strong> requested grade review for Quiz #5
-                                        </div>
-                                        <div class="notification-time">5 hours ago</div>
-                                    </div>
-                                </a>
-
-                                <a href="#" class="notification-item unread">
-                                    <div class="notification-icon info">
-                                        <span class="glyphicon glyphicon-info-sign"></span>
-                                    </div>
-                                    <div class="notification-content">
-                                        <div class="notification-text">
-                                            New student <strong>Mike Davis</strong> enrolled in Computer Science 101
-                                        </div>
-                                        <div class="notification-time">1 day ago</div>
-                                    </div>
-                                </a>
-
-                                <a href="#" class="notification-item">
-                                    <div class="notification-icon success">
-                                        <span class="glyphicon glyphicon-upload"></span>
-                                    </div>
-                                    <div class="notification-content">
-                                        <div class="notification-text">
-                                            Database backup completed successfully
-                                        </div>
-                                        <div class="notification-time">2 days ago</div>
-                                    </div>
-                                </a>
-
-                                <a href="#" class="notification-item">
-                                    <div class="notification-icon error">
-                                        <span class="glyphicon glyphicon-alert"></span>
-                                    </div>
-                                    <div class="notification-content">
-                                        <div class="notification-text">
-                                            System maintenance scheduled for this weekend
-                                        </div>
-                                        <div class="notification-time">3 days ago</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="settings-dropdown">
-                        <a href="javascript:void(0);" id="settingsToggle" aria-label="Settings" aria-expanded="false">
-                            <span class="glyphicon glyphicon-cog"></span>
-                        </a>
-                        <div class="dropdown-menu" id="settingsDropdown">
-                            <a href="@Url.Action("Account", "Settings")">
-                                <span class="glyphicon glyphicon-user"></span>
-                                Account
-                            </a>
-                            <a href="@Url.Action("Index", "Settings")">
-                                <span class="glyphicon glyphicon-cog"></span>
-                                Settings
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="javascript:void(0);" id="logoutLink">
-                                <span class="glyphicon glyphicon-log-out"></span>
-                                Log out
-                            </a>
-                        </div>
-                    </li>
-                </ul>
+            <div class="dropdown-container">
+                <button class="topbar-icon-btn" id="settingsToggle" aria-label="Settings" aria-expanded="false">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </button>
+                <div class="dropdown-menu" id="settingsDropdown">
+                    <a href="@Url.Action("Account", "Settings")">
+                        <span class="glyphicon glyphicon-user"></span>
+                        Account
+                    </a>
+                    <a href="@Url.Action("Index", "Settings")">
+                        <span class="glyphicon glyphicon-cog"></span>
+                        Settings
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="javascript:void(0);" id="logoutLink">
+                        <span class="glyphicon glyphicon-log-out"></span>
+                        Log out
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="Container-Body">
-        @RenderBody()
+    <!-- Sidebar Navigation -->
+    <div class="Sidebar">
+        <div class="sidebar-content">
+            <nav class="sidebar-nav">
+                <a href="@Url.Action("Index", "Dashboard")" class="sidebar-nav-item" data-page="Dashboard" title="Dashboard">
+                    <div class="sidebar-icon"><span class="glyphicon glyphicon-dashboard"></span></div>
+                    <span class="sidebar-text">Dashboard</span>
+                </a>
+
+                <a href="@Url.Action("Index", "Student")" class="sidebar-nav-item" data-page="Students" title="Students">
+                    <div class="sidebar-icon"><span class="glyphicon glyphicon-education"></span></div>
+                    <span class="sidebar-text">Students</span>
+                </a>
+
+                <a href="@Url.Action("Index", "Schools")" class="sidebar-nav-item" data-page="Schools" title="Schools">
+                    <div class="sidebar-icon"><span class="glyphicon glyphicon-home"></span></div>
+                    <span class="sidebar-text">Schools</span>
+                </a>
+
+                <a href="@Url.Action("Index", "Masterfile")" class="sidebar-nav-item" data-page="Masterfile" title="Masterfile">
+                    <div class="sidebar-icon"><span class="glyphicon glyphicon-folder-open"></span></div>
+                    <span class="sidebar-text">Masterfile</span>
+                </a>
+
+                <a href="@Url.Action("Index", "Analytics")" class="sidebar-nav-item" data-page="Analytics" title="Analytics">
+                    <div class="sidebar-icon"><span class="glyphicon glyphicon-stats"></span></div>
+                    <span class="sidebar-text">Analytics</span>
+                </a>
+
+                <a href="@Url.Action("Index", "Administration")" class="sidebar-nav-item" data-page="Administration" title="Administration">
+                    <div class="sidebar-icon"><span class="glyphicon glyphicon-cog"></span></div>
+                    <span class="sidebar-text">Administration</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="@Url.Action("Account", "Settings")" class="sidebar-profile">
+                    <div class="profile-avatar">JD</div>
+                    <div class="profile-info">
+                        <div class="profile-name">John Doe</div>
+                        <div class="profile-email">john@literise.com</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="Main-Container">
+        <div class="Container-Body">
+            @RenderBody()
+        </div>
     </div>
 
     <!-- Logout Confirmation Modal -->
-    <div id="logoutModal" class="logout-modal" style="display: none;">
+    <div id="logoutModal" class="logout-modal">
         <div class="logout-modal-content">
             <button class="logout-modal-close" id="logoutModalClose" aria-label="Close modal">&times;</button>
 
@@ -197,3 +228,5 @@
     <script src="~/Scripts/layout.js"></script>
 </body>
 </html>
+
+
