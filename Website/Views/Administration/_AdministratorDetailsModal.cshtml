@@ -1,0 +1,56 @@
+﻿@* Partial View: _AdministratorDetailsModal.cshtml *@
+<div id="administratorModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Administrator Details</h2>
+            <p>View comprehensive information about this administrator account.</p>
+        </div>
+        <div class="modal-body" id="modalBody">
+            <!-- Basic Information -->
+            <div class="modal-section" id="basicInfoSection">
+                <h3 class="section-title">📋 Basic Information</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Name</span>
+                        <span class="info-value" id="administratorName"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Email</span>
+                        <span class="info-value" id="administratorEmail"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Password</span>
+                        <span class="info-value password-masked" id="administratorPassword">••••••••••</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Last Active</span>
+                        <span class="info-value" id="administratorLastActive"></span>
+                    </div>
+                </div>
+            </div>
+            <!-- Activity Logs Section -->
+            <div class="modal-section" id="activityLogsSection">
+                <h3 class="section-title">📊 Activity Logs</h3>
+                <div class="activity-logs-table-wrapper">
+                    <table class="activity-logs-table">
+                        <thead>
+                            <tr>
+                                <th>Log ID</th>
+                                <th>Action Type</th>
+                                <th>Action Tag</th>
+                                <th>Device Info</th>
+                                <th>Time of Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminActivityLogsBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="closeModal">Close</button>
+        </div>
+    </div>
+</div>

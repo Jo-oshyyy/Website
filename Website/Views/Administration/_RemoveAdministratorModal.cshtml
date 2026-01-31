@@ -1,0 +1,19 @@
+﻿<div id="removeAdministratorModal" class="modal">
+    <div class="modal-content small">
+        <div class="modal-header">
+            <h2>🗑️ Remove Administrator</h2>
+            <p>This action will permanently delete the administrator account and cannot be undone.</p>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="removeAdminId">
+            <div class="confirmation-message">
+                <p>Are you sure you want to remove <strong id="removeAdminName"></strong>?</p>
+                <p style="margin-top: 10px;">All data associated with this administrator will be permanently deleted.</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="cancelRemoveBtn">Cancel</button>
+            <button type="button" class="btn btn-danger" id="confirmRemoveBtn">Remove</button>
+        </div>
+    </div>
+</div>

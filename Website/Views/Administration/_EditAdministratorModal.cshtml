@@ -1,0 +1,27 @@
+﻿<div id="editAdministratorModal" class="modal">
+    <div class="modal-content small">
+        <div class="modal-header">
+            <h2>✏️ Edit Administrator</h2>
+            <p>Update administrator information. Leave password blank to keep the current one.</p>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="editAdminId">
+            <div class="form-group">
+                <label class="form-label" for="editAdminName">Name</label>
+                <input type="text" id="editAdminName" class="form-input" placeholder="Enter administrator name" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="editAdminEmail">Email</label>
+                <input type="email" id="editAdminEmail" class="form-input" placeholder="Enter email address" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="editAdminPassword">Password</label>
+                <input type="password" id="editAdminPassword" class="form-input" placeholder="Enter new password (leave blank to keep current)">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="cancelEditBtn">Cancel</button>
+            <button type="button" class="btn btn-primary" id="saveChangesBtn">Save Changes</button>
+        </div>
+    </div>
+</div>

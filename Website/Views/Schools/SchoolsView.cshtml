@@ -1,0 +1,75 @@
+﻿@{ ViewBag.Title = "Schools"; }
+
+<link href="~/Content/SchoolsStyles.css" rel="stylesheet" />
+
+<div class="schools-container">
+    <h2>Schools Management</h2>
+
+    <div class="tab-container">
+        <div class="tab-headers">
+            <button class="tab-header active" data-tab="schoolList">
+                <span class="tab-icon">🏫</span>
+                School List
+            </button>
+        </div>
+
+        <div class="tab-content-container">
+            <!-- SCHOOL LIST TAB -->
+            <div class="tab-content active" id="schoolList">
+                <div class="content-header">
+                    <h3>School List</h3>
+                    <p>Manage schools and view student information</p>
+                </div>
+
+                <!-- Filters Section -->
+                <div class="filters-section">
+                    <div class="filter-group">
+                        <label for="barangayFilter">Barangay:</label>
+                        <select id="barangayFilter" class="filter-select">
+                            <option value="">All Barangays</option>
+                        </select>
+                    </div>
+                    <button id="resetFilters" class="btn-reset">Reset Filters</button>
+                </div>
+
+                <!-- Interactive Table -->
+                <div class="table-section">
+                    <div class="table-controls">
+                        <input type="text" id="tableSearch" placeholder="Search schools..." class="search-input">
+                        <div class="table-controls-right">
+                            <button id="addSchoolBtn" class="btn-add-school">+ Add New School</button>
+                            <button id="exportTable" class="btn-export">Export to CSV</button>
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table id="schoolsTable" class="data-table">
+                            <thead>
+                                <tr>
+                                    <th data-sort="schoolName">School Name <span class="sort-icon">⬍</span></th>
+                                    <th data-sort="schoolId">School ID <span class="sort-icon">⬍</span></th>
+                                    <th data-sort="barangay">Barangay <span class="sort-icon">⬍</span></th>
+                                    <th data-sort="percentage">% of Total Students <span class="sort-icon">⬍</span></th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <!-- Populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Overlay -->
+<div class="modal-overlay" id="modalOverlay"></div>
+
+<!-- Include Partial Views -->
+@Html.Partial("_AddSchoolModal")
+@Html.Partial("_EditSchoolModal")
+@Html.Partial("_RemoveSchoolModal")
+@Html.Partial("_SchoolDetailsModal")
+
+<script src="~/Scripts/SchoolsScript.js"></script>

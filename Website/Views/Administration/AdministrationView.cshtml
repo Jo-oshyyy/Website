@@ -1,17 +1,15 @@
-﻿@{
-    ViewBag.Title = "Students";
-}
+﻿@{ ViewBag.Title = "Administration"; }
 
-<link href="~/Content/StudentStyles.css" rel="stylesheet" />
+<link href="~/Content/AdministrationStyles.css" rel="stylesheet" />
 
-<div class="student-container">
-    <h2>Students</h2>
+<div class="administration-container">
+    <h2>Administration</h2>
 
     <div class="tab-container">
         <div class="tab-headers">
-            <button class="tab-header active" data-tab="student-list">
+            <button class="tab-header active" data-tab="administrator-list">
                 <span class="tab-icon">👥</span>
-                Student List
+                Administrator List
             </button>
             <button class="tab-header" data-tab="activity-logs">
                 <span class="tab-icon">📋</span>
@@ -20,38 +18,40 @@
         </div>
 
         <div class="tab-content-container">
-            <!-- STUDENT LIST TAB -->
-            <div class="tab-content active" id="student-list">
+            <!-- ADMINISTRATOR LIST TAB -->
+            <div class="tab-content active" id="administrator-list">
                 <div class="content-header">
-                    <h3>Student List</h3>
-                    <p>View and manage all students</p>
+                    <h3>Administrator List</h3>
+                    <p>View and manage all administrators</p>
                 </div>
 
                 <!-- Search and Filters -->
                 <div class="table-controls">
-                    <input type="text" id="studentSearch" placeholder="Search students, schools, or barangay..." class="search-input">
+                    <input type="text" id="administratorSearch" placeholder="Search administrators or email..." class="search-input">
                     <select id="lastActiveFilter" class="filter-select">
                         <option value="">All Dates</option>
                         <option value="today">Today</option>
                         <option value="yesterday">Yesterday</option>
                         <!-- Dates will be populated by JavaScript -->
                     </select>
+                    <button class="add-admin-btn" id="addAdministratorBtn">
+                        <span>➕</span>
+                        Add New Administrator
+                    </button>
                 </div>
 
-                <!-- Student Table -->
+                <!-- Administrator Table -->
                 <div class="table-wrapper">
-                    <table id="studentTable" class="data-table">
+                    <table id="administratorTable" class="data-table">
                         <thead>
                             <tr>
-                                <th data-sort="studentName">Student Name <span class="sort-icon">⬍</span></th>
-                                <th data-sort="gender">Gender <span class="sort-icon">⬍</span></th>
-                                <th data-sort="schoolName">School Name <span class="sort-icon">⬍</span></th>
-                                <th data-sort="barangay">Barangay <span class="sort-icon">⬍</span></th>
+                                <th data-sort="administratorName">Administrator Name <span class="sort-icon">⬍</span></th>
+                                <th data-sort="email">Email <span class="sort-icon">⬍</span></th>
                                 <th data-sort="lastActive">Last Active <span class="sort-icon">⬍</span></th>
                                 <th class="actions-column">Actions</th>
                             </tr>
                         </thead>
-                        <tbody id="studentTableBody">
+                        <tbody id="administratorTableBody">
                             <!-- Populated by JavaScript -->
                         </tbody>
                     </table>
@@ -59,10 +59,17 @@
 
                 <!-- Pagination -->
                 <div class="pagination-container">
-                    <div class="pagination-info">
-                        Showing <span id="studentShowingStart">0</span> to <span id="studentShowingEnd">0</span> of <span id="studentTotal">0</span> students
+                    <div class="pagination-left">
+                        <select id="administratorRowsPerPage" class="rows-per-page-select">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select>
+                        <div class="pagination-info">
+                            Showing <span id="administratorShowingStart">0</span> to <span id="administratorShowingEnd">0</span> of <span id="administratorTotal">0</span> administrators
+                        </div>
                     </div>
-                    <div class="pagination-controls" id="studentPagination">
+                    <div class="pagination-controls" id="administratorPagination">
                         <!-- Pagination buttons populated by JavaScript -->
                     </div>
                 </div>
@@ -72,12 +79,12 @@
             <div class="tab-content" id="activity-logs">
                 <div class="content-header">
                     <h3>Activity Logs</h3>
-                    <p>Track student activities and sessions</p>
+                    <p>Track administrator activities and sessions</p>
                 </div>
 
                 <!-- Search and Filters -->
                 <div class="table-controls">
-                    <input type="text" id="activitySearch" placeholder="Search log ID, student, session type, or device..." class="search-input">
+                    <input type="text" id="activitySearch" placeholder="Search log ID, administrator, action type, or device..." class="search-input">
                     <select id="timeOfActionFilter" class="filter-select">
                         <option value="">All Dates</option>
                         <option value="today">Today</option>
@@ -92,10 +99,10 @@
                         <thead>
                             <tr>
                                 <th data-sort="logId">Log ID <span class="sort-icon">⬍</span></th>
-                                <th data-sort="studentId">Student ID <span class="sort-icon">⬍</span></th>
-                                <th data-sort="studentName">Student Name <span class="sort-icon">⬍</span></th>
-                                <th data-sort="sessionType">Session Type <span class="sort-icon">⬍</span></th>
-                                <th data-sort="sessionTag">Session Tag <span class="sort-icon">⬍</span></th>
+                                <th data-sort="administratorId">Admin ID <span class="sort-icon">⬍</span></th>
+                                <th data-sort="administratorName">Administrator Name <span class="sort-icon">⬍</span></th>
+                                <th data-sort="actionType">Action Type <span class="sort-icon">⬍</span></th>
+                                <th data-sort="actionTag">Action Tag <span class="sort-icon">⬍</span></th>
                                 <th data-sort="deviceInfo">Device Info <span class="sort-icon">⬍</span></th>
                                 <th data-sort="timeOfAction">Time of Action <span class="sort-icon">⬍</span></th>
                             </tr>
@@ -108,8 +115,15 @@
 
                 <!-- Pagination -->
                 <div class="pagination-container">
-                    <div class="pagination-info">
-                        Showing <span id="activityShowingStart">0</span> to <span id="activityShowingEnd">0</span> of <span id="activityTotal">0</span> logs
+                    <div class="pagination-left">
+                        <select id="activityRowsPerPage" class="rows-per-page-select">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select>
+                        <div class="pagination-info">
+                            Showing <span id="activityShowingStart">0</span> to <span id="activityShowingEnd">0</span> of <span id="activityTotal">0</span> logs
+                        </div>
                     </div>
                     <div class="pagination-controls" id="activityPagination">
                         <!-- Pagination buttons populated by JavaScript -->
@@ -120,9 +134,12 @@
     </div>
 </div>
 
-<!-- Include Student Details Modal Partial -->
-@Html.Partial("_StudentDetailsModal")
+@* Render modals outside the container *@
+@section modals {
+    @Html.Partial("_AdministratorDetailsModal")
+    @Html.Partial("_RemoveAdministratorModal")
+    @Html.Partial("_AddAdministratorModal")
+    @Html.Partial("_EditAdministratorModal")
+}
 
-<!-- IMPORTANT: Add Chart.js CDN before StudentScript.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<script src="~/Scripts/StudentScript.js"></script>
+<script src="~/Scripts/AdministrationScript.js"></script>

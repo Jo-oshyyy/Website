@@ -1,0 +1,985 @@
+﻿/* Schools Container */
+.schools-container {
+    padding: 0;
+    max-width: 100%;
+    margin: 0;
+}
+
+    .schools-container h2 {
+        display: none;
+        color: #333;
+        margin-bottom: 20px;
+        font-size: 28px;
+        font-weight: 600;
+        text-align: center;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #333;
+    }
+
+/* Tab Container */
+.tab-container {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Tab Headers */
+.tab-headers {
+    display: flex;
+    flex-direction: row;
+    background: #f8f9fa;
+    border-bottom: 2px solid #e9ecef;
+    padding: 0;
+    margin: 0;
+}
+
+.tab-header {
+    flex: 1;
+    padding: 16px 24px;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: #6c757d;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Visby', sans-serif;
+}
+
+    .tab-header:hover {
+        background: #e9ecef;
+        color: #495057;
+    }
+
+    .tab-header.active {
+        color: #0d6efd;
+        background: #fff;
+        border-bottom-color: #0d6efd;
+    }
+
+.tab-icon {
+    font-size: 20px;
+}
+
+/* Tab Content */
+.tab-content-container {
+    padding: 20px;
+    min-height: 400px;
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+    .tab-content.active {
+        display: block;
+    }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Content Header */
+.content-header {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+    .content-header h3 {
+        color: #212529;
+        font-size: 24px;
+        font-weight: 600;
+        margin: 0 0 8px 0;
+        font-family: 'Visby', sans-serif;
+    }
+
+    .content-header p {
+        color: #6c757d;
+        font-size: 14px;
+        margin: 0;
+        font-family: 'Visby', sans-serif;
+    }
+
+/* Filters Section */
+.filters-section {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 200px;
+}
+
+    .filter-group label {
+        font-size: 14px;
+        font-weight: 500;
+        color: #495057;
+        font-family: 'Visby', sans-serif;
+    }
+
+.filter-select {
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    background: white;
+    cursor: pointer;
+    font-family: 'Visby', sans-serif;
+}
+
+.btn-reset, .btn-export, .btn-add-school {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-end;
+    font-family: 'Visby', sans-serif;
+}
+
+.btn-reset {
+    background: #6c757d;
+    color: white;
+}
+
+    .btn-reset:hover {
+        background: #5a6268;
+    }
+
+.btn-export, .btn-add-school {
+    background: #198754;
+    color: white;
+}
+
+    .btn-export:hover, .btn-add-school:hover {
+        background: #157347;
+    }
+
+.btn-add-school {
+    background: #0d6efd;
+}
+
+    .btn-add-school:hover {
+        background: #0b5ed7;
+    }
+
+/* Table Section */
+.table-section {
+    margin-bottom: 30px;
+}
+
+.table-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.table-controls-right {
+    display: flex;
+    gap: 10px;
+}
+
+.search-input {
+    flex: 1;
+    max-width: 300px;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: 'Visby', sans-serif;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    font-family: 'Visby', sans-serif;
+}
+
+    .data-table thead {
+        background: #f8f9fa;
+    }
+
+    .data-table th {
+        padding: 12px;
+        text-align: left;
+        font-weight: 600;
+        color: #495057;
+        border-bottom: 2px solid #dee2e6;
+        cursor: pointer;
+        user-select: none;
+        font-family: 'Visby', sans-serif;
+    }
+
+        .data-table th:hover {
+            background: #e9ecef;
+        }
+
+.sort-icon {
+    font-size: 12px;
+    margin-left: 5px;
+    color: #6c757d;
+}
+
+.data-table td {
+    padding: 12px;
+    border-bottom: 1px solid #dee2e6;
+    font-family: 'Visby', sans-serif;
+}
+
+.school-row {
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+    .school-row:hover {
+        background: #f8f9fa;
+    }
+
+.expand-icon {
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 12px;
+    transition: transform 0.3s;
+}
+
+.students-row {
+    background: #f8f9fa;
+}
+
+    .students-row.hidden {
+        display: none;
+    }
+
+.students-list {
+    padding: 15px;
+}
+
+.student-item {
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    background: white;
+    border-radius: 4px;
+    border-left: 3px solid #0d6efd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.student-name {
+    font-weight: 500;
+    color: #212529;
+    font-family: 'Visby', sans-serif;
+}
+
+.student-details {
+    font-size: 13px;
+    color: #6c757d;
+    font-family: 'Visby', sans-serif;
+}
+
+/* Action Menu */
+.action-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.kebab-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px 8px;
+    font-size: 18px;
+    color: #495057;
+    transition: all 0.2s;
+    border-radius: 4px;
+    font-family: 'Visby', sans-serif;
+}
+
+    .kebab-btn:hover {
+        background: #e9ecef;
+        color: #212529;
+    }
+
+.action-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    min-width: 200px;
+    z-index: 1000;
+    margin-top: 4px;
+}
+
+    .action-dropdown.show {
+        display: block;
+    }
+
+.action-dropdown-item {
+    padding: 10px 16px;
+    cursor: pointer;
+    color: #212529;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+    font-size: 14px;
+    font-family: 'Visby', sans-serif;
+}
+
+    .action-dropdown-item:hover {
+        background: #f8f9fa;
+    }
+
+    .action-dropdown-item.danger {
+        color: #dc3545;
+    }
+
+        .action-dropdown-item.danger:hover {
+            background: #fff5f5;
+        }
+
+/* Modal Styles */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9998;
+    animation: fadeIn 0.3s ease;
+}
+
+    .modal-overlay.show {
+        display: block;
+    }
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    z-index: 9999;
+    max-width: 520px;
+    width: calc(100% - 40px);
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+    animation: slideIn 0.3s ease;
+    font-family: 'Visby', sans-serif;
+}
+
+    .modal.show {
+        display: block;
+    }
+
+    /* View School Modal - Wider size */
+    .modal.modal-wide {
+        max-width: 750px;
+    }
+
+    /* Compact Modal for Delete */
+    .modal.modal-compact {
+        max-width: 450px;
+    }
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.modal-header {
+    padding: 24px 24px 20px 24px;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.modal-header-content {
+    flex: 1;
+}
+
+    .modal-header-content h3 {
+        margin: 0 0 6px 0;
+        color: #1a202c;
+        font-size: 22px;
+        font-weight: 600;
+        font-family: 'Visby', sans-serif;
+        line-height: 1.3;
+    }
+
+.modal-description {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.5;
+    font-family: 'Visby', sans-serif;
+}
+
+.modal-close {
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: all 0.2s;
+    font-family: Arial, sans-serif;
+    flex-shrink: 0;
+    margin-top: -2px;
+}
+
+    .modal-close:hover {
+        background: #f1f5f9;
+        color: #475569;
+    }
+
+    .modal-close:active {
+        background: #e2e8f0;
+    }
+
+.modal-body {
+    padding: 24px;
+}
+
+.modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    background: #f8fafc;
+    border-radius: 0 0 12px 12px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+    .form-group:last-child {
+        margin-bottom: 0;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #334155;
+        font-size: 14px;
+        font-family: 'Visby', sans-serif;
+    }
+
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1.5px solid #cbd5e1;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: all 0.2s;
+        box-sizing: border-box;
+        font-family: 'Visby', sans-serif;
+        background: #ffffff;
+        color: #1e293b;
+    }
+
+        .form-group input:hover,
+        .form-group select:hover {
+            border-color: #94a3b8;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-group input.error,
+        .form-group select.error {
+            border-color: #ef4444;
+        }
+
+            .form-group input.error:focus,
+            .form-group select.error:focus {
+                box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+            }
+
+        .form-group input::placeholder {
+            color: #94a3b8;
+        }
+
+.error-message {
+    color: #ef4444;
+    font-size: 13px;
+    margin-top: 6px;
+    font-family: 'Visby', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-primary, .btn-secondary, .btn-danger {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Visby', sans-serif;
+}
+
+.btn-primary {
+    background: #3b82f6;
+    color: white;
+}
+
+    .btn-primary:hover {
+        background: #2563eb;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-primary:active {
+        transform: translateY(0);
+    }
+
+.btn-secondary {
+    background: #e2e8f0;
+    color: #475569;
+}
+
+    .btn-secondary:hover {
+        background: #cbd5e1;
+        color: #334155;
+    }
+
+.btn-danger {
+    background: #ef4444;
+    color: white;
+}
+
+    .btn-danger:hover {
+        background: #dc2626;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    }
+
+    .btn-danger:active {
+        transform: translateY(0);
+    }
+
+.confirmation-text {
+    font-size: 15px;
+    color: #475569;
+    margin: 0;
+    line-height: 1.6;
+    font-family: 'Visby', sans-serif;
+}
+
+    .confirmation-text strong {
+        color: #1e293b;
+        font-weight: 600;
+    }
+
+.school-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.detail-item {
+    padding: 14px 16px;
+    background: #f8fafc;
+    border-radius: 8px;
+    border-left: 3px solid #3b82f6;
+}
+
+.detail-label {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 500;
+    margin-bottom: 6px;
+    font-family: 'Visby', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detail-value {
+    font-size: 16px;
+    color: #1e293b;
+    font-weight: 600;
+    font-family: 'Visby', sans-serif;
+}
+
+.students-preview {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #e9ecef;
+}
+
+    .students-preview h4 {
+        font-size: 16px;
+        color: #1e293b;
+        margin: 0 0 14px 0;
+        font-weight: 600;
+        font-family: 'Visby', sans-serif;
+    }
+
+.student-preview-item {
+    padding: 12px 14px;
+    background: #f8fafc;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #e2e8f0;
+}
+
+    .student-preview-item:last-child {
+        margin-bottom: 0;
+    }
+
+/* Additional Utility Classes */
+.required-asterisk {
+    color: #ef4444;
+}
+
+.active-status {
+    color: #10b981;
+}
+
+.loading-cell {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 4px solid #e2e8f0;
+    border-top: 4px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.loading-text {
+    margin-top: 16px;
+    color: #64748b;
+    font-family: 'Visby', sans-serif;
+    font-size: 14px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.empty-state-cell {
+    text-align: center;
+    padding: 60px 20px;
+    color: #64748b;
+}
+
+.empty-state-icon {
+    font-size: 18px;
+    margin-bottom: 12px;
+    font-family: 'Visby', sans-serif;
+}
+
+.no-students-text {
+    color: #94a3b8;
+    text-align: center;
+    font-family: 'Visby', sans-serif;
+    font-size: 14px;
+    padding: 20px;
+    font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .schools-container h2 {
+        display: block;
+        text-align: center;
+        border-bottom: 2px solid #333;
+    }
+
+    .tab-content-container {
+        padding: 15px;
+    }
+
+    .filters-section {
+        flex-direction: column;
+    }
+
+    .filter-group {
+        min-width: 100%;
+    }
+
+    .btn-reset, .btn-add-school, .btn-export {
+        align-self: stretch;
+    }
+
+    .table-controls {
+        flex-direction: column;
+    }
+
+    .table-controls-right {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .search-input {
+        max-width: 100%;
+    }
+
+    .modal {
+        width: calc(100% - 30px);
+        max-height: calc(100vh - 40px);
+    }
+
+        .modal.modal-wide {
+            width: calc(100% - 30px);
+        }
+
+    .school-detail-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Dark mode support */
+body.dark-mode .schools-container h2 {
+    color: #E2E8F0;
+    border-bottom-color: #E2E8F0;
+}
+
+body.dark-mode .tab-container {
+    background: #2D3748;
+}
+
+body.dark-mode .tab-headers {
+    background: #1A202C;
+    border-bottom: 2px solid #4A5568;
+}
+
+body.dark-mode .tab-header {
+    color: #A0AEC0;
+}
+
+    body.dark-mode .tab-header:hover {
+        background: #2D3748;
+        color: #E2E8F0;
+    }
+
+    body.dark-mode .tab-header.active {
+        color: #63B3ED;
+        background: #2D3748;
+        border-bottom-color: #63B3ED;
+    }
+
+body.dark-mode .content-header {
+    border-bottom-color: #4A5568;
+}
+
+    body.dark-mode .content-header h3 {
+        color: #E2E8F0;
+    }
+
+    body.dark-mode .content-header p {
+        color: #A0AEC0;
+    }
+
+body.dark-mode .filters-section,
+body.dark-mode .data-table thead,
+body.dark-mode .students-row {
+    background: #1A202C;
+}
+
+body.dark-mode .filter-select,
+body.dark-mode .search-input,
+body.dark-mode .data-table {
+    background: #2D3748;
+    color: #E2E8F0;
+    border-color: #4A5568;
+}
+
+    body.dark-mode .data-table th {
+        color: #E2E8F0;
+        border-bottom-color: #4A5568;
+    }
+
+    body.dark-mode .data-table td {
+        color: #A0AEC0;
+        border-bottom-color: #4A5568;
+    }
+
+body.dark-mode .school-row:hover {
+    background: #374151;
+}
+
+body.dark-mode .student-item {
+    background: #2D3748;
+    border-left-color: #63B3ED;
+}
+
+body.dark-mode .student-name {
+    color: #E2E8F0;
+}
+
+body.dark-mode .kebab-btn {
+    color: #A0AEC0;
+}
+
+    body.dark-mode .kebab-btn:hover {
+        background: #374151;
+        color: #E2E8F0;
+    }
+
+body.dark-mode .action-dropdown {
+    background: #2D3748;
+    border-color: #4A5568;
+}
+
+body.dark-mode .action-dropdown-item {
+    color: #E2E8F0;
+}
+
+    body.dark-mode .action-dropdown-item:hover {
+        background: #374151;
+    }
+
+    body.dark-mode .action-dropdown-item.danger:hover {
+        background: #3d1f1f;
+    }
+
+body.dark-mode .modal {
+    background: #2D3748;
+}
+
+body.dark-mode .modal-header,
+body.dark-mode .modal-footer {
+    border-color: #4A5568;
+}
+
+    body.dark-mode .modal-header h3 {
+        color: #E2E8F0;
+    }
+
+body.dark-mode .modal-close {
+    color: #A0AEC0;
+}
+
+    body.dark-mode .modal-close:hover {
+        background: #374151;
+        color: #E2E8F0;
+    }
+
+body.dark-mode .form-group label {
+    color: #E2E8F0;
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group select {
+    background: #1A202C;
+    color: #E2E8F0;
+    border-color: #4A5568;
+}
+
+    body.dark-mode .form-group input:focus,
+    body.dark-mode .form-group select:focus {
+        border-color: #63B3ED;
+        box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.1);
+    }
+
+body.dark-mode .confirmation-text {
+    color: #A0AEC0;
+}
+
+body.dark-mode .detail-item {
+    background: #1A202C;
+    border-left-color: #63B3ED;
+}
+
+body.dark-mode .detail-label {
+    color: #A0AEC0;
+}
+
+body.dark-mode .detail-value {
+    color: #E2E8F0;
+}
+
+body.dark-mode .student-preview-item {
+    background: #1A202C;
+}

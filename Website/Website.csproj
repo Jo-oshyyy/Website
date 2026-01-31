@@ -120,12 +120,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\AnalyticsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MasterfileController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
+    <Compile Include="Controllers\SchoolsController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Filters\AuthorizeAdminAttribute.cs" />
@@ -138,6 +140,7 @@
     <Compile Include="Services\AuthService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\AdministrationStyles.css" />
     <Content Include="Content\AnalyticsStyles.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -145,7 +148,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\DashboardStyles.css" />
     <Content Include="Content\MasterfileStyles.css" />
+    <Content Include="Content\SchoolsStyles.css" />
     <Content Include="Content\StudentStyles.css" />
+    <Content Include="Scripts\AdministrationScript.js" />
     <Content Include="Scripts\AnalyticsScript.js" />
     <Content Include="Scripts\DashboardScript.js" />
     <Content Include="Scripts\layout.js" />
@@ -177,6 +182,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\MasterfileScript.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\SchoolsScript.js" />
     <Content Include="Scripts\StudentScript.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -196,11 +202,20 @@
     <Content Include="Views\Settings\SettingsView.cshtml" />
     <Content Include="Views\Student\StudentView.cshtml" />
     <Content Include="Views\Login\LoginView.cshtml" />
+    <Content Include="Views\Schools\SchoolsView.cshtml" />
+    <Content Include="Views\Student\_StudentDetailsModal.cshtml" />
+    <Content Include="Views\Schools\_AddSchoolModal.cshtml" />
+    <Content Include="Views\Schools\_EditSchoolModal.cshtml" />
+    <Content Include="Views\Schools\_SchoolDetailsModal.cshtml" />
+    <Content Include="Views\Schools\_RemoveSchoolModal.cshtml" />
+    <Content Include="Views\Administration\AdministrationView.cshtml" />
+    <Content Include="Views\Administration\_AdministratorDetailsModal.cshtml" />
+    <Content Include="Views\Administration\_AddAdministratorModal.cshtml" />
+    <Content Include="Views\Administration\_EditAdministratorModal.cshtml" />
+    <Content Include="Views\Administration\_RemoveAdministratorModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
