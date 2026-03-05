@@ -1,242 +1,231 @@
-﻿// This is layout.js
-document.addEventListener('DOMContentLoaded', function () {
-    console.log('DOM loaded, initializing layout...');
+﻿<!-- This is _Layout.cshtml -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - LiteRise</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Animated Background Bubbles -->
+    <div class="background-bubbles">
+        <div class="bubble bubble-1"></div>
+        <div class="bubble bubble-2"></div>
+        <div class="bubble bubble-3"></div>
+        <div class="bubble bubble-4"></div>
+    </div>
 
-    // ==================== Theme Toggle ====================
-    const themeToggle = document.getElementById('themeToggle');
-    const body = document.body;
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="sun-icon" fill="currentColor" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2"></line>
+            <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"></line>
+            <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2"></line>
+            <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"></line>
+        </svg>
+        <svg class="moon-icon" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
 
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        body.classList.add('dark-mode');
-    }
+    <!-- Top Navigation Bar -->
+    <div class="TopBar">
+        <div class="topbar-left">
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            <button class="sidebar-toggle mobile-toggle" id="mobileSidebarToggle" aria-label="Open menu">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            @Html.ActionLink("LiteRise", "Index", "Dashboard", null, new { @class = "topbar-brand" })
+        </div>
 
-    if (themeToggle) {
-        themeToggle.addEventListener('click', function () {
-            body.classList.toggle('dark-mode');
-            if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark');
-            } else {
-                localStorage.setItem('theme', 'light');
-            }
-        });
-    }
-
-    // ==================== Sidebar Toggle ====================
-    const sidebarToggle = document.getElementById('sidebarToggle');
-    const sidebar = document.querySelector('.Sidebar');
-
-    // Remove no-transition class after state is applied to enable smooth transitions
-    if (sidebar && sidebar.classList.contains('no-transition')) {
-        // Force reflow to ensure the class is applied
-        sidebar.offsetHeight;
-        // Remove no-transition after a brief moment
-        setTimeout(function() {
-            sidebar.classList.remove('no-transition');
-        }, 50);
-    }
-
-    // This is just for the toggle button functionality
-    if (sidebarToggle && sidebar) {
-        sidebarToggle.addEventListener('click', function () {
-            sidebar.classList.toggle('collapsed');
-
-            // Save sidebar state
-            if (sidebar.classList.contains('collapsed')) {
-                localStorage.setItem('sidebarCollapsed', 'true');
-            } else {
-                localStorage.setItem('sidebarCollapsed', 'false');
-            }
-        });
-    }
-
-    // Mobile sidebar toggle
-    const mobileSidebarToggle = document.getElementById('mobileSidebarToggle');
-    if (mobileSidebarToggle && sidebar) {
-        mobileSidebarToggle.addEventListener('click', function () {
-            sidebar.classList.toggle('mobile-open');
-        });
-
-        // Close sidebar when clicking outside on mobile
-        document.addEventListener('click', function (e) {
-            if (window.innerWidth <= 768) {
-                if (!sidebar.contains(e.target) &&
-                    !mobileSidebarToggle.contains(e.target) &&
-                    sidebar.classList.contains('mobile-open')) {
-                    sidebar.classList.remove('mobile-open');
-                }
-            }
-        });
-    }
-
-    // ==================== Active Page Highlighting ====================
-    const currentPath = window.location.pathname;
-    const sidebarLinks = document.querySelectorAll('.sidebar-nav-item');
-
-    sidebarLinks.forEach(link => {
-        const href = link.getAttribute('href');
-        const page = link.getAttribute('data-page');
-
-        if (currentPath.includes(href) || currentPath.includes('/' + page)) {
-            link.classList.add('active');
-        }
-    });
-
-    // ==================== Notifications Dropdown ====================
-    const notificationsToggle = document.getElementById('notificationsToggle');
-    const notificationsPanel = document.getElementById('notificationsPanel');
-
-    if (notificationsToggle && notificationsPanel) {
-        notificationsToggle.addEventListener('click', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            const settingsDropdown = document.getElementById('settingsDropdown');
-            if (settingsDropdown) {
-                settingsDropdown.classList.remove('show');
-            }
-
-            const isOpen = notificationsPanel.classList.contains('show');
-            notificationsPanel.classList.toggle('show');
-            notificationsToggle.setAttribute('aria-expanded', !isOpen);
-        });
-
-        document.addEventListener('click', function (e) {
-            if (!notificationsToggle.contains(e.target) && !notificationsPanel.contains(e.target)) {
-                notificationsPanel.classList.remove('show');
-                notificationsToggle.setAttribute('aria-expanded', 'false');
-            }
-        });
-
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape' && notificationsPanel.classList.contains('show')) {
-                notificationsPanel.classList.remove('show');
-                notificationsToggle.setAttribute('aria-expanded', 'false');
-            }
-        });
-
-        notificationsPanel.addEventListener('click', function (e) {
-            if (e.target.tagName === 'A' || e.target.closest('a')) {
-                return;
-            }
-            e.stopPropagation();
-        });
-    }
-
-    // ==================== Settings Dropdown ====================
-    const settingsToggle = document.getElementById('settingsToggle');
-    const settingsDropdown = document.getElementById('settingsDropdown');
-
-    if (settingsToggle && settingsDropdown) {
-        settingsToggle.addEventListener('click', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            if (notificationsPanel) {
-                notificationsPanel.classList.remove('show');
-            }
-
-            const isOpen = settingsDropdown.classList.contains('show');
-            settingsDropdown.classList.toggle('show');
-            settingsToggle.setAttribute('aria-expanded', !isOpen);
-        });
-
-        document.addEventListener('click', function (e) {
-            if (!settingsToggle.contains(e.target) && !settingsDropdown.contains(e.target)) {
-                settingsDropdown.classList.remove('show');
-                settingsToggle.setAttribute('aria-expanded', 'false');
-            }
-        });
-
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape' && settingsDropdown.classList.contains('show')) {
-                settingsDropdown.classList.remove('show');
-                settingsToggle.setAttribute('aria-expanded', 'false');
-            }
-        });
-            <!-- NavBar: Right -->
-            <div class="NavBar-Content-Right">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="notifications-dropdown">
-                        <a href="javascript:void(0);" id="notificationsToggle" aria-label="Notifications" aria-expanded="false">
-                            <span class="glyphicon glyphicon-bell"></span>
-                            <span class="notification-badge">5</span>
-                        </a>
-                        <div class="notifications-panel" id="notificationsPanel">
-                            <div class="notifications-header">
-                                <h3>Notifications</h3>
+        <div class="topbar-right">
+            <div class="dropdown-container">
+                <button class="topbar-icon-btn" id="notificationsToggle" aria-label="Notifications" aria-expanded="false">
+                    <span class="glyphicon glyphicon-bell"></span>
+                    <span class="notification-badge">5</span>
+                </button>
+                <div class="notifications-panel" id="notificationsPanel">
+                    <div class="notifications-header">
+                        <h3>Notifications</h3>
+                    </div>
+                    <div class="notifications-list">
+                        <a href="#" class="notification-item unread">
+                            <div class="notification-icon success">
+                                <span class="glyphicon glyphicon-ok-circle"></span>
                             </div>
+                            <div class="notification-content">
+                                <div class="notification-text">
+                                    <strong>John Smith</strong> submitted Final Project Report
+                                </div>
+                                <div class="notification-time">2 hours ago</div>
+                            </div>
+                        </a>
+                        <a href="#" class="notification-item unread">
+                            <div class="notification-icon warning">
+                                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-text">
+                                    <strong>Sarah Johnson</strong> requested grade review for Quiz #5
+                                </div>
+                                <div class="notification-time">5 hours ago</div>
+                            </div>
+                        </a>
+                        <a href="#" class="notification-item unread">
+                            <div class="notification-icon info">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-text">
+                                    New student <strong>Mike Davis</strong> enrolled in Computer Science 101
+                                </div>
+                                <div class="notification-time">1 day ago</div>
+                            </div>
+                        </a>
+                        <a href="#" class="notification-item">
+                            <div class="notification-icon success">
+                                <span class="glyphicon glyphicon-upload"></span>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-text">
+                                    Database backup completed successfully
+                                </div>
+                                <div class="notification-time">2 days ago</div>
+                            </div>
+                        </a>
+                        <a href="#" class="notification-item">
+                            <div class="notification-icon error">
+                                <span class="glyphicon glyphicon-alert"></span>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-text">
+                                    System maintenance scheduled for this weekend
+                                </div>
+                                <div class="notification-time">3 days ago</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-        settingsDropdown.addEventListener('click', function (e) {
-            if (e.target.tagName === 'A') {
-                return;
-            }
-            e.stopPropagation();
-        });
-    }
+            <div class="dropdown-container">
+                <button class="topbar-icon-btn" id="settingsToggle" aria-label="Settings" aria-expanded="false">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </button>
+                <div class="dropdown-menu" id="settingsDropdown">
+                    <a href="@Url.Action("Account", "Settings")">
+                        <span class="glyphicon glyphicon-user"></span>
+                        Account
+                    </a>
+                    <a href="@Url.Action("Index", "Settings")">
+                        <span class="glyphicon glyphicon-cog"></span>
+                        Settings
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="javascript:void(0);" id="logoutLink">
+                        <span class="glyphicon glyphicon-log-out"></span>
+                        Log out
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    // ==================== Logout Modal ====================
-    const logoutModal = document.getElementById('logoutModal');
-    const logoutLink = document.getElementById('logoutLink');
-    const logoutModalClose = document.getElementById('logoutModalClose');
-    const btnLogoutCancel = document.getElementById('btnLogoutCancel');
-    const btnLogoutConfirm = document.getElementById('btnLogoutConfirm');
+    <!-- Sidebar Navigation -->
+    <div class="Sidebar">
+        <div class="sidebar-content">
+            <nav class="sidebar-nav">
+                <a href="@Url.Action("Index", "Dashboard")" class="sidebar-nav-item" data-page="Dashboard" title="Dashboard">
+                    <div class="sidebar-icon"><span class="glyphicon glyphicon-dashboard"></span></div>
+                    <span class="sidebar-text">Dashboard</span>
+                </a>
 
-    // Open logout modal
-    if (logoutLink && logoutModal) {
-        logoutLink.addEventListener('click', function (e) {
-            e.preventDefault();
-            console.log('Logout clicked');
-            logoutModal.classList.add('show');
-            // Close settings dropdown
-            if (settingsDropdown) {
-                settingsDropdown.classList.remove('show');
-            }
-        });
-    }
+                <a href="@Url.Action("Index", "Student")" class="sidebar-nav-item" data-page="Students" title="Students">
+                    <div class="sidebar-icon"><span class="glyphicon glyphicon-education"></span></div>
+                    <span class="sidebar-text">Students</span>
+                </a>
 
-    // Close logout modal
-    function closeLogoutModal() {
-        if (logoutModal) {
-            logoutModal.classList.remove('show');
-        }
-    }
+                <a href="@Url.Action("Index", "Schools")" class="sidebar-nav-item" data-page="Schools" title="Schools">
+                    <div class="sidebar-icon"><span class="glyphicon glyphicon-home"></span></div>
+                    <span class="sidebar-text">Schools</span>
+                </a>
 
-    if (logoutModalClose) {
-        logoutModalClose.addEventListener('click', closeLogoutModal);
-    }
+                <a href="@Url.Action("Index", "Masterfile")" class="sidebar-nav-item" data-page="Masterfile" title="Masterfile">
+                    <div class="sidebar-icon"><span class="glyphicon glyphicon-folder-open"></span></div>
+                    <span class="sidebar-text">Masterfile</span>
+                </a>
 
-    if (btnLogoutCancel) {
-        btnLogoutCancel.addEventListener('click', closeLogoutModal);
-    }
+                <a href="@Url.Action("Index", "Analytics")" class="sidebar-nav-item" data-page="Analytics" title="Analytics">
+                    <div class="sidebar-icon"><span class="glyphicon glyphicon-stats"></span></div>
+                    <span class="sidebar-text">Analytics</span>
+                </a>
 
-    if (btnLogoutConfirm) {
-        btnLogoutConfirm.addEventListener('click', function () {
-            window.location.href = '/Login/Index';
-        });
-    }
+                <a href="@Url.Action("Index", "Administration")" class="sidebar-nav-item" data-page="Administration" title="Administration">
+                    <div class="sidebar-icon"><span class="glyphicon glyphicon-cog"></span></div>
+                    <span class="sidebar-text">Administration</span>
+                </a>
+            </nav>
 
-    window.addEventListener('click', function (e) {
-        if (logoutModal && e.target === logoutModal) {
-            closeLogoutModal();
-        }
-    });
+            <div class="sidebar-footer">
+                <a href="@Url.Action("Account", "Settings")" class="sidebar-profile">
+                    <div class="profile-avatar">JD</div>
+                    <div class="profile-info">
+                        <div class="profile-name">John Doe</div>
+                        <div class="profile-email">john@literise.com</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
 
-    document.addEventListener('keydown', function (e) {
-        if (logoutModal && e.key === 'Escape' && logoutModal.classList.contains('show')) {
-            closeLogoutModal();
-        }
-    });
+    <!-- Main Content Area -->
+    <div class="Main-Container">
+        <div class="Container-Body">
+            @RenderBody()
+        </div>
+    </div>
 
-    // ==================== Window Resize Handler ====================
-    let resizeTimer;
-    window.addEventListener('resize', function () {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function () {
-            if (window.innerWidth > 768 && sidebar) {
-                sidebar.classList.remove('mobile-open');
-            }
-        }, 250);
-    });
-}
+    <!-- Logout Confirmation Modal -->
+    <div id="logoutModal" class="logout-modal">
+        <div class="logout-modal-content">
+            <button class="logout-modal-close" id="logoutModalClose" aria-label="Close modal">&times;</button>
+
+            <div class="logout-modal-icon">
+                <svg viewBox="0 0 100 100" fill="none">
+                    <circle cx="50" cy="50" r="45" fill="#FEE2E2" />
+                    <path d="M50 30C38.95 30 30 38.95 30 50C30 61.05 38.95 70 50 70C61.05 70 70 61.05 70 50C70 38.95 61.05 30 50 30ZM54 55H46V47H54V55ZM54 43H46V35H54V43Z" fill="#DC2626" />
+                </svg>
+            </div>
+
+            <h2>Log Out</h2>
+            <p>Are you sure you want to log out?</p>
+
+            <div class="logout-modal-buttons">
+                <button class="btn-logout-cancel" id="btnLogoutCancel">Cancel</button>
+                <button class="btn-logout-confirm" id="btnLogoutConfirm">Yes, Log Out</button>
+            </div>
+        </div>
+    </div>
+
+    @RenderSection("modals", required: false)
+
+    <!-- Scripts -->
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/layout.js"></script>
+</body>
+</html>
 
